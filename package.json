@@ -3,11 +3,12 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "ng build --prod"
   },
   "private": true,
   "dependencies": {
@@ -37,7 +38,11 @@
     "zone.js": "~0.10.2",
     "ng2-charts": "2.3.2",
     "chart.js": "2.9.3",
-    "chartjs-plugin-datalabels": "0.7.0"
+    "chartjs-plugin-datalabels": "0.7.0",
+    "@angular/cli": "~9.1.5",
+    "@angular/compiler-cli": "~9.1.6",
+    "typescript": "~3.8.3",
+    "express": "4.17.1"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.5",
@@ -57,6 +62,11 @@
     "protractor": "^6.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~6.1.0",
-    "typescript": "~3.8.3"
+    "typescript": "~3.8.3",
+    "enhanced-resolve": "4.3.0"
+  },
+  "engines": {
+    "node": "12.6.3",
+    "npm": "6.14.4"
   }
 }
