@@ -1,0 +1,46 @@
+<div>
+  <div class="card">
+    <div class="card-header bg-white">
+      <div clas="row">
+        <h4 style="display: inline-block;">&nbsp;&nbsp;FAQs</h4>
+        <div class="float-right">
+          <button type="submit" class="btn btn-success" (click)="newFaq()" style="margin-left: 10px">New FAQ</button>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="card-body"> -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card border-info" id="bordered-panel">
+            <div class="card-body">
+              <ngb-tabset>
+                <ngb-tab
+                  [attr.id]="tab.id"
+                  *ngFor="let tab of tabs">
+                    <ng-template ngbTabTitle>
+                        <span (click)="onTabChange(tab.title)">{{ tab.title }}</span>
+                    </ng-template>
+                    <ng-template ngbTabContent>
+                      <div class="card-body">
+                        <ag-grid-angular
+                          style="height: 400px;"
+                          class="ag-theme-balham"
+                          [rowData]="rowData"
+                          [gridOptions]="gridOptions"
+                          [columnDefs]="columnDefs"
+                          [defaultColDef]="defaultColDef">
+                        </ag-grid-angular>
+                      </div>
+                    </ng-template>
+                </ngb-tab>
+              </ngb-tabset>
+            </div>
+          </div>
+        </div>
+      </div>
+    <!-- </div> -->
+  </div>
+</div>
+<ng-template #FAQDetails>
+  <new-faq [faq]="selectedFaq" [mode]="mode" (exit)="modalRef.hide()" (save)="onTabChange('Questions');modalRef.hide()"></new-faq>
+</ng-template>

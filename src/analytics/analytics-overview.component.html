@@ -1,0 +1,150 @@
+<div>
+  <div class="card">
+    <div class="card-header bg-white">
+      <div clas="row">
+        <h4 style="display: inline-block;">&nbsp;&nbsp;Analytics</h4>
+      </div>
+    </div>
+    <!-- <div class="card-body"> -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-body">
+            <ngb-tabset>
+              <ngb-tab [attr.id]="tab.id" *ngFor="let tab of tabs">
+                <ng-template ngbTabTitle>
+                  <span (click)="activeTab = tab.title">{{ tab.title }}</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Global Statistics'">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="card border-info">
+                          <div class="card-header bg-info">
+                            Accepted vs Rejected Solutions
+                          </div>
+                          <div class="card-body">
+                            <canvas baseChart 
+                              height="250px"
+                              [datasets]="AcceptedVsRejectedLineChartData" 
+                              [labels]="AcceptedVsRejectedLineChartLabels" 
+                              [options]="AcceptedVsRejectedLineChartOptions"
+                              [colors]="AcceptedVsRejectedLineChartColors" 
+                              [legend]="'true'" 
+                              [chartType]="'line'">
+                            </canvas>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card border-info">
+                          <div class="card-header bg-info">
+                            Correct Submissions Per Region
+                          </div>
+                          <div class="card-body">
+                            <div class="chart-wrapper">
+                              <canvas baseChart
+                                height="250px"
+                                width="250px"
+                                [data]="CorrectSubmissionsPerRegionChartData"
+                                [labels]="CorrectSubmissionsPerRegionChartLabels"
+                                [chartType]="doughnutChartType"
+                                [options]="chartOptions">
+                              </canvas>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card border-info">
+                          <div class="card-header bg-info">
+                            Attempts Per Question
+                          </div>
+                          <div class="card-body">
+                            <div class="chart-wrapper">
+                              <canvas baseChart 
+                                height="250px"
+                                [datasets]="AttemptsPerQuestionBarChartData"
+                                [labels]="AttemptsPerQuestionBarChartLabels"
+                                [options]="AttemptsPerQuestionBarChartOptions"
+                                [colors]="AttemptsPerQuestionBarChartColors"
+                                [legend]="barChartLegend"
+                                [chartType]="barChartType">
+                              </canvas>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 15px;">
+                      <div class="col-sm-4">
+                        <div class="card border-info">
+                          <div class="card-header bg-info">
+                            Number of Submissions Per Language
+                          </div>
+                          <div class="card-body">
+                            <div class="chart-wrapper">
+                              <canvas baseChart
+                                height="250px"
+                                width="250px"
+                                [data]="doughnutChartData"
+                                [labels]="doughnutChartLabels"
+                                [chartType]="doughnutChartType"
+                                [options]="chartOptions">
+                              </canvas>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card border-info">
+                          <div class="card-header bg-info">
+                            Number of Submissions Per Week
+                          </div>
+                          <div class="card-body">
+                            <canvas baseChart 
+                                height="250px"
+                                [datasets]="SubmissionsPerWeekBarChartData"
+                                [labels]="SubmissionsPerWeekBarChartLabels"
+                                [options]="SubmissionsPerWeekBarChartOptions"
+                                [colors]="SubmissionsPerWeekBarChartColors"
+                                [legend]="barChartLegend"
+                                [chartType]="barChartType">
+                              </canvas>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-sm-4">
+                        <div class="card border-info">
+                          <div class="card-header bg-info">
+                            Participation Per Region
+                          </div>
+                          <div class="card-body">
+                            <canvas baseChart 
+                              height="250px"
+                              [datasets]="ParticipationPerRegionLineChartData" 
+                              [labels]="ParticipationPerRegionLineChartLabels" 
+                              [options]="ParticipationPerRegionLineChartOptions"
+                              [colors]="ParticipationPerRegionLineChartColors" 
+                              [legend]="'true'" 
+                              [chartType]="'line'">
+                            </canvas>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Questionwise Statistics'">
+                    <questionwise-statistics></questionwise-statistics>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+</div>

@@ -1,0 +1,68 @@
+<div>
+  <div class="card">
+    <div class="card-header bg-white">
+      <div clas="row">
+        <h4 style="display: inline-block;">&nbsp;&nbsp;Ticket Support</h4>
+      </div>
+    </div>
+    <!-- <div class="card-body"> -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border-info" id="bordered-panel">
+          <div class="card-body">
+            <ngb-tabset>
+              <ngb-tab [attr.id]="tab.id" *ngFor="let tab of tabs">
+                <ng-template ngbTabTitle>
+                  <span (click)="onTabChange(tab.title)">{{ tab.title }}</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="card-body border-info">
+                    <form>
+                      <div class="row">
+                        <div class="col-sm-3">
+                          <label for="AssignedTo">Assigned To</label>
+                          <select class="form-control" name="AssignedTo" #assignedTo (change)="onChangeAssignedTo(assignedTo.value)">
+                            <option [value]="0" [selected]="isAssignedCleared">None</option>
+                            <option *ngFor="let name of names" id="assignedTo" [value]="name.Name">{{name.Name}}
+                            </option>
+                          </select>
+                        </div>
+                        <div class="col-sm-3">
+                          <label for="EscalatedTo">Escalated To</label>
+                          <select class="form-control" name="EscalatedTo" #escalatedTo (change)="onChangeEscalatedTo(escalatedTo.value)">
+                            <option [value]="0" [selected]="isEscalatedCleared">None</option>
+                            <option *ngFor="let name of names" id="escalatedTo" [value]="name.Name">{{name.Name}}
+                            </option>
+                          </select>  
+                        </div>
+                        <div class="col-sm-3">
+                          <label for="Status">Filter by Status</label>
+                          <select class="form-control" name="Status" #status (change)="onChangeStatus(status.value)">
+                            <option [value]="0" [selected]="isStatusCleared">None</option>
+                            <option *ngFor="let status of statusValues" id="status" [value]="status">{{status}}
+                            </option>
+                          </select>  
+                        </div>
+                        <div class="form-group col-sm-3" style="margin-top: 30px">
+                          <button class="btn btn-primary" (click)="clearFilters(tab.title)">Clear Filters</button>
+                        </div>
+                      </div>
+                    </form>
+                    <ag-grid-angular style="height: 400px;" class="ag-theme-balham" [rowData]="rowData"
+                      [gridOptions]="gridOptions" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef">
+                    </ag-grid-angular>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+</div>
+<ng-template #TicketDetails>
+  <ticket-details [ticket]="selectedTicket" [mode]="mode" (exit)="modalRef.hide()" (save)="onTabChange('Questions');modalRef.hide()">
+  </ticket-details>
+</ng-template>

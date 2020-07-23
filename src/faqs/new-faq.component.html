@@ -1,0 +1,42 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{ mode === 1 ? 'New FAQ' : 'FAQ Details' }}</h4>
+</div>
+<div class="modal-body"  *ngIf="faq">
+  <form>
+    <div class="form-row">
+      <div class="form-group col-sm-4" style="margin-right: 10px">
+        <label for="category">Select Category</label>
+        <select class="form-control" [(ngModel)]="faq.Category" name="category" #item (change)="onChangeCategory(item.value)">
+          <option *ngFor="let category of categories" id="category" [value]="category">{{category}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="answeredBy">Answered By</label>
+        <select class="form-control" [(ngModel)]="faq.AnsweredBy" name="answeredBy" #item>
+          <option *ngFor="let name of names" id="answeredBy" [value]="name.Name">{{name.Name}}
+          </option>
+        </select>  
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-sm-12">
+        <label for="question">Question</label>
+        <textarea class="form-control" rows="5" id="question" name="question" [(ngModel)]="faq.Question"></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-sm-12">
+        <label for="answer">Answer</label>
+        <textarea class="form-control" rows="5" id="answer" name="answer" [(ngModel)]="faq.Answer"></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <div class="pull-left">
+    <button class="btn btn-success" (click)="onSaveFaq()">{{ mode === 1 ? 'Save' : 'Update' }}</button>
+    <button class="btn btn-basic" (click)="exit.emit()">Cancel</button>
+  </div>
+</div>

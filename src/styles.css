@@ -1,0 +1,7 @@
+/* You can add global styles to this file, and also import other style files */
+@import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
+/* @import "../src/assets/themes/lumen/bootstrap.min.css"; */
+@import "../node_modules/font-awesome/css/font-awesome.min.css";
+@import "../src/assets/global.css";
+@import '../node_modules/ag-grid-community/dist/styles/ag-theme-balham.css';
+@import '../node_modules/ag-grid-community/dist/styles/ag-grid.css';

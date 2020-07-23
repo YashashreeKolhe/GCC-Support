@@ -1,0 +1,75 @@
+<div class="modal-header">
+  <h4 class="modal-title pull-left">{{ mode === 1 ? 'New Ticket' : 'Ticket Details' }}</h4>
+</div>
+<div class="modal-body" *ngIf="ticket">
+  <form>
+    <div class="form-row">
+      <div class="form-group col-sm-2">
+        <label for="ticketId">Ticket Id</label>
+        <label class="form-control" name="ticketId">{{ ticket.TicketId }}</label>
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="submittedBy">Submitted By</label>
+        <label class="form-control" name="submittedBy">{{ ticket.SubmittedBy }}</label>
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="submittedDate">Submitted Date</label>
+        <label class="form-control" name="submittedDate">{{ ticket.SubmittedDate }}</label>
+      </div>
+      <div class="form-group col-sm-4">
+        <label for="subject">Subject</label>
+        <label class="form-control" name="subject">{{ ticket.Subject }}</label>
+      </div>
+    </div>
+    <hr>
+    <div class="form-row">
+      <div class="form-group col-sm-12">
+        <label for="description">Description</label>
+        <textarea class="form-control" rows="5" id="description" name="description" [(ngModel)]="ticket.Description"></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-sm-3">
+        <label for="category">Category</label>
+        <select class="form-control" [(ngModel)]="ticket.CategoryString" name="category" #item>
+          <option *ngFor="let category of categories" id="answeredBy" [value]="category">{{category}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="assignedTo">Assigned To</label>
+        <select class="form-control" [(ngModel)]="ticket.AssignedTo" name="assignedTo" #item>
+          <option *ngFor="let name of names" id="assignedTo" [value]="name.Name">{{name.Name}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="escalatedTo">Escalated To</label>
+        <select class="form-control" [(ngModel)]="ticket.EscalatedTo" name="escalatedTo" #item>
+          <option *ngFor="let name of names" id="escalatedTo" [value]="name.Name">{{name.Name}}
+          </option>
+        </select>
+      </div>
+      <div class="form-group col-sm-3">
+        <label for="status">Status</label>
+        <select class="form-control" [(ngModel)]="ticket.StatusString" name="status" #item>
+          <option *ngFor="let status of statusValues" id="status" [value]="status">{{status}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-sm-12">
+        <label for="Answer">Answer</label>
+        <textarea class="form-control" rows="5" id="Answer" name="Answer" [(ngModel)]="ticket.Answer"></textarea>
+      </div>
+    </div>
+  </form>
+</div>
+
+<div class="modal-footer">
+  <div class="pull-left">
+    <button class="btn btn-success" (click)="onSaveTicket()">{{ mode === 1 ? 'Save' : 'Update' }}</button>
+    <button class="btn btn-basic" (click)="exit.emit()">Cancel</button>
+  </div>
+</div>
