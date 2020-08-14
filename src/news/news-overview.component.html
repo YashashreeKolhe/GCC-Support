@@ -1,0 +1,77 @@
+<div>
+  <div class="card">
+    <div class="card-header bg-white">
+      <div clas="row">
+        <h4 style="display: inline-block;">&nbsp;&nbsp;News & Media</h4>
+      </div>
+    </div>
+    <!-- <div class="card-body"> -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border-info" id="bordered-panel">
+          <div class="card-body">
+            <ngb-tabset>
+              <ngb-tab [attr.id]="tab.id" *ngFor="let tab of tabs">
+                <ng-template ngbTabTitle>
+                  <span (click)="activeTab = tab.title">{{ tab.title }}</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Latest from GCC'">
+                    <div class="row">
+                      <div class="col-sm-4">
+                        <div class="card border-info">
+                          <div class="card-body">
+                          <head>
+                            <title>Bootstrap Example</title>
+                            <meta charset="utf-8">
+                            <meta name="viewport" content="width=device-width, initial-scale=1">
+                            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+                          </head>
+                            <div class="container">
+                              <form>
+                                <label class="checkbox-inline">
+                                  <input type="checkbox" checked="checked">Global
+                          
+                                </label>
+                                <label class="checkbox-inline">
+                                  <input type="checkbox">Switzerland
+                          
+                                </label>
+                                <label class="checkbox-inline">
+                                  <input type="checkbox">US
+                          
+                                </label>
+                                <label class="checkbox-inline">
+                                  <input type="checkbox">EMEA
+                          
+                                </label>
+                                <label class="checkbox-inline">
+                                  <input type="checkbox">APAC
+                               </label>
+                              </form>
+                            </div>
+                            <img src='http://192.168.0.22:8080/sampleimage.png' alt="Mountain" style="width:300px">
+                        </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Videos'">
+                    <news-features></news-features>
+                  </div>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Features'">
+                    <news-video></news-video>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+</div>
+

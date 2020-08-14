@@ -61,7 +61,24 @@
     <div class="form-row">
       <div class="form-group col-sm-12">
         <label for="Answer">Answer</label>
-        <textarea class="form-control" rows="5" id="Answer" name="Answer" [(ngModel)]="ticket.Answer"></textarea>
+        <textarea class="form-control" rows="4" id="Answer" name="Answer" [(ngModel)]="ticket.Answer"></textarea>
+      </div>
+    </div>
+    <div class="form-row" *ngFor="let note of ticket.Notes; let indexElement = index">
+      <div class="form-group col-sm-12">
+        <label for="Note">Note {{indexElement + 1}}</label>
+        <textarea class="form-control" rows="2" id="Note" name="Note" [value]="note"></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group pull-right">
+        <button class="btn btn-success" (click)="addNoteFlag = 1">Add Note</button>
+      </div>
+    </div>
+    <div class="form-row" *ngIf="addNoteFlag === 1">
+      <div class="form-group col-sm-12">
+        <label for="Note">Note</label>
+        <textarea class="form-control" rows="2" id="Note" name="Note" [(ngModel)]="newNote"></textarea>
       </div>
     </div>
   </form>

@@ -15,6 +15,7 @@ export interface Ticket {
   Answer?: string;
   CategoryString?: string;
   StatusString?: string;
+  Notes?: string[];
 }
 
 export enum Status {

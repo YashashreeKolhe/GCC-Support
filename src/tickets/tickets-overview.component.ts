@@ -90,13 +90,13 @@ export class TicketsOverviewComponent {
   showDetails(ticket: Ticket) {
     this.selectedTicket = ticket;
     this.mode = 2; // update
-    this.modalRef = this.modalService.show(this.TicketDetails, { class: 'modal-lg' });
+    this.modalRef = this.modalService.show(this.TicketDetails, { class: 'modal-xl' });
   }
 
   newFaq() {
     this.selectedTicket = null;
     this.mode = 1;
-    this.modalRef = this.modalService.show(this.TicketDetails, { class: 'modal-lg' });
+    this.modalRef = this.modalService.show(this.TicketDetails, { class: 'modal-xl' });
   }
 
   onTabChange(tabTitle: string) {

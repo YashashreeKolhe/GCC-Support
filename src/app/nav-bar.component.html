@@ -6,7 +6,7 @@
 
   <div class="collapse navbar-collapse" #navbarSupportedContent [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
-      <li class="nav-item" *ngFor="let menu of menus" (click)="menu.IsActive = true" [ngClass]="menu.IsActive ? 'active' : ''">
+      <li class="nav-item" *ngFor="let menu of menus" (click)="selectedMenu = menu.Title" [ngClass]="selectedMenu === menu.Title ? 'active' : ''">
         <a class="nav-link" [routerLink]="menu.Location"><span>{{menu.Title}}</span></a>
       </li>
     </ul>

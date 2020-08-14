@@ -19,6 +19,9 @@ export class  TicketDetailsComponent {
   categories: string[] = [ 'Questions', 'Registrations', 'Scores', 'Unassigned' ];
   statusValues: string[] = [ 'Unassigned', 'Pending', 'Resolved', 'Escalated', 'Rejected' ];
 
+  addNoteFlag: number = 0;
+  newNote: string = '';
+
   constructor(
     private ticketService: TicketsService,
     private toastr: ToastrService,) {}
@@ -53,7 +56,10 @@ export class  TicketDetailsComponent {
 
   onSaveTicket() {
     if (this.validateTicket()) {
-      this.ticketService.saveTicket(this.ticket);
+      const result = this.ticketService.saveTicket(this.ticket);
+      if (this.newNote.trim() !== '') {
+        this.ticketService.saveTicketNotes(this.newNote);
+      }
       this.toastr.success('Ticket saved successfully', 'Success');
       this.save.emit();
     } else {
