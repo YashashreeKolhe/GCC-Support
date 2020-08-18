@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
+import { DatePipe } from '@angular/common';
 
 import { ServicesModule } from '../services/services.module';
 import { AnalyticsOverviewComponent } from '../analytics/analytics-overview.component';
@@ -22,7 +23,7 @@ import { QuestionwiseStatisticsComponent } from '../analytics/questionwise-stati
     ServicesModule,
     ChartsModule,
   ],
-  providers: [],
+  providers: [DatePipe],
   exports: [
     AnalyticsOverviewComponent,
     QuestionwiseStatisticsComponent

@@ -18,6 +18,7 @@ export class FaqsOverviewComponent {
   modalRef: BsModalRef;
   defaultColDef;
   mode: number;
+  selectedTab: string;
   
   tabs: ITab[] = [
     {
@@ -37,6 +38,7 @@ export class FaqsOverviewComponent {
       title: 'Others'
     }
   ];
+  faqsList: FAQ[];
 
   @ViewChild('FAQDetails') FAQDetails: TemplateRef<any>;
 
@@ -49,8 +51,8 @@ export class FaqsOverviewComponent {
     this.onTabChange('Questions');
   }
 
-  loadFAQs(): FAQ[] {
-    return this.faqsService.getFaqs();
+  async loadFAQs() {
+    this.faqsList = await this.faqsService.getFaqs().toPromise();
   }
 
   onGridReady(params) {
@@ -58,7 +60,7 @@ export class FaqsOverviewComponent {
   }
 
   showDetails(faq: FAQ) {
-    this.selectedFaq = faq;
+    this.selectedFaq = JSON.parse(JSON.stringify(faq));
     this.mode = 2//update;
     this.modalRef = this.modalService.show(this.FAQDetails, { class: 'modal-lg' });
   }
@@ -69,26 +71,28 @@ export class FaqsOverviewComponent {
     this.modalRef = this.modalService.show(this.FAQDetails, { class: 'modal-lg' });
   }
 
-  onTabChange(tabTitle: string) {
-    console.log('here');
+  async onTabChange(tabTitle: string) {
+    await this.loadFAQs();
+    this.selectedTab = tabTitle;
     switch (tabTitle) {
       case 'Questions': {
-        this.rowData = this.loadFAQs().filter(faq => faq.Category === 'Questions');
+        this.rowData = this.faqsList.filter(faq => faq.category === 'Questions');
         break;
       }
       case 'Registration': {
-        this.rowData = this.loadFAQs().filter(faq => faq.Category === 'Registration');
+        this.rowData = this.faqsList.filter(faq => faq.category === 'Registration');
         break;
       }
       case 'Scores/Evaluation': {
-        this.rowData = this.loadFAQs().filter(faq => faq.Category === 'Scores/Evaluation');
+        this.rowData = this.faqsList.filter(faq => faq.category === 'Scores/Evaluation');
         break;
       }
       case 'Others': {
-        this.rowData = this.loadFAQs().filter(faq => faq.Category === 'Others');
+        this.rowData = this.faqsList.filter(faq => faq.category === null || faq.category === '' || faq.category === 'Others');
         break;
       }
     }
+    this.gridApi.setRowData(this.rowData);
   }
 
   configureGrid() {
@@ -117,33 +121,34 @@ export class FaqsOverviewComponent {
     return [
       {
         headerName: 'Sr. No.',
-        field: 'Id',
+        field: 'id',
         width: 100,
+        hide: true,
         filter: false
       },
       {
         headerName: 'Question',
-        field: 'Question',
-        width: 400,
+        field: 'question',
+        width: 590,
         filter: 'agTextColumnFilter',
         cellStyle: { 'white-space': 'normal' }
       },
       {
         headerName: 'Answer',
-        field: 'Answer', 
-        width: 400,
+        field: 'answer', 
+        width: 590,
         filter: 'agTextColumnFilter',
       },
       {
         headerName: 'Category',
-        field: 'Category', 
-        width: 200,
+        field: 'category', 
+        width: 170,
         filter: 'agTextColumnFilter',
       },
       {
         headerName: 'AnsweredBy',
-        field: 'AnsweredBy', 
-        width: 300,
+        field: 'answeredBy', 
+        width: 250,
         filter: 'agTextColumnFilter',
       },
     ];

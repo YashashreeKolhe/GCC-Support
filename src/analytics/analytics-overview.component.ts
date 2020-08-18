@@ -6,6 +6,7 @@ import { MultiDataSet, Label, Color } from 'ng2-charts';
 import { AnalyticsService } from 'src/services/analytics.service';
 import * as Chart from 'chart.js';
 import 'chartjs-plugin-datalabels';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'analytics-overview',
@@ -25,6 +26,7 @@ export class AnalyticsOverviewComponent {
       title: 'Questionwise Statistics'
     },
   ];
+  ChartPlugins: Chart.ChartPluginsOptions[];
 
   doughnutChartLabels: Label[] = [];
   doughnutChartData: MultiDataSet = [];
@@ -91,7 +93,8 @@ export class AnalyticsOverviewComponent {
   ];
 
   constructor(
-    private analyticsService: AnalyticsService) { }
+    private analyticsService: AnalyticsService,
+    private datePipe: DatePipe) { }
   
   ngOnInit() {
     this.prepareDoughnutChartForSubmissionsPerLanguage();
@@ -108,17 +111,25 @@ export class AnalyticsOverviewComponent {
     result.forEach(region => {
       this.ParticipationPerRegionLineChartLabels.push(region.Region);
     });
+    this.ChartPlugins = [{
+      beforeDraw(chart, easing) {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea;
+        const top = 0;
+  
+        ctx.save();
+        ctx.fillStyle = 'white';
+  
+        ctx.fillRect(chartArea.left - 40, top, chartArea.right - chartArea.left + 80, chartArea.bottom + 40 - top);
+        ctx.restore();
+      }
+    }];
     this.ParticipationPerRegionLineChartOptions = {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
         yAxes: [{
             display: true,
-            // ticks: {
-            //   suggestedMin: result.map(week => week.Value).reduce((a, b)=>Math.min(a, b)) - 10 >= 0 ?
-            //     result.map(week => week.Value).reduce((a, b)=>Math.min(a, b)) - 10 : 0,
-            //   suggestedMax: result.map(week => week.Value).reduce((a, b)=>Math.max(a, b)) + 10
-            // }
         }]
       },
       plugins: {
@@ -147,14 +158,10 @@ export class AnalyticsOverviewComponent {
       scales: {
         yAxes: [{
             display: true,
-            // ticks: {
-            //   suggestedMin: result.map(week => week.Value).reduce((a, b)=>Math.min(a, b)) - 10 >= 0 ?
-            //     result.map(week => week.Value).reduce((a, b)=>Math.min(a, b)) - 10 : 0,
-            //   suggestedMax: result.map(week => week.Value).reduce((a, b)=>Math.max(a, b)) + 10
-            // }
         }]
       },
       plugins: {
+        backgroundColor: 'red',
         datalabels: {
           anchor: 'end',
           align: 'end',
@@ -248,5 +255,41 @@ export class AnalyticsOverviewComponent {
     result3.forEach(question => {
       this.AttemptsPerQuestionBarChartLabels.push('Question '+ question.Question);
     });
+  }
+
+  downloadAcceptedVsRejected(event) {
+    var anchor = event.target;
+    anchor.href = document.getElementsByTagName('canvas')[0].toDataURL("image/png");
+    anchor.download = 'AcceptedVsRejected_' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
+  }
+
+  downloadCorrectSubmissionsPerRegion(event) {
+    var anchor = event.target;
+    anchor.href = document.getElementsByTagName('canvas')[1].toDataURL("image/png");
+    anchor.download = 'CorrectSubmissionsPerRegion' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
+  }
+  
+  downloadAttemptsPerQuestion(event) {
+    var anchor = event.target;
+    anchor.href = document.getElementsByTagName('canvas')[2].toDataURL("image/png");
+    anchor.download = 'AttemptsPerQuestion' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
+  }
+  
+  downloadNoOfSubmissionsPerLang(event) {
+    var anchor = event.target;
+    anchor.href = document.getElementsByTagName('canvas')[3].toDataURL("image/png");
+    anchor.download = 'NoOfSubmissionsPerLang' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
+  }
+  
+  downloadNoOfSubmissionsPerWeek(event) {
+    var anchor = event.target;
+    anchor.href = document.getElementsByTagName('canvas')[4].toDataURL("image/png");
+    anchor.download = 'NoOfSubmissionsPerWeek' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
+  }
+  
+  downloadParticipationPerRegion(event) {
+    var anchor = event.target;
+    anchor.href = document.getElementsByTagName('canvas')[5].toDataURL("image/png");
+    anchor.download = 'ParticipationPerRegion' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
   }
 }

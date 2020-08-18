@@ -20,8 +20,9 @@ export class TicketsOverviewComponent {
   defaultColDef;
   mode: number;
   names: Name[];
-  statusValues: string[] = [ 'Unassigned', 'Pending', 'Resolved', 'Escalated', 'Rejected' ];
+  statusValues: string[] = [ 'OPEN', 'IN_PROGRESS', 'ESCALATED', 'RESOLVED' ];
   tabData: Ticket[];
+  ticketsList: Ticket[];
 
   isStatusCleared: boolean = true;
   isAssignedCleared: boolean = true;
@@ -58,26 +59,26 @@ export class TicketsOverviewComponent {
     this.onTabChange('Questions');
   }
 
-  loadTickets(): Ticket[] {
-    return this.ticketsService.getTickets();
+  async loadTickets() {
+    this.ticketsList = await this.ticketsService.getTickets().toPromise();
   }
 
   onChangeAssignedTo(name: string) {
-    this.rowData = JSON.parse(JSON.stringify(this.tabData.filter(ticket => ticket.AssignedTo === name)));
+    this.rowData = JSON.parse(JSON.stringify(this.tabData.filter(ticket => ticket.assignee === name)));
     this.isEscalatedCleared = true;
     this.isAssignedCleared = false;
     this.isStatusCleared = true;
   }
 
   onChangeEscalatedTo(name: string) {
-    this.rowData = JSON.parse(JSON.stringify(this.tabData.filter(ticket => ticket.EscalatedTo === name)));
+    this.rowData = JSON.parse(JSON.stringify(this.tabData.filter(ticket => ticket.escalatedTo === name)));
     this.isEscalatedCleared = false;
     this.isAssignedCleared = true;
     this.isStatusCleared = true;
   }
 
   onChangeStatus(status: string) {
-    this.rowData = JSON.parse(JSON.stringify(this.tabData.filter(ticket => Status[ticket.Status] === status)));
+    this.rowData = JSON.parse(JSON.stringify(this.tabData.filter(ticket => ticket.ticketStatus === status)));
     this.isEscalatedCleared = true;
     this.isAssignedCleared = true;
     this.isStatusCleared = false;
@@ -88,7 +89,7 @@ export class TicketsOverviewComponent {
   }
 
   showDetails(ticket: Ticket) {
-    this.selectedTicket = ticket;
+    this.selectedTicket = JSON.parse(JSON.stringify(ticket));
     this.mode = 2; // update
     this.modalRef = this.modalService.show(this.TicketDetails, { class: 'modal-xl' });
   }
@@ -99,22 +100,24 @@ export class TicketsOverviewComponent {
     this.modalRef = this.modalService.show(this.TicketDetails, { class: 'modal-xl' });
   }
 
-  onTabChange(tabTitle: string) {
+  async onTabChange(tabTitle: string) {
+    await this.loadTickets();
     switch (tabTitle) {
       case 'Questions': {
-        this.rowData = this.loadTickets().filter(ticket => ticket.Category === Category.Questions);
+        this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Questions');
         break;
       }
       case 'Registration': {
-        this.rowData = this.loadTickets().filter(ticket => ticket.Category === Category.Registrations);
+        this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Registration');
         break;
       }
       case 'Scores/Evaluation': {
-        this.rowData = this.loadTickets().filter(ticket => ticket.Category === Category.Scores);
+        this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Scores/Evaluation');
         break;
       }
       case 'Unassigned': {
-        this.rowData = this.loadTickets().filter(ticket => ticket.Category === Category.Unassigned);
+        this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Unassigned' || 
+        ticket.category === null || ticket.category === '');
         break;
       }
     }
@@ -154,28 +157,28 @@ export class TicketsOverviewComponent {
     return [
       {
         headerName: 'Ticket Id',
-        field: 'TicketId',
-        width: 80,
+        field: 'id',
+        width: 170,
         filter: false
       },
       {
         headerName: 'Subject',
-        field: 'Subject',
+        field: 'subject',
         width: 150,
         filter: 'agTextColumnFilter',
         cellStyle: { 'white-space': 'normal' }
       },
       {
         headerName: 'Description',
-        field: 'Description',
+        field: 'description',
         width: 300,
         filter: 'agTextColumnFilter',
         cellStyle: { 'white-space': 'normal' }
       },
       {
         headerName: 'Category',
-        field: 'Category',
-        width: 100,
+        field: 'category',
+        width: 120,
         filter: 'agTextColumnFilter',
         valueFormatter: params => {
           return Status[params.value]
@@ -183,31 +186,31 @@ export class TicketsOverviewComponent {
       },
       {
         headerName: 'Submitted By',
-        field: 'SubmittedBy',
-        width: 120,
+        field: 'email',
+        width: 160,
         filter: 'agTextColumnFilter',
       },
       {
         headerName: 'Answer',
-        field: 'Answer',
+        field: 'answer',
         width: 300,
         filter: 'agTextColumnFilter',
       },
       {
         headerName: 'Assigned To',
-        field: 'AssignedTo',
-        width: 120,
+        field: 'assignee',
+        width: 150,
         filter: 'agTextColumnFilter',
       },
       {
         headerName: 'EscalatedTo',
-        field: 'EscalatedTo',
-        width: 120,
+        field: 'escalatedTo',
+        width: 150,
         filter: 'agTextColumnFilter',
       },
       {
         headerName: 'Status',
-        field: 'Status',
+        field: 'ticketStatus',
         width: 100,
         filter: 'agTextColumnFilter',
         valueFormatter: params => {

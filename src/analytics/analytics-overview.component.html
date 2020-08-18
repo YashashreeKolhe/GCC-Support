@@ -22,15 +22,22 @@
                         <div class="card border-info">
                           <div class="card-header bg-info">
                             Accepted vs Rejected Solutions
+                            <div class="pull-right">
+                              <button class="btn btn-sm btn-warning">
+                                <a href="#" style="color: black" title="Export to png" (click)="downloadAcceptedVsRejected($event)">Export</a>
+                              </button>
+                            </div>
                           </div>
                           <div class="card-body">
                             <canvas baseChart 
                               height="250px"
+                              width="500px"
                               [datasets]="AcceptedVsRejectedLineChartData" 
                               [labels]="AcceptedVsRejectedLineChartLabels" 
                               [options]="AcceptedVsRejectedLineChartOptions"
                               [colors]="AcceptedVsRejectedLineChartColors" 
                               [legend]="'true'" 
+                              [plugins]="ChartPlugins"
                               [chartType]="'line'">
                             </canvas>
                           </div>
@@ -40,6 +47,11 @@
                         <div class="card border-info">
                           <div class="card-header bg-info">
                             Correct Submissions Per Region
+                            <div class="pull-right">
+                              <button class="btn btn-sm btn-warning">
+                                <a href="#" style="color: black" title="Export to png" (click)="downloadCorrectSubmissionsPerRegion($event)">Export</a>
+                              </button>
+                            </div>
                           </div>
                           <div class="card-body">
                             <div class="chart-wrapper">
@@ -49,6 +61,7 @@
                                 [data]="CorrectSubmissionsPerRegionChartData"
                                 [labels]="CorrectSubmissionsPerRegionChartLabels"
                                 [chartType]="doughnutChartType"
+                                [plugins]="ChartPlugins"
                                 [options]="chartOptions">
                               </canvas>
                             </div>
@@ -59,6 +72,11 @@
                         <div class="card border-info">
                           <div class="card-header bg-info">
                             Attempts Per Question
+                            <div class="pull-right">
+                              <button class="btn btn-sm btn-warning">
+                                <a href="#" style="color: black" title="Export to png" (click)="downloadAttemptsPerQuestion($event)">Export</a>
+                              </button>
+                            </div>
                           </div>
                           <div class="card-body">
                             <div class="chart-wrapper">
@@ -69,6 +87,7 @@
                                 [options]="AttemptsPerQuestionBarChartOptions"
                                 [colors]="AttemptsPerQuestionBarChartColors"
                                 [legend]="barChartLegend"
+                                [plugins]="ChartPlugins"
                                 [chartType]="barChartType">
                               </canvas>
                             </div>
@@ -82,6 +101,11 @@
                         <div class="card border-info">
                           <div class="card-header bg-info">
                             Number of Submissions Per Language
+                            <div class="pull-right">
+                              <button class="btn btn-sm btn-warning">
+                                <a href="#" style="color: black" title="Export to png" (click)="downloadNoOfSubmissionsPerLang($event)">Export</a>
+                              </button>
+                            </div>
                           </div>
                           <div class="card-body">
                             <div class="chart-wrapper">
@@ -91,6 +115,7 @@
                                 [data]="doughnutChartData"
                                 [labels]="doughnutChartLabels"
                                 [chartType]="doughnutChartType"
+                                [plugins]="ChartPlugins"
                                 [options]="chartOptions">
                               </canvas>
                             </div>
@@ -101,6 +126,11 @@
                         <div class="card border-info">
                           <div class="card-header bg-info">
                             Number of Submissions Per Week
+                            <div class="pull-right">
+                              <button class="btn btn-sm btn-warning">
+                                <a href="#" style="color: black" title="Export to png" (click)="downloadNoOfSubmissionsPerWeek($event)">Export</a>
+                              </button>
+                            </div>
                           </div>
                           <div class="card-body">
                             <canvas baseChart 
@@ -110,6 +140,7 @@
                                 [options]="SubmissionsPerWeekBarChartOptions"
                                 [colors]="SubmissionsPerWeekBarChartColors"
                                 [legend]="barChartLegend"
+                                [plugins]="ChartPlugins"
                                 [chartType]="barChartType">
                               </canvas>
                           </div>
@@ -119,6 +150,11 @@
                         <div class="card border-info">
                           <div class="card-header bg-info">
                             Participation Per Region
+                            <div class="pull-right">
+                              <button class="btn btn-sm btn-warning">
+                                <a href="#" style="color: black" title="Export to png" (click)="downloadParticipationPerRegion($event)">Export</a>
+                              </button>
+                            </div>
                           </div>
                           <div class="card-body">
                             <canvas baseChart 
@@ -126,7 +162,8 @@
                               [datasets]="ParticipationPerRegionLineChartData" 
                               [labels]="ParticipationPerRegionLineChartLabels" 
                               [options]="ParticipationPerRegionLineChartOptions"
-                              [colors]="ParticipationPerRegionLineChartColors" 
+                              [colors]="ParticipationPerRegionLineChartColors"
+                              [plugins]="ChartPlugins" 
                               [legend]="'true'" 
                               [chartType]="'line'">
                             </canvas>

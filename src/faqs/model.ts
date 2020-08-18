@@ -1,9 +1,9 @@
 export interface FAQ {
-  Id?: number;
-  Question?: string;
-  Answer?: string;
-  Category?: string;
-  AnsweredBy?: string;
+  id?: string;
+  question?: string;
+  answer?: string;
+  category?: string;
+  answeredBy?: string;
 }
 
 export interface ITab {

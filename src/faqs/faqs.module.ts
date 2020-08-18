@@ -7,6 +7,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule } from '@angular/forms';
 import { ServicesModule } from '../services/services.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { FaqsOverviewComponent } from './faqs-overview.component';
 import { NewFaqComponent } from './new-faq.component';
@@ -17,6 +18,7 @@ import { NewFaqComponent } from './new-faq.component';
     NewFaqComponent
   ],
   imports: [
+    BrowserAnimationsModule,
     BrowserModule,
     CommonModule,
     NgbModule,

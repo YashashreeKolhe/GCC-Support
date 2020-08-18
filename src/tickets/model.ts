@@ -1,21 +1,20 @@
 export interface Ticket {
-  TicketId?: number;
-  SubmittedBy?: string;
-  SubmittedDate?: Date;
-  EmailAddress?: string;
-  Subject?: string;
-  Description?: string;
-  Attachments?: string[];
-  Status?: Status;
-  AssignedTo?: string;
-  EscalatedTo?: string;
-  ResolvedBy?: string;
-  ResolvedDate?: Date;
-  Category?: Category;
-  Answer?: string;
-  CategoryString?: string;
-  StatusString?: string;
-  Notes?: string[];
+  id?: number;
+  submittedBy?: string;
+  submittedDate?: Date;
+  email?: string;
+  subject?: string;
+  contestantId?: string;
+  description?: string;
+  attachments?: string[];
+  ticketStatus?: string;
+  assignee?: string;
+  escalatedTo?: string;
+  resolvedBy?: string;
+  resolvedDate?: Date;
+  category?: string;
+  answer?: string;
+  notes?: string[];
 }
 
 export enum Status {

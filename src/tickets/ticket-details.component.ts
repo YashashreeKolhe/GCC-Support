@@ -16,8 +16,8 @@ export class  TicketDetailsComponent {
 
   names: Name[];
   nameStore: Name[];
-  categories: string[] = [ 'Questions', 'Registrations', 'Scores', 'Unassigned' ];
-  statusValues: string[] = [ 'Unassigned', 'Pending', 'Resolved', 'Escalated', 'Rejected' ];
+  categories: string[] = [ 'Questions', 'Registration', 'Scores/Evaluation', 'Unassigned' ];
+  statusValues: string[] = [ 'OPEN', 'IN_PROGRESS', 'ESCALATED', 'RESOLVED' ];
 
   addNoteFlag: number = 0;
   newNote: string = '';
@@ -29,9 +29,6 @@ export class  TicketDetailsComponent {
   ngOnInit() {
     if (this.ticket === null) {
       this.ticket = this.initializeTicket();
-    } else {
-      this.ticket.CategoryString = Category[this.ticket.Category];
-      this.ticket.StatusString = Status[this.ticket.Status];
     }
     this.categories = this.ticketService.loadCategories();
     this.names = this.ticketService.loadNames();
@@ -39,27 +36,22 @@ export class  TicketDetailsComponent {
 
   initializeTicket(): Ticket {
     return {
-      TicketId: -1,
-      Subject: '',
-      Description: '',
-      Answer: '',
-      Category: Category.Unassigned,
-      CategoryString: Category[Category.Unassigned],
-      SubmittedBy: 'Dummy',
-      SubmittedDate: new Date(),
-      EscalatedTo: '',
-      AssignedTo: '',
-      Status: Status.Unassigned,
-      StatusString: Status[Status.Unassigned]
+      subject: '',
+      description: '',
+      answer: '',
+      category: 'Unassigned',
+      submittedBy: 'Dummy',
+      submittedDate: new Date(),
+      escalatedTo: '',
+      assignee: '',
+      ticketStatus: 'OPEN',
+      notes: []
     }
   }
 
-  onSaveTicket() {
+  async onSaveTicket() {
     if (this.validateTicket()) {
-      const result = this.ticketService.saveTicket(this.ticket);
-      if (this.newNote.trim() !== '') {
-        this.ticketService.saveTicketNotes(this.newNote);
-      }
+      const result = await this.ticketService.saveTicket(this.ticket).toPromise();
       this.toastr.success('Ticket saved successfully', 'Success');
       this.save.emit();
     } else {

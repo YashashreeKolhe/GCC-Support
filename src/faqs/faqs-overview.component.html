@@ -42,5 +42,5 @@
   </div>
 </div>
 <ng-template #FAQDetails>
-  <new-faq [faq]="selectedFaq" [mode]="mode" (exit)="modalRef.hide()" (save)="onTabChange('Questions');modalRef.hide()"></new-faq>
+  <new-faq [faq]="selectedFaq" [mode]="mode" (exit)="modalRef.hide()" (save)="modalRef.hide();onTabChange(selectedTab)"></new-faq>
 </ng-template>

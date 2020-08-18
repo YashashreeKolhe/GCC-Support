@@ -38,7 +38,7 @@ export class NavBarComponent {
 				'IsActive': false 
 			},
 			{
-				'Title': 'News & Media',
+				'Title': 'New & Media',
 				'Location': '/news',
 				'IsActive': false
 			},

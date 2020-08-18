@@ -27,15 +27,15 @@ export class  NewFaqComponent {
     }
     this.categories = this.faqsService.loadCategories();
     this.nameStore = this.faqsService.loadNames();
+    this.onChangeCategory('Others');
   }
 
   initializeFaq(): FAQ {
     return {
-      Id: -1,
-      Question: '',
-      Answer: '',
-      AnsweredBy: '',
-      Category: 'Others'
+      question: '',
+      answer: '',
+      answeredBy: '',
+      category: 'Others'
     }
   }
 
@@ -46,18 +46,18 @@ export class  NewFaqComponent {
     this.names = this.nameStore.filter(name => name.Category === newCategory);
   }
 
-  onSaveFaq() {
+  async onSaveFaq() {
     if (this.validateFaq()) {
-      this.faqsService.saveFaq(this.faq);
+      await this.faqsService.saveFaq(this.faq).toPromise();
       this.toastr.success('FAQ saved successfully', 'Success');
       this.save.emit();
     } else {
-      this.toastr.success('Please fill all the fields!', 'Success');
+      this.toastr.error('Please fill all the fields!', 'Error');
     }
   }
 
   validateFaq() {
-    if (this.faq.Question === '' && this.faq.Answer === '') {
+    if (this.faq.question === '' && this.faq.answer === '') {
       return false;
     }
     return true;
