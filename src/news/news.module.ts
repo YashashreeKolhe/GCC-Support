@@ -11,12 +11,14 @@ import {newsOverviewComponent } from './news-overview.component';
 import { logWarnings } from 'protractor/built/driverProviders';
 import {videoComponent} from './video.component';
 import { featureComponent } from './features.component';
+import { uploadArticleComponent } from './uploadArticle.component';
 
 @NgModule({
   declarations: [
     newsOverviewComponent,
     videoComponent,
-    featureComponent
+    featureComponent,
+    uploadArticleComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +38,8 @@ import { featureComponent } from './features.component';
   exports: [
     newsOverviewComponent,
     videoComponent,
-    featureComponent
+    featureComponent,
+    uploadArticleComponent,
   ]
 })
 export class newsModule { }
