@@ -16,16 +16,15 @@
 
         <div class="float-right">
           <button type="button" class="btn btn-success" style="margin-left: 10px">Share</button>
+          <button type="button" class="btn btn-info" style="margin-left: 10px" (click)="refreshData()">Refresh</button>
         </div>
         <div class="card-body">
-          <div class="d-inline-block" ngbDropdown #myDrop="ngbDropdown">
-            <button style="color:black;outline-color: black;" class="btn btn-outline-primary" id="dropdownConfig"
-              ngbDropdownToggle>Global
-            </button>
-            <div ngbDropdownMenu aria-labelledby="dropdownConfig">
-              <button  (click)='Myfunction(dropdown.title)' [attr.id]="dropdown.id" *ngFor="let dropdown of dropdowns" ngbDropdownItem>
-                {{dropdown.title}} </button>
-            </div>
+          <div class="form-group col-sm-4">
+            <label for="filter">Filter</label>
+            <select class="form-control" (click)="filterData(filter.value)" name="filter" #filter>
+              <option *ngFor="let dropdown of dropdowns" id="filter" [value]="dropdown">{{dropdown}}
+              </option>
+            </select>  
           </div>
         </div>
       </div>
@@ -35,15 +34,17 @@
 <div class="row">
   <div class="col-md-12">
     <div class="card-body">
-      <div class="card-body">
-        <div class="card border-info" id="bordered-panel">
-          <ag-grid-angular style="width:850px;height:500px;"
-            class="ag-theme-balham"
-            [columnDefs]="columnDefs"
-            [rowData]="rowData">   /* [rowData]="rowData|async">*/
-          </ag-grid-angular>
-        </div>
+      <div class="card border-info" id="bordered-panel">
+        <ag-grid-angular style="height:500px;"
+          class="ag-theme-balham"
+          [columnDefs]="columnDefs"
+          [rowData]="rowData"
+          [gridOptions]="gridOptions"
+          [defaultColDef]="defaultColDef">
+        </ag-grid-angular>
       </div>
     </div>
   </div>
 </div>
+
+

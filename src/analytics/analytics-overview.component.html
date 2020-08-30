@@ -61,6 +61,7 @@
                                 [data]="CorrectSubmissionsPerRegionChartData"
                                 [labels]="CorrectSubmissionsPerRegionChartLabels"
                                 [chartType]="doughnutChartType"
+                                [legend]="barChartLegend"
                                 [plugins]="ChartPlugins"
                                 [options]="chartOptions">
                               </canvas>
@@ -115,6 +116,7 @@
                                 [data]="doughnutChartData"
                                 [labels]="doughnutChartLabels"
                                 [chartType]="doughnutChartType"
+                                [legend]="barChartLegend"
                                 [plugins]="ChartPlugins"
                                 [options]="chartOptions">
                               </canvas>
@@ -164,7 +166,7 @@
                               [options]="ParticipationPerRegionLineChartOptions"
                               [colors]="ParticipationPerRegionLineChartColors"
                               [plugins]="ChartPlugins" 
-                              [legend]="'true'" 
+                              [legend]="barChartLegend" 
                               [chartType]="'line'">
                             </canvas>
                           </div>

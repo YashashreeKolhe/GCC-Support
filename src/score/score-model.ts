@@ -1,10 +1,13 @@
 export interface LIST {
-    Id?: number;
-    Contestant?: string;
-    Score?: number;
-    Region?: string;
-    University?: string;
-    Category?:string
+    name?: string;
+    region?: string;
+    university?: string;
+    totalScore?: number;
+    questionNumber?: number;
+    contestantId?: string;
+    total?: number;
+    teamName?: string;
+    rank?: number;
   }
 
   export interface Name {

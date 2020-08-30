@@ -16,6 +16,8 @@ import { newsOverviewComponent } from 'src/news/news-overview.component';
 import { newsModule } from 'src/news/news.module';
 import { ServerMonitoringComponent } from 'src/server-monitoring/server-monitoring.component';
 import { ServerMonitoringModule } from 'src/server-monitoring/server-monitoring.module';
+import { ParticipantsModule } from 'src/participants/participants.module';
+import { ParticipantsComponent } from 'src/participants/participants.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -25,7 +27,8 @@ const routes: Routes = [
   { path: 'analytics', component: AnalyticsOverviewComponent, pathMatch: 'full' },
   { path: 'contact', component: contactOverviewComponent, pathMatch: 'full' },
   { path: 'news', component: newsOverviewComponent, pathMatch: 'full' },
-  { path: 'server', component: ServerMonitoringComponent, pathMatch: 'full' }
+  { path: 'server', component: ServerMonitoringComponent, pathMatch: 'full' },
+  { path: 'participants', component: ParticipantsComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -36,7 +39,9 @@ const routes: Routes = [
     scoreModule,
     TicketsModule,
     AnalyticsModule,
+    newsModule,
     contactModule,
+    ParticipantsModule,
     ServerMonitoringModule
   ],
   exports: [RouterModule]

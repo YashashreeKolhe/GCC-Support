@@ -1,116 +1,176 @@
 import { Component } from '@angular/core';
-import { GridOptions, GridApi } from 'ag-grid-community';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import{LIST,Name} from './score-model';
-import {studentlist} from 'src/services/student.list'
+import { GridOptions, GridApi, ColDef } from 'ag-grid-community';
+import { LIST } from './score-model';
+import { studentlist } from 'src/services/student.list';
 
 @Component({
   selector: 'score',
   templateUrl: './score-overview.component.html',
- 
+
 })
 export class scoreOverviewComponent {
-  pageTitle:string='Live Score'
-  tableHeader1 = 'Contestant'
-  tableHeader2 = 'University'
-  tableHeader3 = 'Region'
-  tableHeader4 = 'Score'
-  score;
-  gridOptions: GridOptions;
   gridApi: GridApi;
-  mode : number;
-  columnDefs= [
-    {headerName: 'Contestants', field: 'Contestant'},
-    {headerName: 'University', field: 'University'},
-    {headerName: 'Region', field: 'Region'},
-    {headerName: 'Score', field: 'Score'}
+  defaultColDef;
+  columnDefs: ColDef[];
+  rowData: LIST[];
+  gridOptions: GridOptions;
+  studentdata: LIST[];
+  selectedDropdown: string;
+
+  dropdowns = [
+    'Global',
+    'Question 1',
+    'Question 2',
+    'Question 3',
+    'Question 4',
+    'Question 5',
+    'Question 6',
+    'Question 7',
+    'Question 8',
+    'Question 9',
   ];
-  rowData:any;
 
   constructor(
-    private studentlist:studentlist) {}
+    private studentlist: studentlist,
+  ) { }
 
-loaddata():LIST[]{
-  return this.studentlist.getdata();
+  ngOnInit() {
+    this.configureGrid();
+    this.filterData('Global');
+  }
+
+  async loaddata() {
+    this.studentdata = await this.studentlist.getdata().toPromise();
+    this.rowData = this.studentdata;
+  }
+
+  async refreshData() {
+    this.filterData(this.selectedDropdown);
+  }
+
+
+  async filterData(dropdowntitle: string) {
+    this.selectedDropdown = dropdowntitle;
+    this.configureGrid();
+    await this.loaddata();
+    if (dropdowntitle === 'Global') {
+      const uniqueEntry: LIST[] = this.studentdata.filter(
+        (thing, i, arr) => arr.findIndex(t => t.contestantId === thing.contestantId) === i);
+      uniqueEntry.forEach((contestant) => {
+        contestant.total = this.studentdata.filter(cont => cont.contestantId === contestant.contestantId)
+        .map(x => x.total).reduce((a, b) => a + b);
+      });
+      this.rowData = uniqueEntry.sort((a, b) => (a.total > b.total) ? -1 : 1);
+    } else {
+      this.rowData = this.studentdata.
+      filter(contestant => contestant.questionNumber === parseInt(dropdowntitle.replace('Question ', '')))
+      .sort((a, b) => a.total > b.total ? -1 : 1 );
+    }
+  };
+
+  configureGrid() {
+    this.gridOptions = {
+      cacheQuickFilter: true,
+      floatingFilter: true,
+      onGridReady: params => this.onGridReady(params)
+    }
+    this.columnDefs = this.getColumnDefs();
+    this.defaultColDef = {
+      sortable: true,
+      filter: true,
+      floatingFilter: true,
+      resizable: true,
+      autoHeight: true
+    };
+  }
+
+  onGridReady(params) {
+    this.gridApi = params.api;
+  }
+
+  getColumnDefs(): ColDef[] {
+    return [
+      // {
+      //   headerName: 'Rank',
+      //   cellRenderer : function (params) {
+      //     return (parseInt(params.node.id) + 1).toString();
+      //   },
+      //   width: 100,
+      //   filter: 'agTextColumnFilter',
+      // },
+      {
+        headerName: 'Contestant',
+        field: 'name',
+        width: 300,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Region',
+        field: 'region',
+        width: 150,
+        filter: 'agTextColumnFilter',
+        cellStyle: { 'white-space': 'normal' }
+      },
+      {
+        headerName: 'University',
+        field: 'teamName',
+        width: 400,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Total Score',
+        field: 'total',
+        width: 200,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Correct Submissions',
+        field: 'correct',
+        width: 100,
+        filter: 'agTextColumnFilter',
+        hide: this.selectedDropdown === 'Global'
+      },
+      {
+        headerName: 'Incorrect Submissions',
+        field: 'incorrect',
+        width: 100,
+        filter: 'agTextColumnFilter',
+        hide: this.selectedDropdown === 'Global'
+      },
+      {
+        headerName: 'Execution Score',
+        field: 'executionTimeScore',
+        width: 150,
+        filter: 'agTextColumnFilter',
+        hide: this.selectedDropdown === 'Global'
+      },
+      {
+        headerName: 'Memory Score',
+        field: 'memoryScore',
+        width: 100,
+        filter: 'agTextColumnFilter',
+        hide: this.selectedDropdown === 'Global'
+      },
+      {
+        headerName: 'Test case Score',
+        field: 'testCaseScore',
+        width: 100,
+        filter: 'agTextColumnFilter',
+        hide: this.selectedDropdown === 'Global'
+      },
+      {
+        headerName: 'Cyclo. complexity Score',
+        field: 'cycloComplexityScore',
+        width: 100,
+        filter: 'agTextColumnFilter',
+        hide: this.selectedDropdown === 'Global'
+      },
+    ];
+
+  }
 }
 
-loadname():Name[]{
-  return this.studentlist.getname();
-}
 
-
-loadscores(){
-return this.studentlist.getscore();
-}
-
-Myfunction(dropdowntitle:string){
-  console.log('here');
-
-
-  switch(dropdowntitle){
-  
-  case 'Question1':{
-    this.rowData = this.loaddata().filter(LIST => LIST.Category==='Question1')
-    /*this.http.get('https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/sample-data/smallRowData.json');*/
-  break
-  }
-  case 'Question2':{
-    this.rowData=this.loaddata().filter(LIST => LIST.Category==='Question2');
-    break
-  }
-  case 'Question3':{
-    this.rowData=this.loaddata().filter(LIST => LIST.Category==='Question3');
-    break
-  }
-  case 'Question4':{
-    this.rowData=this.loaddata().filter(LIST => LIST.Category==='Question4');
-    break
-  }
-  case 'Question5':{
-    this.rowData=this.loaddata().filter(LIST => LIST.Category==='Question5');
-    break
-  }
-  case 'Question6':{
-    this.rowData= this.loaddata().filter(LIST => LIST.Category==='Question6');
-    break
-  }
-  case 'Question7':{
-    this.rowData=this.loaddata().filter(LIST => LIST.Category==='Question7');
-    break
-  }
-  case 'Global':{
-    this.rowData=this.loaddata().filter(LIST => LIST.Category==='Global');
-    break
-  }
-  
-  }
-
-};
-
-
-  dropdowns=[
-  {id:1,
-  title: 'Question1'},
-  {id:2,
-  title: 'Question2'},
-  {id:3,
-  title: 'Question3'},
-  {id:4,
-  title: 'Question4'},
-  {id:5,
-  title: 'Question5'},
-  {id:6,
-  title: 'Question6'},
-  {id:7,
-  title: 'Question7'},
-  {id:8,
-  title: 'Global'}
-  ]
-
-
-}
-
- 
 
 
 

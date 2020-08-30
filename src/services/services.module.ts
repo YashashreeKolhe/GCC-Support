@@ -6,6 +6,9 @@ import {studentlist} from './student.list'
 import { TicketsService } from './tickets.service';
 import { AnalyticsService } from './analytics.service';
 import { featureService } from './features';
+import { ParticipantsService } from './participants.service';
+import { ArticleService } from './article.service';
+import { CommonService } from './common.service';
 
 @NgModule({
  imports: [
@@ -17,8 +20,11 @@ import { featureService } from './features';
     studentlist,
     TicketsService,
     AnalyticsService,
-    featureService
-  ],
+    featureService,
+    ParticipantsService,
+    ArticleService,
+    CommonService
+],
   exports: [
   ]
 })

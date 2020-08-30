@@ -1,58 +1,64 @@
-<html>
+
+
 <style>
-input[type=text], select {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  display: inline-block;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  box-sizing: border-box;
-}
-
-input[type=submit] {
-  width: 100%;
-  background-color: #000000;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-input[type=submit]:hover {
-  background-color: #000000;
-}
-
-div {
-  border-radius: 5px;
-  background-color: #f2f2f2;
-  padding: 20px;
-}
-</style>
-<body>
-
-<h3>Create Article</h3>
-
-<div>
-  <form action="/action_page.php">
-    <label for="fname">Name of Author</label>
-    <input type="text" id="fname" name="Aname"><br><br>
-
-    <label for="lname">Article title</label>
-    <input type="text" id="lname" name="Aname"><br><br>
-
-    <label for="img">Select image:</label>
-    <input type="file" id="img" name="img" accept="image/*"><br><br>
-
-    <label for="ftext">Article text</label>
-    <input type="text" id="ftext" name="Atext"><br><br>
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
   
-    <input type="submit" value="Submit">
+  input[type=submit] {
+    width: 100%;
+    background-color: #000000;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  input[type=submit]:hover {
+    background-color: #000000;
+  }
+  
+  div {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+  }
+  </style>
+<body>  
+  <h3>Create Article</h3>
+  
+<div class="modal-body" >
+  <form>
+    <div class="form-row" >
+      <div class="form-group col-sm-12">
+        <label for="author">Article Title</label>
+        <textarea class="form-control" rows="5" id="author" name="author" [(ngModel)]="article.author" name = "first"></textarea>
+      </div>
+    </div>
+    <div class="form-row">
+      <div class="form-group col-sm-12">
+        <label for="body">Article</label>
+        <textarea class="form-control" rows="5" id="body" [(ngModel)]="article.body" name="second"></textarea>
+      </div>
+    </div>
   </form>
 </div>
 
+<div class="modal-footer">
+  <div class="pull-left">
+    <button style="margin:5px" class="btn btn-success" (click)="onSavearticle()">{{'Save'}}</button>
+    <button class="btn btn-success" (click)="onCancelarticle()">{{'Reset'}}</button> 
+
+  </div>
+</div> 
+
 </body>
-</html>
 

@@ -7,6 +7,7 @@ import { AnalyticsService } from 'src/services/analytics.service';
 import * as Chart from 'chart.js';
 import 'chartjs-plugin-datalabels';
 import { DatePipe } from '@angular/common';
+import { CommonService } from 'src/services/common.service';
 
 @Component({
   selector: 'analytics-overview',
@@ -94,15 +95,16 @@ export class AnalyticsOverviewComponent {
 
   constructor(
     private analyticsService: AnalyticsService,
-    private datePipe: DatePipe) { }
+    private datePipe: DatePipe,
+    private commonService: CommonService) { }
   
-  ngOnInit() {
-    this.prepareDoughnutChartForSubmissionsPerLanguage();
-    this.prepareDoughnutChartForCorrectSubmissionsPerRegion();
-    this.prepareBarChartForAttemptsPerQuestion();
-    this.prepareBarChartForSubmissionsPerWeek();
-    this.prepareLineCharForAcceptedVsRejectedSolutionsPerQuestion();
-    this.prepareLineChartForParticipationPerRegion();
+  async ngOnInit() {
+    await this.prepareDoughnutChartForSubmissionsPerLanguage();
+    await this.prepareDoughnutChartForCorrectSubmissionsPerRegion();
+    await this.prepareBarChartForAttemptsPerQuestion();
+    await this.prepareBarChartForSubmissionsPerWeek();
+    await this.prepareLineCharForAcceptedVsRejectedSolutionsPerQuestion();
+    await this.prepareLineChartForParticipationPerRegion();
   }
 
   prepareLineChartForParticipationPerRegion() {
@@ -144,9 +146,19 @@ export class AnalyticsOverviewComponent {
     };
   }
 
-  prepareLineCharForAcceptedVsRejectedSolutionsPerQuestion() {
-    const successful = this.analyticsService.getSuccessfulAttemptsPerQuestion();
-    const rejected = this.analyticsService.getUnsuccessfulAttemptsPerQuestion();
+  async prepareLineCharForAcceptedVsRejectedSolutionsPerQuestion() {
+    const outputSuccess = await this.analyticsService.getSuccessfulAttemptsPerQuestion().toPromise();
+    const outputReject = await this.analyticsService.getUnsuccessfulAttemptsPerQuestion().toPromise();
+
+    var successful = [];
+    var rejected = [];
+
+    Object.keys(outputSuccess).forEach(question => {
+      successful.push({ Question: question, Value: outputSuccess[question] });
+    });
+    Object.keys(outputReject).forEach(question => {
+      rejected.push({ Question: question, Value: outputReject[question] });
+    });
     this.AcceptedVsRejectedLineChartData.push({ data: successful.map(question => question.Value), label: 'Accepted Solutions' });
     this.AcceptedVsRejectedLineChartData.push({ data: rejected.map(question => question.Value), label: 'Rejected Solutions' });
     successful.forEach(question => {
@@ -173,24 +185,49 @@ export class AnalyticsOverviewComponent {
     };
   }
 
-  prepareDoughnutChartForSubmissionsPerLanguage() {
-    const result = this.analyticsService.getNumberOfSubmissionsPerLanguage();
+  async prepareDoughnutChartForSubmissionsPerLanguage() {
+    const output = await this.analyticsService.getNumberOfSubmissionsPerLanguage().toPromise();
+    const languages = await this.commonService.loadLanguages();
+    var result = [];
+    languages.forEach(lang => {
+      result.push({ Language: lang === 'CPLUSPLUS' ? 'C++' : (lang === 'CSHARP' ? 'C#' : lang), 
+        Value: Object.keys(output).findIndex(language => language === lang) >= 0
+      ? output[lang] : 0 });
+    });
     this.doughnutChartData.push(result.map(language => (language.Value)));
     result.forEach(language => {
       this.doughnutChartLabels.push(language.Language);
     });
   }
 
-  prepareDoughnutChartForCorrectSubmissionsPerRegion() {
-    const result2 = this.analyticsService.getCorrectSubmissionsPerRegion();
+  async prepareDoughnutChartForCorrectSubmissionsPerRegion() {
+    const output = await this.analyticsService.getCorrectSubmissionsPerRegion().toPromise();
+    const regions = this.commonService.loadRegions();
+    const result2 = [];
+    regions.forEach(region => {
+      result2.push({ Region: region, Value: Object.keys(output).findIndex(reg => reg === region) >= 0 
+        ? output[region] : 0});
+    });
+    console.log(result2);
     this.CorrectSubmissionsPerRegionChartData.push(result2.map(region => (region.Value)));
     result2.forEach(region => {
       this.CorrectSubmissionsPerRegionChartLabels.push(region.Region);
     });
   }
 
-  prepareBarChartForSubmissionsPerWeek() {
-    const result = this.analyticsService.getNumberOfSubmissionsPerWeek();
+  async prepareBarChartForSubmissionsPerWeek() {
+    const output = await this.analyticsService.getNumberOfSubmissionsPerWeek().toPromise();
+    var result = [];
+    Object.keys(output).forEach(element => {
+      result.push({ Week: element, Value: output[element]});
+    });
+    if (Object.keys(output).length === 0) {
+      result.push({ Week: 1, Value: 0});
+      result.push({ Week: 2, Value: 0});
+      result.push({ Week: 3, Value: 0});
+      result.push({ Week: 4, Value: 0});
+    }
+
     this.SubmissionsPerWeekBarChartColors = [
       { backgroundColor: '#c4fb6d' }
     ];
@@ -223,8 +260,13 @@ export class AnalyticsOverviewComponent {
     });
   }
 
-  prepareBarChartForAttemptsPerQuestion() {
-    const result3 = this.analyticsService.getAttemptsPerQuestion();
+  async prepareBarChartForAttemptsPerQuestion() {
+    const output = await this.analyticsService.getAttemptsPerQuestion().toPromise();
+    const result3 = [];
+    for (let i = 0; i < 9; i++) {
+      result3.push({ Question: i+1, Value: output[i+1] });
+    }
+    console.log(result3);
     this.AttemptsPerQuestionBarChartOptions = {
       responsive: true,
       maintainAspectRatio: false,

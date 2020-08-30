@@ -34,11 +34,11 @@ export class NavBarComponent {
 			},
 			{
 				'Title': 'Participants',
-				'Location': '/',
+				'Location': '/participants',
 				'IsActive': false 
 			},
 			{
-				'Title': 'New & Media',
+				'Title': 'News & Media',
 				'Location': '/news',
 				'IsActive': false
 			},
