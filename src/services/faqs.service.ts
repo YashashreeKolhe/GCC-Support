@@ -28,18 +28,12 @@ export class FaqsService {
         'Others'
     ];
   }
-
-  loadNames(): Name[] {
-    return [
-      { Category: 'Questions', 'Name': 'Yashashree' },
-      { Category: 'Questions', 'Name': 'Kunal' },
-      { Category: 'Others', 'Name': 'Himani' },
-      { Category: 'Others', 'Name': 'Yllnore' },
-      { Category: 'Others', 'Name': 'Sai' }
-    ];
-  }
-
+  
   saveFaq(faq: FAQ): Observable<boolean> {
     return this.http.post<boolean>(`${this.endpoint}/faqs/add`, faq);
+  }
+
+  updateFaq(faq: FAQ): Observable<boolean> {
+    return this.http.post<boolean>(`${this.endpoint}/faqs/edit`, faq);
   }
 }

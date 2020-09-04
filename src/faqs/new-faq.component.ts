@@ -44,13 +44,18 @@ export class  NewFaqComponent {
   onChangeCategory(newCategory: string) {
     if (newCategory === 'Others') {
       this.names = this.nameStore;
+    } else {
+      this.names = this.nameStore.filter(name => name.Category === newCategory);
     }
-    this.names = this.nameStore.filter(name => name.Category === newCategory);
   }
 
   async onSaveFaq() {
     if (this.validateFaq()) {
-      await this.faqsService.saveFaq(this.faq).toPromise();
+      if (this.faq.id) {
+        await this.faqsService.updateFaq(this.faq).toPromise();
+      } else {
+        await this.faqsService.saveFaq(this.faq).toPromise();
+      }
       this.toastr.success('FAQ saved successfully', 'Success');
       this.save.emit();
     } else {

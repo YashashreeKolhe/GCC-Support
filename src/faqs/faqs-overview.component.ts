@@ -46,7 +46,7 @@ export class FaqsOverviewComponent {
     private modalService: BsModalService,
     private faqsService: FaqsService) {}
 
-  ngOnInit() {
+  async ngOnInit() {
     this.configureGrid();
     this.onTabChange('Questions');
   }
@@ -72,8 +72,8 @@ export class FaqsOverviewComponent {
   }
 
   async onTabChange(tabTitle: string) {
-    await this.loadFAQs();
     this.selectedTab = tabTitle;
+    await this.loadFAQs();
     switch (tabTitle) {
       case 'Questions': {
         this.rowData = this.faqsList.filter(faq => faq.category === 'Questions');
@@ -119,24 +119,24 @@ export class FaqsOverviewComponent {
 
   getColumnDefs(): ColDef[] {
     return [
-      {
-        headerName: 'Sr. No.',
-        field: 'id',
-        width: 100,
-        hide: true,
-        filter: false
-      },
+      // {
+      //   headerName: 'Sr. No.',
+      //   field: 'id',
+      //   width: 100,
+      //   hide: true,
+      //   filter: false
+      // },
       {
         headerName: 'Question',
         field: 'question',
-        width: 590,
+        width: 500,
         filter: 'agTextColumnFilter',
         cellStyle: { 'white-space': 'normal' }
       },
       {
         headerName: 'Answer',
         field: 'answer', 
-        width: 590,
+        width: 500,
         filter: 'agTextColumnFilter',
       },
       {
