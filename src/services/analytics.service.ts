@@ -11,7 +11,7 @@ export class AnalyticsService {
   endpoint: string = 'https://gcc-global-dev.herokuapp.com';
 
   getAttemptsPerQuestion(): Observable<any> {
-    return this.http.get<any>(`${this.endpoint}//monitoring/attemptsPerQuestion`);
+    return this.http.get<any>(`${this.endpoint}/monitoring/attemptsPerQuestion`);
   }
 
   getCorrectSubmissionsPerRegion(): Observable<any[]> {

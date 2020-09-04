@@ -48,6 +48,9 @@ export class scoreOverviewComponent {
     this.filterData(this.selectedDropdown);
   }
 
+  exportGrid() {
+    this.gridApi.exportDataAsCsv({ fileName: 'scores.csv'});
+  }
 
   async filterData(dropdowntitle: string) {
     this.selectedDropdown = dropdowntitle;

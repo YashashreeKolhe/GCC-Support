@@ -16,22 +16,22 @@
                   <span (click)="activeTab = tab.title">{{ tab.title }}</span>
                 </ng-template>
                 <ng-template ngbTabContent>
-                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Global Statistics'">
+                  <div class="card-body" style="color: white" style="padding: 15px" *ngIf="activeTab === 'Global Statistics'">
                     <div class="row">
                       <div class="col-sm-4">
-                        <div class="card border-info">
-                          <div class="card-header bg-info">
+                        <div class="card border-default">
+                          <div class="card-header bg-default">
                             Accepted vs Rejected Solutions
                             <div class="pull-right">
-                              <button class="btn btn-sm btn-warning">
-                                <a href="#" style="color: black" title="Export to png" (click)="downloadAcceptedVsRejected($event)">Export</a>
+                              <button class="btn btn-sm btn-success">
+                                <a href="#" style="color: white" title="Export to png" (click)="downloadAcceptedVsRejected($event)">Export</a>
                               </button>
                             </div>
                           </div>
                           <div class="card-body">
                             <canvas baseChart 
-                              height="250px"
-                              width="500px"
+                              height="300px"
+                              width="300px"
                               [datasets]="AcceptedVsRejectedLineChartData" 
                               [labels]="AcceptedVsRejectedLineChartLabels" 
                               [options]="AcceptedVsRejectedLineChartOptions"
@@ -44,20 +44,20 @@
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="card border-info">
-                          <div class="card-header bg-info">
+                        <div class="card border-default">
+                          <div class="card-header bg-default">
                             Correct Submissions Per Region
                             <div class="pull-right">
-                              <button class="btn btn-sm btn-warning">
-                                <a href="#" style="color: black" title="Export to png" (click)="downloadCorrectSubmissionsPerRegion($event)">Export</a>
+                              <button class="btn btn-sm btn-success">
+                                <a href="#" style="color: white" title="Export to png" (click)="downloadCorrectSubmissionsPerRegion($event)">Export</a>
                               </button>
                             </div>
                           </div>
                           <div class="card-body">
                             <div class="chart-wrapper">
                               <canvas baseChart
-                                height="250px"
-                                width="250px"
+                                height="300px"
+                                width="300px"
                                 [data]="CorrectSubmissionsPerRegionChartData"
                                 [labels]="CorrectSubmissionsPerRegionChartLabels"
                                 [chartType]="doughnutChartType"
@@ -70,19 +70,19 @@
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="card border-info">
-                          <div class="card-header bg-info">
+                        <div class="card border-default">
+                          <div class="card-header bg-default">
                             Attempts Per Question
                             <div class="pull-right">
-                              <button class="btn btn-sm btn-warning">
-                                <a href="#" style="color: black" title="Export to png" (click)="downloadAttemptsPerQuestion($event)">Export</a>
+                              <button class="btn btn-sm btn-success">
+                                <a href="#"  style="color: white" title="Export to png" (click)="downloadAttemptsPerQuestion($event)">Export</a>
                               </button>
                             </div>
                           </div>
                           <div class="card-body">
                             <div class="chart-wrapper">
                               <canvas baseChart 
-                                height="250px"
+                                height="300px"
                                 [datasets]="AttemptsPerQuestionBarChartData"
                                 [labels]="AttemptsPerQuestionBarChartLabels"
                                 [options]="AttemptsPerQuestionBarChartOptions"
@@ -99,20 +99,20 @@
 
                     <div class="row" style="margin-top: 15px;">
                       <div class="col-sm-4">
-                        <div class="card border-info">
-                          <div class="card-header bg-info">
+                        <div class="card border-default">
+                          <div class="card-header bg-default">
                             Number of Submissions Per Language
                             <div class="pull-right">
-                              <button class="btn btn-sm btn-warning">
-                                <a href="#" style="color: black" title="Export to png" (click)="downloadNoOfSubmissionsPerLang($event)">Export</a>
+                              <button class="btn btn-sm btn-success">
+                                <a href="#" style="color: white" title="Export to png" (click)="downloadNoOfSubmissionsPerLang($event)">Export</a>
                               </button>
                             </div>
                           </div>
                           <div class="card-body">
                             <div class="chart-wrapper">
                               <canvas baseChart
-                                height="250px"
-                                width="250px"
+                                height="300px"
+                                width="300px"
                                 [data]="doughnutChartData"
                                 [labels]="doughnutChartLabels"
                                 [chartType]="doughnutChartType"
@@ -125,18 +125,18 @@
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="card border-info">
-                          <div class="card-header bg-info">
+                        <div class="card border-default">
+                          <div class="card-header bg-default">
                             Number of Submissions Per Week
                             <div class="pull-right">
-                              <button class="btn btn-sm btn-warning">
-                                <a href="#" style="color: black" title="Export to png" (click)="downloadNoOfSubmissionsPerWeek($event)">Export</a>
+                              <button class="btn btn-sm btn-success">
+                                <a href="#" style="color: white" title="Export to png" (click)="downloadNoOfSubmissionsPerWeek($event)">Export</a>
                               </button>
                             </div>
                           </div>
                           <div class="card-body">
                             <canvas baseChart 
-                                height="250px"
+                                height="300px"
                                 [datasets]="SubmissionsPerWeekBarChartData"
                                 [labels]="SubmissionsPerWeekBarChartLabels"
                                 [options]="SubmissionsPerWeekBarChartOptions"
@@ -149,18 +149,18 @@
                         </div>
                       </div>
                       <div class="col-sm-4">
-                        <div class="card border-info">
-                          <div class="card-header bg-info">
+                        <div class="card border-default">
+                          <div class="card-header bg-default">
                             Participation Per Region
                             <div class="pull-right">
-                              <button class="btn btn-sm btn-warning">
-                                <a href="#" style="color: black" title="Export to png" (click)="downloadParticipationPerRegion($event)">Export</a>
+                              <button class="btn btn-sm btn-success">
+                                <a href="#" style="color: white"  title="Export to png" (click)="downloadParticipationPerRegion($event)">Export</a>
                               </button>
                             </div>
                           </div>
                           <div class="card-body">
                             <canvas baseChart 
-                              height="250px"
+                              height="300px"
                               [datasets]="ParticipationPerRegionLineChartData" 
                               [labels]="ParticipationPerRegionLineChartLabels" 
                               [options]="ParticipationPerRegionLineChartOptions"

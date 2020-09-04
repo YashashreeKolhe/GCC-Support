@@ -5,6 +5,6 @@ export interface ITab{
 
   export interface TEXT {
     id: String;
-    Value: String;
+    author: String;
   }
   

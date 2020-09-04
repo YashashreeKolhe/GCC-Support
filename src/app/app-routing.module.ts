@@ -12,8 +12,8 @@ import { AnalyticsOverviewComponent } from 'src/analytics/analytics-overview.com
 import { AnalyticsModule } from 'src/analytics/analytics.module';
 import { contactOverviewComponent } from 'src/contactus/contact-overview.component';
 import { contactModule } from 'src/contactus/contact.module';
-import { newsOverviewComponent } from 'src/news/news-overview.component';
-import { newsModule } from 'src/news/news.module';
+import { NewsOverviewComponent } from 'src/news/news-overview.component';
+import { NewsModule } from 'src/news/news.module';
 import { ServerMonitoringComponent } from 'src/server-monitoring/server-monitoring.component';
 import { ServerMonitoringModule } from 'src/server-monitoring/server-monitoring.module';
 import { ParticipantsModule } from 'src/participants/participants.module';
@@ -26,7 +26,7 @@ const routes: Routes = [
   { path: 'tickets', component: TicketsOverviewComponent, pathMatch: 'full' },
   { path: 'analytics', component: AnalyticsOverviewComponent, pathMatch: 'full' },
   { path: 'contact', component: contactOverviewComponent, pathMatch: 'full' },
-  { path: 'news', component: newsOverviewComponent, pathMatch: 'full' },
+  { path: 'news', component: NewsOverviewComponent, pathMatch: 'full' },
   { path: 'server', component: ServerMonitoringComponent, pathMatch: 'full' },
   { path: 'participants', component: ParticipantsComponent, pathMatch: 'full' }
 ];
@@ -39,7 +39,7 @@ const routes: Routes = [
     scoreModule,
     TicketsModule,
     AnalyticsModule,
-    newsModule,
+    NewsModule,
     contactModule,
     ParticipantsModule,
     ServerMonitoringModule

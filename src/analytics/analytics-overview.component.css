@@ -1,5 +1,5 @@
-.border-info {
-  border: 1px solid #17a2b8!important;
+.border-default {
+  border: 2px solid rgba(0,0,0,.03)!important;
 }
 
 .card-body {

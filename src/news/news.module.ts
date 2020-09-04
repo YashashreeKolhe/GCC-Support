@@ -7,20 +7,19 @@ import { ToastrModule } from 'ngx-toastr';
 import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule } from '@angular/forms';
 import { ServicesModule } from '../services/services.module';
-import {newsOverviewComponent } from './news-overview.component';       
-import { logWarnings } from 'protractor/built/driverProviders';
+import { NewsOverviewComponent } from './news-overview.component';       
 import {videoComponent} from './video.component';
-import { featureComponent } from './features.component';
 import { uploadArticleComponent } from './uploadArticle.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ArticleService } from 'src/services/article.service';
+import { Content } from '@angular/compiler/src/render3/r3_ast';
+import{ArticleContent} from './article-content'
 
 @NgModule({
   declarations: [
-    newsOverviewComponent,
+    NewsOverviewComponent,
     videoComponent,
-    featureComponent,
     uploadArticleComponent,
+    ArticleContent,
   ],
   imports: [
     BrowserModule,
@@ -39,10 +38,10 @@ import { ArticleService } from 'src/services/article.service';
   providers: [],
 
   exports: [
-    newsOverviewComponent,
+    NewsOverviewComponent,
     videoComponent,
-    featureComponent,
     uploadArticleComponent,
+    ArticleContent
   ]
 })
-export class newsModule { }
+export class NewsModule { }

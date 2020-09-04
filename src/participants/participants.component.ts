@@ -46,6 +46,17 @@ export class ParticipantsComponent {
     this.gridApi = params.api;
   }
 
+  exportGrid() {
+    this.gridApi.exportDataAsCsv({ fileName: 'participants.csv' });
+  }
+
+  clearFilter() {
+    this.selectedRegion = 'None';
+    this.selectedUniversity = 'None';
+    this.selectedUniversity = 'None';
+    this.rowData = this.participantsList;
+  }
+
   async onRegionFilter() {
     this.rowData = this.participantsList.filter(participant => participant.region == this.selectedRegion);
     this.gridApi.setRowData(this.rowData);

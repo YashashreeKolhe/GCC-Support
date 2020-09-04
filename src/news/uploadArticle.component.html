@@ -1,64 +1,74 @@
-
-
-<style>
-  input[type=text], select {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box;
-  }
-  
-  input[type=submit] {
-    width: 100%;
-    background-color: #000000;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  input[type=submit]:hover {
-    background-color: #000000;
-  }
-  
-  div {
-    border-radius: 5px;
-    background-color: #f2f2f2;
-    padding: 20px;
-  }
-  </style>
-<body>  
-  <h3>Create Article</h3>
-  
-<div class="modal-body" >
-  <form>
-    <div class="form-row" >
-      <div class="form-group col-sm-12">
-        <label for="author">Article Title</label>
-        <textarea class="form-control" rows="5" id="author" name="author" [(ngModel)]="article.author" name = "first"></textarea>
-      </div>
+<div class="card-body">
+  <h3>New Article/Newsletter/Feature</h3>
+  <div class="row">
+    <div class="col-sm-12">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-sm-9">
+            <label for="title">Title</label>
+            <input class="form-control" id="title" name="title" [(ngModel)]="article.title" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-9">
+            <label for="subHeading">Sub Heading</label>
+            <input class="form-control" id="subHeading" name="subHeading" [(ngModel)]="article.subHeading" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-3">
+            <label for="author">Author</label>
+            <input class="form-control" id="author" name="author" [(ngModel)]="article.author" />
+          </div>
+          <div class="form-group col-sm-3">
+            <label for="region">Region</label>
+            <select class="form-control" [(ngModel)]="article.region" name="region" #item>
+              <option *ngFor="let region of regions" id="region" [value]="region">{{region}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group col-sm-3">
+            <label for="type">Type of content</label>
+            <select class="form-control" [(ngModel)]="article.type" name="type" #item>
+              <option *ngFor="let type of types" id="type" [value]="type">{{type}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-9">
+            <label for="category">Image</label>
+            <div class="custom-file">
+              <input type="file" class="custom-file-input" id="customFile">
+              <label class="custom-file-label" accept="image/*" for="customFile" #imageInput (change)="onFileSelected(imageInput)">Choose file</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row" *ngFor="let paragraph of article.paragraphs; let indexElement = index">
+          <div class="form-group col-sm-9">
+            <label for="para">Paragraph {{indexElement + 1}}</label>
+            <textarea class="form-control" rows="3" id="para" name="para" (change)="onFirstParaChange()" [(ngModel)]="firstPara" [value]="paragraph"></textarea>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group pull-right">
+            <button class="btn btn-primary" (click)="addParagraphFlag = 1">Add Paragraph</button>
+          </div>
+        </div>
+        <div class="form-row" *ngIf="addParagraphFlag === 1">
+          <div class="form-group col-sm-9">
+            <label for="Note">Paragraph</label>
+            <textarea class="form-control" rows="3" id="Note" name="Note" [(ngModel)]="newParagraph"></textarea>
+            <button class="btn btn-link" style="float: right;" (click)="addParagraph()">Save Paragraph</button>
+          </div>
+        </div>
+      </form>
     </div>
-    <div class="form-row">
-      <div class="form-group col-sm-12">
-        <label for="body">Article</label>
-        <textarea class="form-control" rows="5" id="body" [(ngModel)]="article.body" name="second"></textarea>
-      </div>
-    </div>
-  </form>
-</div>
-
-<div class="modal-footer">
-  <div class="pull-left">
-    <button style="margin:5px" class="btn btn-success" (click)="onSavearticle()">{{'Save'}}</button>
-    <button class="btn btn-success" (click)="onCancelarticle()">{{'Reset'}}</button> 
-
   </div>
-</div> 
-
-</body>
-
+</div>
+<div class="modal-footer">
+  <div class="pull-left" *ngIf="mode !== 0">
+    <button style="margin:5px" class="btn btn-primary" (click)="onSaveArticle()">{{ mode === 1 ? 'Save' : 'Update' }}</button>
+    <button class="btn btn-info" (click)="onResetArticle()">Reset</button>
+  </div>
+</div>

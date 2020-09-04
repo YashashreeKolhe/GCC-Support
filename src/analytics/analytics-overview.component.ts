@@ -122,7 +122,7 @@ export class AnalyticsOverviewComponent {
         ctx.save();
         ctx.fillStyle = 'white';
   
-        ctx.fillRect(chartArea.left - 40, top, chartArea.right - chartArea.left + 80, chartArea.bottom + 40 - top);
+        ctx.fillRect(chartArea.left - 80, top - 40, chartArea.right - chartArea.left + 160, chartArea.bottom - top + 80);
         ctx.restore();
       }
     }];
@@ -202,7 +202,7 @@ export class AnalyticsOverviewComponent {
 
   async prepareDoughnutChartForCorrectSubmissionsPerRegion() {
     const output = await this.analyticsService.getCorrectSubmissionsPerRegion().toPromise();
-    const regions = this.commonService.loadRegions();
+    const regions = this.commonService.loadRegions().filter(reg => reg !== 'GLOBAL');
     const result2 = [];
     regions.forEach(region => {
       result2.push({ Region: region, Value: Object.keys(output).findIndex(reg => reg === region) >= 0 

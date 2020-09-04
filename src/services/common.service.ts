@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Participant } from 'src/participants/model';
+import { Name } from 'src/faqs/model';
 
 @Injectable()
 export class CommonService {
@@ -34,6 +35,7 @@ export class CommonService {
       'SEA',
       'SWIS',
       'ROW',
+      'GLOBAL'
     ];
   }
 
@@ -45,5 +47,35 @@ export class CommonService {
       'PYTHON',
       'JAVASCRIPT'
     ]
+  }
+
+  loadNames(): Name[] {
+    return [
+      { Category: 'Others', 'Name': 'Yashashree Kolhe' },
+      { Category: 'Others', 'Name': 'Himani Mody' },
+      { Category: 'Others', 'Name': 'Yllnore Shehi' },
+      { Category: 'Others', 'Name': 'Sai Paila' },
+      { Category: 'Others', 'Name': 'Thomas Josephson' },
+      { Category: 'Others', 'Name': 'Raluca Lusca' },
+      { Category: 'Others', 'Name': 'Mathusha Mohan' },
+      { Category: 'Questions', 'Name': 'Snehal Ingle' },
+      { Category: 'Questions', 'Name': 'Irmak Goksu' },
+      { Category: 'Questions', 'Name': 'Dave Or' },
+      { Category: 'Questions', 'Name': 'Zuzanna Deutschman' },
+      { Category: 'Scores/Evaluation', 'Name': 'Neha Jeevan' },
+      { Category: 'Scores/Evaluation', 'Name': 'Abhishek Kuvalekar' },
+      { Category: 'Scores/Evaluation', 'Name': 'Shweta Zawar' },
+      { Category: 'Scores/Evaluation', 'Name': 'Shreyansh Sancheti' },
+      { Category: 'Scores/Evaluation', 'Name': 'Tanuj Kadiyala' },
+      { Category: 'Scores/Evaluation', 'Name': 'Jahnavi Sistla' },
+      { Category: 'Scores/Evaluation', 'Name': 'Heran Zhang' },
+      { Category: 'Registration', 'Name': 'Dragos Popa' },
+      { Category: 'Registration', 'Name': 'Jordan Angeline' },
+      { Category: 'Registration', 'Name': 'Deepthi Rao' },
+      { Category: 'Registration', 'Name': 'Jack Redpath' },
+      { Category: 'Registration', 'Name': 'Reis Gardner' },
+      { Category: 'Registration', 'Name': 'Ryan Regal' },
+      { Category: 'Registration', 'Name': 'Florian Lehmann' },
+    ];
   }
 }

@@ -2,6 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FAQ, Name } from './model';
 import { FaqsService } from 'src/services/faqs.service';
 import { ToastrService } from 'ngx-toastr';
+import { CommonService } from 'src/services/common.service';
 
 @Component({
   selector: 'new-faq',
@@ -19,14 +20,15 @@ export class  NewFaqComponent {
 
   constructor(
     private faqsService: FaqsService,
-    private toastr: ToastrService,) {}
+    private toastr: ToastrService,
+    private commonService: CommonService) {}
 
   ngOnInit() {
     if (this.faq === null) {
       this.faq = this.initializeFaq();
     }
     this.categories = this.faqsService.loadCategories();
-    this.nameStore = this.faqsService.loadNames();
+    this.nameStore = this.commonService.loadNames();
     this.onChangeCategory('Others');
   }
 

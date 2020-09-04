@@ -5,6 +5,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Ticket, ITab, Category, Status } from './model';
 import { TicketsService } from 'src/services/tickets.service';
 import { Name } from 'src/faqs/model';
+import { CommonService } from 'src/services/common.service';
 
 @Component({
   selector: 'tickets-overview',
@@ -20,7 +21,7 @@ export class TicketsOverviewComponent {
   defaultColDef;
   mode: number;
   names: Name[];
-  statusValues: string[] = [ 'OPEN', 'IN_PROGRESS', 'ESCALATED', 'RESOLVED' ];
+  statusValues: string[] = [ 'OPEN', 'IN_PROGRESS', 'ESCALATED', 'CLOSED' ];
   tabData: Ticket[];
   ticketsList: Ticket[];
 
@@ -51,11 +52,13 @@ export class TicketsOverviewComponent {
   
   constructor(
     private modalService: BsModalService,
-    private ticketsService: TicketsService) { }
+    private ticketsService: TicketsService,
+    private commonService: CommonService) { }
 
-  ngOnInit() {
-    this.names = this.ticketsService.loadNames();
+  async ngOnInit() {
+    this.names = this.commonService.loadNames();
     this.configureGrid();
+    await this.loadTickets();
     this.onTabChange('Questions');
   }
 
@@ -101,7 +104,7 @@ export class TicketsOverviewComponent {
   }
 
   async onTabChange(tabTitle: string) {
-    await this.loadTickets();
+    // await this.loadTickets();
     switch (tabTitle) {
       case 'Questions': {
         this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Questions');
@@ -117,10 +120,11 @@ export class TicketsOverviewComponent {
       }
       case 'Unassigned': {
         this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Unassigned' || 
-        ticket.category === null || ticket.category === '');
+        ticket.category === null || ticket.category === '' || ticket.category === 'Others');
         break;
       }
     }
+    this.gridApi.setRowData(this.rowData);
     this.tabData = JSON.parse(JSON.stringify(this.rowData));
   }
 
@@ -161,19 +165,18 @@ export class TicketsOverviewComponent {
         width: 170,
         filter: false
       },
+      // {
+      //   headerName: 'Subject',
+      //   field: 'subject',
+      //   width: 150,
+      //   filter: 'agTextColumnFilter',
+      //   cellStyle: { 'white-space': 'normal' }
+      // },
       {
-        headerName: 'Subject',
-        field: 'subject',
-        width: 150,
+        headerName: 'Submitted By',
+        field: 'email',
+        width: 160,
         filter: 'agTextColumnFilter',
-        cellStyle: { 'white-space': 'normal' }
-      },
-      {
-        headerName: 'Description',
-        field: 'description',
-        width: 300,
-        filter: 'agTextColumnFilter',
-        cellStyle: { 'white-space': 'normal' }
       },
       {
         headerName: 'Category',
@@ -185,10 +188,11 @@ export class TicketsOverviewComponent {
         }
       },
       {
-        headerName: 'Submitted By',
-        field: 'email',
-        width: 160,
+        headerName: 'Description',
+        field: 'description',
+        width: 300,
         filter: 'agTextColumnFilter',
+        cellStyle: { 'white-space': 'normal' }
       },
       {
         headerName: 'Answer',

@@ -16,56 +16,42 @@
                   <span (click)="activeTab = tab.title">{{ tab.title }}</span>
                 </ng-template>
                 <ng-template ngbTabContent>
-                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Latest from GCC'">
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Latest Content'">
                     <div class="row">
-                      <div class="col-sm-4">
-                        <div class="card border-info">
-                          <div class="card-body">
-                          <head>
-                            <title>Bootstrap Example</title>
-                            <meta charset="utf-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1">
-                            <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-                            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-                            <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-                          </head>
-                            <div class="container">
+                      <div class="col-sm-12">
+                        <form>
+                          <div style="display: inline-block; padding-right: 20px;" *ngFor="let region of regions">
+                            <label class="form-check-inline">
+                              <input class="form-check-input" type="radio" name="mode" [value]="region"
+                                [(ngModel)]="selectedRegion" (click)="onRegionSelectionChanged()">
+                              {{region}}
+                            </label>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                      <div class="col-sm-12">
+                        <div class="row">
+                          <div class="col-sm-4" *ngFor="let article of articles">
+                            <div class="container border-default" style="padding: 20px">
                               <form>
-                                <label class="checkbox-inline">
-                                  <input type="checkbox" checked="checked">Global
-                          
-                                </label>
-                                <label class="checkbox-inline">
-                                  <input type="checkbox">Switzerland
-                          
-                                </label>
-                                <label class="checkbox-inline">
-                                  <input type="checkbox">US
-                          
-                                </label>
-                                <label class="checkbox-inline">
-                                  <input type="checkbox">EMEA
-                          
-                                </label>
-                                <label class="checkbox-inline">
-                                  <input type="checkbox">APAC
-                               </label>
+                                <h3>{{ article.title }}</h3>
+                                <h5>{{ article.subHeading }}</h5>
+                                <pre>{{ article.paragraphs[0] }}</pre>
+                                <button class="btn btn-sm btn-success">Read More</button>
                               </form>
                             </div>
-                            <img src='http://192.168.0.22:8080/sampleimage.png' alt="Mountain" style="width:300px">
-                        </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Videos'">
-                    <news-features></news-features>
-                  </div>
                   <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Features'">
                     <news-video></news-video>
                   </div>
-                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Create Article'">
-                    <new-article></new-article>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Create Content'">
+                    <new-article [mode]="mode"></new-article>
                   </div>
                 </ng-template>
               </ngb-tab>
@@ -77,4 +63,3 @@
     <!-- </div> -->
   </div>
 </div>
-
