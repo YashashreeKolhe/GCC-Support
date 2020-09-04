@@ -37,7 +37,6 @@ export class uploadArticleComponent {
   initializeArticle(): Article {
     this.firstPara = '';
     return {
-      id: '',
       author: '',
       title: '',
       blurb: '',
@@ -58,9 +57,6 @@ export class uploadArticleComponent {
       // Uncomment this once saveImage endpoint is available
       // const imageurl = await this.articleservice.saveImage(this.file).toPromise();
       // this.article.imageUrl = imageUrl;
-
-      //remove this line
-      this.article.id = '123456';
 
       const result = await this.articleservice.savearticle(this.article).toPromise();
       this.toastr.success('Content saved successfully', 'Error');

@@ -110,14 +110,14 @@ export class scoreOverviewComponent {
       {
         headerName: 'Region',
         field: 'region',
-        width: 150,
+        width: 100,
         filter: 'agTextColumnFilter',
         cellStyle: { 'white-space': 'normal' }
       },
       {
         headerName: 'University',
         field: 'teamName',
-        width: 400,
+        width: 350,
         filter: 'agTextColumnFilter',
       },
       {

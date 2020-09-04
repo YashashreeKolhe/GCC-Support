@@ -1,3 +1,162 @@
-<div>
-    <h1>In Progress</h1>
+<head>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.0/css/bulma.min.css">
+</head>
+<section class="hero is-small is-bold ">
+  <div class="hero-body">
+    <div class="container has-text-centered">
+      <h1 class="title">Global Coding Challenge 2.0</h1>
+    </div>
+  </div>
+</section>
+<div class="card-body">
+  <div class="tile is-ancestor">
+    <div class="tile is-parent is-vertical is-6 has-text-dark">
+      <div class="tile">
+        <div class="tile is-parent is-vertical is-8 has-text-dark">
+          <div class="tile is-child box has-background-light">
+            <div class="title">
+              <h2 style="text-align:center">{{highestScore | number : '1.2-2'}}</h2>
+            </div>
+            <div class="subtitle">
+              <h5 style="text-align:center">Highest Score</h5>
+            </div>
+          </div>
+          <div class="tile is-child box has-background-light">
+            <div class="title">
+              <h2 style="text-align:center">{{topScorer}}</h2>
+            </div>
+            <div class="subtitle">
+              <h5 style="text-align:center">Top Scorer</h5>
+            </div>
+          </div>
+        </div>
+        <div class="tile is-parent is-vertical is-4">
+          <div class="tile is-child box has-background-light">
+            <div class="title is-center">
+              <h2 style="text-align:center">{{totalParticipants}}</h2>
+            </div>
+            <div class="subtitle">
+              <h5 style="text-align:center">Total Participants</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="tile is-parent has-text-dark">
+        <div class="tile is-child box has-background-light">
+          <div class="title">
+            <h2 style="text-align:center">00 Days 00 Hrs 00 Mins</h2>
+          </div>
+          <div class="subtitle">
+            <h5 style="text-align:center">Ends In</h5>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="tile is-parent is-vertical is-6 has-text-dark">
+      <div class="tile is-child box has-background-light">
+        <div class="tile">
+          <div class="tile is-parent is-vertical has-text-dark">
+            <div class="title">
+              <h2 style="text-align:center">Total Score</h2>
+            </div>
+            <div class="subtitle">
+              <h5 style="text-align:center">Per Region</h5>
+            </div>
+            <div class="content">
+              <nav class="level">
+                <div class="level-item has-text-centered border-default">
+                  <div>
+                    <p class="heading">AMC</p>
+                    <p class="title">{{AMCScore| number : '1.2-2'}}</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered border-default">
+                  <div>
+                    <p class="heading">EUROPE</p>
+                    <p class="title">{{EUROPEScore| number : '1.2-2'}}</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered border-default">
+                  <div>
+                    <p class="heading">INDIA</p>
+                    <p class="title">{{INDIAScore| number : '1.2-2'}}</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered border-default">
+                  <div>
+                    <p class="heading">ROW</p>
+                    <p class="title">{{ROWScore| number : '1.2-2'}}</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered border-default">
+                  <div>
+                    <p class="heading">SEA</p>
+                    <p class="title">{{SEAScore| number : '1.2-2'}}</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered border-default">
+                  <div>
+                    <p class="heading">SWIS</p>
+                    <p class="title">{{SWISScore| number : '1.2-2'}}</p>
+                  </div>
+                </div>
+                <div class="level-item has-text-centered border-default">
+                  <div>
+                    <p class="heading">UK</p>
+                    <p class="title">{{UKScore| number : '1.2-2'}}</p>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+
+<!-- for empty space-->
+<section class="section">
+  <div class="container">
+
+  </div>
+</section>
+
+<!-- ticket status bar -->
+<nav class="level">
+  <div class="level-item has-text-centered">
+    <div>
+      <p style="font-size:2vw">Ticket Status</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered border-default">
+    <div>
+      <p class="heading">Open</p>
+      <p class="title">{{openTickets}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered border-default">
+    <div>
+      <p class="heading">In Progress</p>
+      <p class="title">{{inProgressTickets}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered border-default">
+    <div>
+      <p class="heading">Closed</p>
+      <p class="title">{{closedTickets}}</p>
+    </div>
+  </div>
+  <div class="level-item has-text-centered border-default">
+    <div>
+      <p class="heading">Escalated</p>
+      <p class="title">{{escalatedTickets}}</p>
+    </div>
+  </div>
+</nav>
+<!-- Ticket Alert Message -->
+<!-- <article class="message is-danger is-small">
+    <div class="message-header">
+      <p>Ticket Alert : ID 123455667 needs immediate attention!</p>
+    </div>
+  </article> -->

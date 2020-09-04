@@ -58,7 +58,6 @@ export class TicketsOverviewComponent {
   async ngOnInit() {
     this.names = this.commonService.loadNames();
     this.configureGrid();
-    await this.loadTickets();
     this.onTabChange('Questions');
   }
 
@@ -104,7 +103,7 @@ export class TicketsOverviewComponent {
   }
 
   async onTabChange(tabTitle: string) {
-    // await this.loadTickets();
+    await this.loadTickets();
     switch (tabTitle) {
       case 'Questions': {
         this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Questions');

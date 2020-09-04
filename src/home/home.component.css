@@ -1,0 +1,94 @@
+body {
+  background-color: coral;
+}
+
+.hero.is-small .hero-body {
+  padding: 2rem;
+}
+
+@media screen and (min-width: 769px), print {
+  .hero.is-medium .hero-body {
+    padding: 9rem 1.5rem;
+  }
+}
+
+@media screen and (min-width: 769px), print {
+  .hero.is-large .hero-body {
+    padding: 18rem 1.5rem;
+  }
+}
+
+.hero.is-black {
+  background-color: #382d2d;
+  color: rgb(0, 0, 0);
+}
+
+.hero.is-black .title {
+  color: rgb(0, 0, 0);
+}
+
+.hero.is-black .subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.hero.is-dark {
+  background-color: #ccb6b6;
+  color: rgb(107, 104, 104);
+}
+
+.hero.is-dark .title {
+  color: rgb(248, 240, 240);
+}
+
+.hero.is-dark .subtitle {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.section {
+  padding: 1rem 1.5rem;
+}
+
+.tile.is-parent {
+  padding: 0.5rem;
+}
+
+.tile.is-child {
+  margin: 0 !important;
+  background-color: rgb(204, 199, 199) !important;
+  vertical-align: middle !important;
+}
+
+.tile.is-vertical > .tile.is-child:not(:last-child) {
+  margin-bottom: 0.75rem !important;
+}
+
+.has-background-light {
+  background-color: rgb(226, 223, 223) !important;
+}
+
+.message {
+  background-color: whitesmoke;
+  border-radius: 2px;
+  font-size: 1rem;
+}
+
+.message.is-danger .message-header {
+  background-color: #636161;
+  color: rgb(5, 5, 5);
+}
+
+.message.is-danger .message-body {
+  border-color: #f14668;
+  color: #cc0f35;
+}
+
+.level-item .title,
+.level-item .subtitle {
+margin-bottom: 0;
+color: #1d90d3;
+}
+
+.heading {
+  font-weight: bold;
+  font-size: 14px;
+}

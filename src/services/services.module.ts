@@ -9,6 +9,7 @@ import { featureService } from './features';
 import { ParticipantsService } from './participants.service';
 import { ArticleService } from './article.service';
 import { CommonService } from './common.service';
+import { GcchomeService } from './gcc-home.service';
 
 @NgModule({
  imports: [
@@ -23,7 +24,8 @@ import { CommonService } from './common.service';
     featureService,
     ParticipantsService,
     ArticleService,
-    CommonService
+    CommonService,
+    GcchomeService
 ],
   exports: [
   ]

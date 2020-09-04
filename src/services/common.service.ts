@@ -28,7 +28,7 @@ export class CommonService {
 
   loadRegions(): string[] {
     return [
-      'US',
+      'UK',
       'AMC',
       'INDIA',
       'EUROPE',
