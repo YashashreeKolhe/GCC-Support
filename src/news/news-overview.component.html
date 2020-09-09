@@ -37,9 +37,8 @@
                             <div class="container border-default" style="padding: 20px">
                               <form>
                                 <h3>{{ article.title }}</h3>
-                                <h5>{{ article.subHeading }}</h5>
-                                <pre>{{ article.paragraphs[0] }}</pre>
-                                <button class="btn btn-sm btn-success">Read More</button>
+                                <pre>{{ article.blurb }}</pre>
+                                <button class="btn btn-success" (click)="articlecontent(article.id)">Read More</button>
                               </form>
                             </div>
                           </div>
@@ -53,6 +52,7 @@
                   <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Create Content'">
                     <new-article [mode]="mode"></new-article>
                   </div>
+
                 </ng-template>
               </ngb-tab>
             </ngb-tabset>

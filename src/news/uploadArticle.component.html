@@ -44,6 +44,12 @@
             </div>
           </div>
         </div>
+        <div class="form-row">
+          <div class="form-group col-sm-9">
+            <label for="blurb">Blurb</label>
+            <textarea class="form-control" rows="2" id="blurb" name="blurb" [(ngModel)]="article.blurb"></textarea>
+          </div>
+        </div>
         <div class="form-row" *ngFor="let paragraph of article.paragraphs; let indexElement = index">
           <div class="form-group col-sm-9">
             <label for="para">Paragraph {{indexElement + 1}}</label>

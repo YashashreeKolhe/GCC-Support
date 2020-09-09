@@ -1,9 +1,11 @@
-import { Component,ViewChild,TemplateRef } from '@angular/core';
+import { Component, ViewChild, TemplateRef } from '@angular/core';
 import { CommonService } from 'src/services/common.service';
 import { ITab } from 'src/faqs/model';
-import{Article} from './article-model'
-import {BsModalRef, BsModalService  } from 'ngx-bootstrap/modal';
+import { Article } from './article-model'
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { ArticleService } from 'src/services/article.service';
+import { ArticleDetailsComponent } from './article-details.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'news',
@@ -15,7 +17,7 @@ export class NewsOverviewComponent {
   selectedarticle: Article;
   modalRef: BsModalRef;
   activeTab: string = 'Latest Content';
-  
+
   tabs: ITab[] = [
     {
       id: 1,
@@ -35,13 +37,19 @@ export class NewsOverviewComponent {
   selectedRegion: string;
   articles: Article[];
   mode: number = 1;
+  title: string;
 
   constructor(private commonService: CommonService,
-    private modalService:BsModalService,
-    private articleService: ArticleService) {} 
+    private modalService: BsModalService,
+    private articleService: ArticleService,
+    private router: Router) { }
 
-  @ViewChild('ArticleContent') ArticleContent: TemplateRef<any>;
+  @ViewChild('ArticleDetails') articleDetails: ArticleDetailsComponent;
 
+
+  articlecontent(articleId: number) {
+    this.router.navigateByUrl(`/news/${articleId}`);
+  }
 
   ngOnInit() {
     this.regions = this.commonService.loadRegions();
@@ -50,7 +58,7 @@ export class NewsOverviewComponent {
   }
 
   async loadArticles() {
-    const result = await this.articleService.getAllArticleHeadlines(this.selectedRegion)//.toPromise();
+    const result = await this.articleService.getAllArticleHeadlines(this.selectedRegion).toPromise();
     this.articles = result.headlines;
   }
 

@@ -59,7 +59,7 @@ export class uploadArticleComponent {
       // this.article.imageUrl = imageUrl;
 
       const result = await this.articleservice.savearticle(this.article).toPromise();
-      this.toastr.success('Content saved successfully', 'Error');
+      this.toastr.success('Content saved successfully', 'Success');
     } catch (e) {
       this.toastr.error("Save operation failed!", 'Error');
       return;

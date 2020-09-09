@@ -1,0 +1,51 @@
+<style>
+    article {
+        float: left;
+      padding: 20px;
+      width: 70% 
+    }
+    section:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+header {
+  background-color: #666;
+  padding: 30px;
+  text-align: center;
+  font-size: 35px;
+  color: white;
+}
+
+/* Style the footer */
+footer {
+  background-color: #777;
+  padding: 10px;
+  text-align: center;
+  color: white;
+}
+
+aside {
+  width: 30%;
+  padding-left: 15px;
+  margin-left: 15px;
+  float: right;
+  font-style: italic;
+  background-color: lightgray;
+}
+
+    </style>
+    <header>
+        <h2>{{text?.article?.title}}</h2> 
+      </header>
+      <marquee behavior="scroll" direction="right">Headlines - {{text?.article?.blurb}}</marquee>
+      <section>
+        <article>
+        <img src="https://www.w3schools.com/html/pic_trulli.jpg" alt="Article Image" style="float:right">
+      <p>{{text?.article?.paragraphs[0]}}</p>
+      <p>{{text?.article?.paragraphs[1]}}</p>
+</article>
+</section>
+<footer>
+  <p>By - {{text?.article?.author}}</p>
+</footer>

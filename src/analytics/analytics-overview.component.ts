@@ -22,10 +22,11 @@ export class AnalyticsOverviewComponent {
       id: 1,
       title: 'Global Statistics'
     },
-    {
-      id: 1,
-      title: 'Questionwise Statistics'
-    },
+    // do not remove
+    // {
+    //   id: 1,
+    //   title: 'Questionwise Statistics'
+    // },
   ];
   ChartPlugins: Chart.ChartPluginsOptions[];
 

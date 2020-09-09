@@ -8,7 +8,6 @@ import { TicketsService } from 'src/services/tickets.service';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  quickfacts;
   topScorer : string;
   highestScore : number;
   totalParticipants: number;
@@ -26,15 +25,19 @@ export class HomeComponent {
   SEAScore: number = 0;
   EUROPEScore: number = 0;
 
+  timeLeftDays : number = 0;
+  timeLeftHours : number = 0;
+  timeLeftMinutes : number = 0;
+
+
   constructor(private homeService : GcchomeService,
     private ticketService: TicketsService){
   }
 
   async ngOnInit(){
-    this.getQuickFacts();
     const scores = await this.homeService.getScores().toPromise();
     this.topScorer = scores[0].name;
-    this.highestScore = scores[0].total;
+    this.highestScore = scores.filter(contestant => contestant.contestantId === scores[0].contestantId).map(x => x.total).reduce((a, b) => a + b);;
     const participants = await this.homeService.getParticipants().toPromise();
     this.totalParticipants = participants.length;
     const tickets = await this.ticketService.getTickets().toPromise();
@@ -42,7 +45,9 @@ export class HomeComponent {
     this.inProgressTickets = tickets.filter(ticket => ticket.ticketStatus === 'IN_PROGRESS').length;
     this.escalatedTickets = tickets.filter(ticket => ticket.ticketStatus === 'ESCALATED').length;
     this.closedTickets = tickets.filter(ticket => ticket.ticketStatus === 'CLOSED').length;
-
+    this.timeLeftMinutes = await this.homeService.getChallengeTimerMinutes();
+    this.timeLeftHours = await this.homeService.getChallengeTimerHrs();
+    this.timeLeftDays = await this.homeService.getChallengeTimerDays();
     const globalStats = await this.homeService.getGlobalStats().toPromise();
     Object.keys(globalStats).forEach(region => {
       if (region === 'AMC') {
@@ -69,10 +74,4 @@ export class HomeComponent {
     });
   }
 
-  getQuickFacts(){
-    this.homeService.getTopScorer().subscribe((response : any) => {
-      console.log(response);
-      this.topScorer= response.leadingIndividual;
-    });
-  }
 }

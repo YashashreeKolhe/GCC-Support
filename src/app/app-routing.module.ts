@@ -18,6 +18,7 @@ import { ServerMonitoringComponent } from 'src/server-monitoring/server-monitori
 import { ServerMonitoringModule } from 'src/server-monitoring/server-monitoring.module';
 import { ParticipantsModule } from 'src/participants/participants.module';
 import { ParticipantsComponent } from 'src/participants/participants.component';
+import { ArticleDetailsComponent } from 'src/news/article-details.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -27,6 +28,7 @@ const routes: Routes = [
   { path: 'analytics', component: AnalyticsOverviewComponent, pathMatch: 'full' },
   { path: 'contact', component: contactOverviewComponent, pathMatch: 'full' },
   { path: 'news', component: NewsOverviewComponent, pathMatch: 'full' },
+  { path: 'news/:articleId', component: ArticleDetailsComponent, pathMatch: 'full' },
   { path: 'server', component: ServerMonitoringComponent, pathMatch: 'full' },
   { path: 'participants', component: ParticipantsComponent, pathMatch: 'full' }
 ];

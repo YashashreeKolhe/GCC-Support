@@ -44,6 +44,10 @@ export class TicketsOverviewComponent {
     },
     {
       id: 1,
+      title: 'Others'
+    },
+    {
+      id: 1,
       title: 'Unassigned'
     }
   ];
@@ -117,9 +121,13 @@ export class TicketsOverviewComponent {
         this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Scores/Evaluation');
         break;
       }
+      case 'Others': {
+        this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Others');
+        break;
+      }
       case 'Unassigned': {
         this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Unassigned' || 
-        ticket.category === null || ticket.category === '' || ticket.category === 'Others');
+        ticket.category === null || ticket.category === '');
         break;
       }
     }

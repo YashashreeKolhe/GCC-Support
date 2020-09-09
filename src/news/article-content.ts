@@ -23,16 +23,13 @@ export class  ArticleContent {
   columnDefs: ColDef[];
   gridOptions: GridOptions;
   text:Article
- 
+ articles:Article[]
  
   constructor(
     private articleService: ArticleService,
     private commonService:CommonService,
     private toastr: ToastrService,) {}
 
-
-
- 
 
       
     ngOnInit() {
@@ -42,16 +39,17 @@ export class  ArticleContent {
         this.loadarticles()
      
       }
-
      
       async loadarticles(){
         const article = await this.articleService.getArticle('Himani').toPromise()
         console.log(article)
         this.text=article
        }
-        
-      text1={"id":"Himani"}
-      
+
+       async loadArticles() {
+        const result = await this.articleService.getAllArticleHeadlines(this.selectedRegion).toPromise();
+        this.articles = result.headlines;
+      }
 
     onRegionSelectionChanged() {
         console.log(this.selectedRegion)

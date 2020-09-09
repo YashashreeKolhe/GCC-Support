@@ -44,7 +44,7 @@
       <div class="tile is-parent has-text-dark">
         <div class="tile is-child box has-background-light">
           <div class="title">
-            <h2 style="text-align:center">00 Days 00 Hrs 00 Mins</h2>
+            <h2 style="text-align:center">{{timeLeftDays}} Days {{timeLeftHours}} Hrs {{timeLeftMinutes}} Mins</h2>
           </div>
           <div class="subtitle">
             <h5 style="text-align:center">Ends In</h5>
@@ -67,43 +67,43 @@
                 <div class="level-item has-text-centered border-default">
                   <div>
                     <p class="heading">AMC</p>
-                    <p class="title">{{AMCScore| number : '1.2-2'}}</p>
+                    <p class="subtitle">{{AMCScore| number : '1.2-2'}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered border-default">
                   <div>
                     <p class="heading">EUROPE</p>
-                    <p class="title">{{EUROPEScore| number : '1.2-2'}}</p>
+                    <p class="subtitle">{{EUROPEScore| number : '1.2-2'}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered border-default">
                   <div>
                     <p class="heading">INDIA</p>
-                    <p class="title">{{INDIAScore| number : '1.2-2'}}</p>
+                    <p class="subtitle">{{INDIAScore| number : '1.2-2'}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered border-default">
                   <div>
                     <p class="heading">ROW</p>
-                    <p class="title">{{ROWScore| number : '1.2-2'}}</p>
+                    <p class="subtitle">{{ROWScore| number : '1.2-2'}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered border-default">
                   <div>
                     <p class="heading">SEA</p>
-                    <p class="title">{{SEAScore| number : '1.2-2'}}</p>
+                    <p class="subtitle">{{SEAScore| number : '1.2-2'}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered border-default">
                   <div>
                     <p class="heading">SWIS</p>
-                    <p class="title">{{SWISScore| number : '1.2-2'}}</p>
+                    <p class="subtitle">{{SWISScore| number : '1.2-2'}}</p>
                   </div>
                 </div>
                 <div class="level-item has-text-centered border-default">
                   <div>
                     <p class="heading">UK</p>
-                    <p class="title">{{UKScore| number : '1.2-2'}}</p>
+                    <p class="subtitle">{{UKScore| number : '1.2-2'}}</p>
                   </div>
                 </div>
               </nav>
@@ -116,11 +116,11 @@
 </div>
 
 <!-- for empty space-->
-<section class="section">
+<!-- <section class="section">
   <div class="container">
 
   </div>
-</section>
+</section> -->
 
 <!-- ticket status bar -->
 <nav class="level">
