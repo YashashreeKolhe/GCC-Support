@@ -81,12 +81,13 @@ export class uploadArticleComponent {
 
   addParagraph() {
     this.addParagraphFlag = 0;
+    console.log(this.newParagraph);
     this.article.paragraphs.push(this.newParagraph);
     this.newParagraph = '';
   }
 
-  onFirstParaChange() {
-    this.article.paragraphs[0] = this.firstPara;
+  onValueChange(index: number, paragraph) {
+    this.article.paragraphs[index] = paragraph;
   }
 
   onResetArticle() {

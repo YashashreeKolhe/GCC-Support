@@ -53,7 +53,7 @@
         <div class="form-row" *ngFor="let paragraph of article.paragraphs; let indexElement = index">
           <div class="form-group col-sm-9">
             <label for="para">Paragraph {{indexElement + 1}}</label>
-            <textarea class="form-control" rows="3" id="para" name="para" (change)="onFirstParaChange()" [(ngModel)]="firstPara" [value]="paragraph"></textarea>
+            <textarea #input class="form-control" rows="3" id="para" name="para" (change)="onValueChange(indexElement, input.value)" [value]="paragraph"></textarea>
           </div>
         </div>
         <div class="form-row">

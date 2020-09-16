@@ -5,7 +5,7 @@ import { Article } from 'src/news/article-model';
 
 @Injectable()
 export class ArticleService {
-  endpoint: string = 'https://global-ta-challenge.herokuapp.com';
+  endpoint: string = 'https://gcc-global-dev.herokuapp.com';
   
   constructor(private http: HttpClient) { }
 
@@ -39,8 +39,8 @@ export class ArticleService {
     return this.http.get<any>(`${this.endpoint}/news/headlines/${region}?from=0&limit=20`);
   }
 
-  getArticle(id: string): Observable<Article> {
-    return this.http.get<Article>(`${this.endpoint}/news/${id}`);
+  getArticle(id: string): Observable<any> {
+    return this.http.get<any>(`${this.endpoint}/news/${id}`);
   }
 
 

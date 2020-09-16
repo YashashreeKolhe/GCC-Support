@@ -1,51 +1,75 @@
 <style>
-    article {
-        float: left;
-      padding: 20px;
-      width: 70% 
-    }
-    section:after {
-  content: "";
-  display: table;
-  clear: both;
-}
-header {
-  background-color: #666;
-  padding: 30px;
-  text-align: center;
-  font-size: 35px;
-  color: white;
-}
+  article {
+    padding: 20px;
+    width: 100%;
+  }
 
-/* Style the footer */
-footer {
-  background-color: #777;
-  padding: 10px;
-  text-align: center;
-  color: white;
-}
+  section:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
 
-aside {
-  width: 30%;
-  padding-left: 15px;
-  margin-left: 15px;
-  float: right;
-  font-style: italic;
-  background-color: lightgray;
-}
+  header {
+    padding: 30px;
+    text-align: center;
+    font-size: 35px;
+    color: white;
+    background-color: #636161;
+  }
 
-    </style>
-    <header>
-        <h2>{{text?.article?.title}}</h2> 
-      </header>
-      <marquee behavior="scroll" direction="right">Headlines - {{text?.article?.blurb}}</marquee>
-      <section>
-        <article>
-        <img src="https://www.w3schools.com/html/pic_trulli.jpg" alt="Article Image" style="float:right">
-      <p>{{text?.article?.paragraphs[0]}}</p>
-      <p>{{text?.article?.paragraphs[1]}}</p>
-</article>
+  /* Style the footer */
+  footer {
+    background-color: #636161;
+    padding: 10px;
+    text-align: center;
+    color: white;
+  }
+
+  aside {
+    width: 30%;
+    padding-left: 15px;
+    margin-left: 15px;
+    float: right;
+    font-style: italic;
+    background-color: lightgray;
+  }
+
+  marquee {
+    font-weight: bold;
+    font-size: 12px;
+    color: blue;
+  }
+
+  pre {
+    overflow-x: auto;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    font-family: Helvetica;
+    font-size: 18px;
+    line-height: 1.8;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+  }
+</style>
+<header>
+  <h2 *ngIf="text">{{text.title}}</h2>
+</header>
+<marquee behavior="scroll" *ngIf="text.blurb !== null && text.blurb !== ''" direction="right">Headlines - {{text.blurb}}
+</marquee>
+<hr style="margin:5px;" *ngIf="text.blurb !== null && text.blurb !== ''">
+<section *ngIf="text">
+  <article>
+    <div *ngFor="let paragraph of text.paragraphs">
+      <pre>{{paragraph}}</pre>
+      <br>
+    </div>
+  </article>
 </section>
-<footer>
-  <p>By - {{text?.article?.author}}</p>
+<footer *ngIf="text">
+  <p>By - {{text.author}}</p>
 </footer>

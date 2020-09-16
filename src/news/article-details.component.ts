@@ -12,9 +12,8 @@ import { ActivatedRoute } from '@angular/router';
 })
 
 export class ArticleDetailsComponent {
-  @Input() article: Article;
   articleId: string;
-  text:Article
+  text: Article;
 
   constructor(
     private articleservice: ArticleService,
@@ -26,8 +25,7 @@ export class ArticleDetailsComponent {
     this.route.params.subscribe( params => {
       this.articleId = params.articleId;
     });
-    this.articleservice.getArticle(this.articleId).toPromise()
-    this.loadarticles()
+    this.loadarticles();
   }
   
   counters: count[] = [
@@ -44,13 +42,8 @@ export class ArticleDetailsComponent {
     },
   ];
 
-  
   async loadarticles(){
-  const article = await this.articleservice.getArticle(this.articleId).toPromise()
-  this.text=article
-  console.log(this.text) 
+  const article = await this.articleservice.getArticle(this.articleId).toPromise();
+  this.text = article.article;
  }
-
-
-
 }

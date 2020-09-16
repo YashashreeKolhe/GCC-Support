@@ -6,7 +6,7 @@ import { Name } from 'src/faqs/model';
 
 @Injectable()
 export class CommonService {
-  endpoint: string = 'https://global-ta-challenge.herokuapp.com';
+  endpoint: string = 'https://gcc-global-dev.herokuapp.com';
 
   constructor(private http: HttpClient) { }
 
@@ -23,7 +23,7 @@ export class CommonService {
   }
 
   loadUniversities(region: string): Observable<string[]> {
-    return this.http.get<string[]>(`https://global-ta-challenge.herokuapp.com/universitylist/${region}`);
+    return this.http.get<string[]>(`https://gcc-global-dev.herokuapp.com/universitylist/${region}`);
   }
 
   loadRegions(): string[] {

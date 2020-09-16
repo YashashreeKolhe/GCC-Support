@@ -10,7 +10,7 @@ import { formatDate } from '@angular/common';
   providedIn: 'root'
 })
 export class GcchomeService {
-  endpoint: string = 'https://global-ta-challenge.herokuapp.com';
+  endpoint: string = 'https://gcc-global-dev.herokuapp.com';
 
   constructor(private httpClient: HttpClient) { }
 
