@@ -32,13 +32,20 @@
                     </div>
                     <div class="row" style="margin-top: 20px;">
                       <div class="col-sm-12">
-                        <div class="row">
-                          <div class="col-sm-4" *ngFor="let article of articles">
-                            <div class="container border-default" style="padding: 20px">
+                        <div class="card-columns">
+                          <div class="card border" *ngFor="let article of articles">
+                            <!-- <img class="card-img-top" [src]="article.imageUrl" [alt]="article.imageUrl" style="height: 300px" /> -->
+                            <div class="card-body" style="height: 160px">
                               <form>
-                                <h3>{{ article.title }}</h3>
-                                <pre>{{ article.blurb }}</pre>
-                                <button class="btn btn-success" (click)="articlecontent(article.id)">Read More</button>
+                                <div class="form-row">
+                                  <div class="form-group">
+                                    <h5>{{ article.title }}</h5>
+                                    <p><b>Author: </b>{{ article.author }}</p>
+                                    <button class="btn btn-sm btn-success" (click)="articlecontent(article.id)">
+                                      Read More
+                                    </button>
+                                  </div>
+                                </div>
                               </form>
                             </div>
                           </div>
@@ -46,12 +53,12 @@
                       </div>
                     </div>
                   </div>
-                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Features'">
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Image Gallery'">
+                    <photos-gallery></photos-gallery>
                   </div>
                   <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Create Content'">
                     <new-article [mode]="mode"></new-article>
                   </div>
-
                 </ng-template>
               </ngb-tab>
             </ngb-tabset>

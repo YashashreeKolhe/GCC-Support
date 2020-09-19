@@ -1,7 +1,9 @@
 <style>
   article {
     padding: 20px;
-    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
   }
 
   section:after {
@@ -11,19 +13,13 @@
   }
 
   header {
-    padding: 30px;
+    padding: 20px;
     text-align: center;
-    font-size: 35px;
-    color: white;
-    background-color: #636161;
   }
 
-  /* Style the footer */
   footer {
-    background-color: #636161;
     padding: 10px;
     text-align: center;
-    color: white;
   }
 
   aside {
@@ -33,12 +29,6 @@
     float: right;
     font-style: italic;
     background-color: lightgray;
-  }
-
-  marquee {
-    font-weight: bold;
-    font-size: 12px;
-    color: blue;
   }
 
   pre {
@@ -57,19 +47,16 @@
   }
 </style>
 <header>
-  <h2 *ngIf="text">{{text.title}}</h2>
+  <h1 *ngIf="text">{{text.title}}</h1>
 </header>
-<marquee behavior="scroll" *ngIf="text.blurb !== null && text.blurb !== ''" direction="right">Headlines - {{text.blurb}}
-</marquee>
-<hr style="margin:5px;" *ngIf="text.blurb !== null && text.blurb !== ''">
 <section *ngIf="text">
   <article>
-    <div *ngFor="let paragraph of text.paragraphs">
-      <pre>{{paragraph}}</pre>
-      <br>
-    </div>
+    <img [src]="text.imageUrl" [alt]="text.imageUrl" style="height: 500px; width: 100%" />
+    <br/>
+    <br/>
+    <div [innerHTML]="text.body"></div>
   </article>
 </section>
 <footer *ngIf="text">
-  <p>By - {{text.author}}</p>
+  <h4>By - {{text.author}}</h4>
 </footer>

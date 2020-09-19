@@ -45,7 +45,11 @@
     "typescript": "~3.8.3",
     "express": "4.17.1",
     "checkbox-radio": "^1.1.1",
-    "display-image": "^1.1.0"
+    "display-image": "^1.1.0",
+    "@materia-ui/ngx-monaco-editor": "^4.0.1",
+    "monaco-editor": "0.20.0",
+    "ngx-clipboard": "13.0.1",
+    "ng2-ckeditor": "1.2.9"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.901.5",

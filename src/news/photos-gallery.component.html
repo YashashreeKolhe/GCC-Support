@@ -1,0 +1,25 @@
+<div class="container">
+  <h2 style="text-align: center;">Image Gallery</h2>
+  <br>
+</div>
+<div class="card-columns">
+  <div class="card border" *ngFor="let item of imagesList">
+    <img class="card-img-top" [src]="item.url" [alt]="item.name" style="height: 300px" />
+    <div class="card-body">
+      <form>
+        <div class="form-row">
+          <div class="form-group">
+            <p class="card-text">
+              <b>Link:&nbsp;&nbsp;</b>
+              <a href="#">{{item.url}}</a>
+            </p>
+            <button class="btn btn-sm btn-success" style="float: right;" (click)="copyToClipboard()" ngxClipboard
+              [cbContent]="item.url">
+              Copy to clipboard
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -12,7 +12,3 @@ export interface Article {
   headlines?:string;
   article?:string
 }
-
-export interface count{
-  id?: number;
-}

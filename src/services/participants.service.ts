@@ -5,7 +5,7 @@ import { Participant } from 'src/participants/model';
 
 @Injectable()
 export class ParticipantsService {
-  endpoint: string = 'https://gcc-global-dev.herokuapp.com';
+  endpoint: string = ' https://gcc-backend-dev-temp.herokuapp.com';
   
   constructor(private http: HttpClient) { }
 

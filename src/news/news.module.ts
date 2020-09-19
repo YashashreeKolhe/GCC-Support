@@ -11,16 +11,23 @@ import { NewsOverviewComponent } from './news-overview.component';
 import { uploadArticleComponent } from './uploadArticle.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import{ ArticleDetailsComponent } from './article-details.component';
+import { MonacoEditorModule, MONACO_PATH } from '@materia-ui/ngx-monaco-editor';
+import { PhotosGalleryComponent } from './photos-gallery.component';
+import { ClipboardModule } from 'ngx-clipboard';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 @NgModule({
   declarations: [
     NewsOverviewComponent,
     uploadArticleComponent,
-    ArticleDetailsComponent
+    ArticleDetailsComponent,
+    PhotosGalleryComponent
   ],
   imports: [
     BrowserModule,
+    CKEditorModule,
     BrowserAnimationsModule,
+    MonacoEditorModule,
     CommonModule,
     BrowserModule,
     NgbModule,
@@ -29,14 +36,18 @@ import{ ArticleDetailsComponent } from './article-details.component';
     ToastrModule.forRoot(),
     ModalModule.forRoot(),
     ToastrModule.forRoot(),
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    ClipboardModule
   ],
-  providers: [],
-
+  providers: [{
+		provide: MONACO_PATH,
+		useValue: 'https://unpkg.com/monaco-editor@0.20.0/min/vs'
+	}],
   exports: [
     NewsOverviewComponent,
     uploadArticleComponent,
-    ArticleDetailsComponent
+    ArticleDetailsComponent,
+    PhotosGalleryComponent
   ]
 })
 export class NewsModule { }

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Article,count } from 'src/news/article-model'
+import { Article } from 'src/news/article-model'
 import { ArticleService } from 'src/services/article.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/services/common.service';
@@ -27,20 +27,6 @@ export class ArticleDetailsComponent {
     });
     this.loadarticles();
   }
-  
-  counters: count[] = [
-    {
-      id: 1,
-    },
-    {
-      id: 2,
-  
-    },
-    {
-      id: 3,
-  
-    },
-  ];
 
   async loadarticles(){
   const article = await this.articleservice.getArticle(this.articleId).toPromise();

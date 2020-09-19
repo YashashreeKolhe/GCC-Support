@@ -5,7 +5,7 @@ import { Article } from 'src/news/article-model';
 
 @Injectable()
 export class ArticleService {
-  endpoint: string = 'https://gcc-global-dev.herokuapp.com';
+  endpoint: string = 'https://gcc-backend-dev-temp.herokuapp.com';
   
   constructor(private http: HttpClient) { }
 
@@ -43,9 +43,12 @@ export class ArticleService {
     return this.http.get<any>(`${this.endpoint}/news/${id}`);
   }
 
-
   saveImage(file: File): Observable<string> {
     return this.http.post<string>(`${this.endpoint}/news/uploadImage`, file);
+  }
+
+  getImagesList(): Observable<string> {
+    return this.http.get('assets/imageUrls.txt', {responseType: 'text'});
   }
 }
 

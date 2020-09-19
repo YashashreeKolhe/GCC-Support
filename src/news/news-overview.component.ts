@@ -25,12 +25,12 @@ export class NewsOverviewComponent {
     },
     {
       id: 2,
-      title: 'Features'
+      title: 'Create Content'
     },
     {
       id: 3,
-      title: 'Create Content'
-    },
+      title: 'Image Gallery'
+    }
   ];
   rowData: any;
   regions: string[];
