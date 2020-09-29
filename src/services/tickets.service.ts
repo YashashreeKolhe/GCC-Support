@@ -6,7 +6,7 @@ import { Ticket, Category, Status } from 'src/tickets/model';
 
 @Injectable()
 export class TicketsService {
-  endpoint: string = ' https://gcc-backend-dev-temp.herokuapp.com';
+  endpoint: string = ' https://gcc-global-dev.herokuapp.com/';
 
   notes: string[] = [
     "Note 1",
@@ -32,6 +32,7 @@ export class TicketsService {
       'Questions',
       'Scores/Evaluation',
       'Registration',
+      'Submissions',
       'Others'
     ];
   }

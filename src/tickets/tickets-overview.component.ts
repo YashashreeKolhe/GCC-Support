@@ -24,6 +24,7 @@ export class TicketsOverviewComponent {
   statusValues: string[] = [ 'OPEN', 'IN_PROGRESS', 'ESCALATED', 'CLOSED' ];
   tabData: Ticket[];
   ticketsList: Ticket[];
+  selectedTabId: number;
 
   isStatusCleared: boolean = true;
   isAssignedCleared: boolean = true;
@@ -35,19 +36,23 @@ export class TicketsOverviewComponent {
       title: 'Questions'
     },
     {
-      id: 1,
+      id: 2,
       title: 'Scores/Evaluation'
     },
     {
-      id: 1,
+      id: 3,
+      title: 'Submissions'
+    },
+    {
+      id: 4,
       title: 'Registration'
     },
     {
-      id: 1,
+      id: 5,
       title: 'Others'
     },
     {
-      id: 1,
+      id: 6,
       title: 'Unassigned'
     }
   ];
@@ -62,7 +67,7 @@ export class TicketsOverviewComponent {
   async ngOnInit() {
     this.names = this.commonService.loadNames();
     this.configureGrid();
-    this.onTabChange('Questions');
+    this.onTabChange(1, true);
   }
 
   async loadTickets() {
@@ -106,8 +111,13 @@ export class TicketsOverviewComponent {
     this.modalRef = this.modalService.show(this.TicketDetails, { class: 'modal-xl' });
   }
 
-  async onTabChange(tabTitle: string) {
-    await this.loadTickets();
+  async onTabChange(tabId: number, reload: boolean) {
+    const tabTitle = this.tabs.find(element => element.id === tabId).title;
+    this.selectedTabId = tabId;
+
+    if (reload) {
+      await this.loadTickets();
+    }
     switch (tabTitle) {
       case 'Questions': {
         this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Questions');
@@ -121,6 +131,10 @@ export class TicketsOverviewComponent {
         this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Scores/Evaluation');
         break;
       }
+      case 'Submissions': {
+        this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Submissions');
+        break;
+      }
       case 'Others': {
         this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Others');
         break;
@@ -131,12 +145,11 @@ export class TicketsOverviewComponent {
         break;
       }
     }
-    this.gridApi.setRowData(this.rowData);
     this.tabData = JSON.parse(JSON.stringify(this.rowData));
   }
 
-  clearFilters(tab: string) {
-    this.onTabChange(tab);
+  clearFilters(tab: number) {
+    this.onTabChange(tab, false);
     this.isEscalatedCleared = true;
     this.isAssignedCleared = true;
     this.isStatusCleared = true;

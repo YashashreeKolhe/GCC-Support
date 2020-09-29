@@ -47,16 +47,27 @@
   }
 </style>
 <header>
+  <div class="float-right">
+    <button class="btn btn-success" (click)="updateArticle()">Update</button>
+    <button class="btn btn-info" style="margin-left: 15px" (click)="deleteArticle()">Delete</button>    
+  </div>
   <h1 *ngIf="text">{{text.title}}</h1>
+  <h5>By - {{text.author}}</h5>
 </header>
 <section *ngIf="text">
   <article>
     <img [src]="text.imageUrl" [alt]="text.imageUrl" style="height: 500px; width: 100%" />
-    <br/>
-    <br/>
+    <br />
+    <br />
     <div [innerHTML]="text.body"></div>
   </article>
 </section>
-<footer *ngIf="text">
-  <h4>By - {{text.author}}</h4>
-</footer>
+
+<ng-template #ArticleDetails>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Article Details</h4>
+  </div>
+  <div class="modal-body">
+    <new-article [mode]="mode" [article]="text" (exit)="modalRef.hide();loadarticles()" ></new-article>
+  </div>
+</ng-template>

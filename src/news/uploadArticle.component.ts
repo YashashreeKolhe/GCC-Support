@@ -1,9 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { Article } from 'src/news/article-model'
 import { ArticleService } from 'src/services/article.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/services/common.service';
-import { brotliCompressSync } from 'zlib';
 import { ITab } from 'src/faqs/model';
 
 @Component({
@@ -13,7 +12,9 @@ import { ITab } from 'src/faqs/model';
 
 export class uploadArticleComponent {
   @Input() mode: number;
-  article: Article;
+  @Input() article: Article;
+  @Output() exit: EventEmitter<void> = new EventEmitter<void>();
+  
   newParagraph: string = '';
   addParagraphFlag: number = 0;
   types: string[] = [
@@ -58,7 +59,9 @@ export class uploadArticleComponent {
   ngOnInit() {
     this.activeTab =  this.tabs[0].title;
     this.regions = this.commonService.loadRegions();
-    this.article = this.initializeArticle();
+    if (this.mode === 1) {
+      this.article = this.initializeArticle();
+    }
   }
 
   initializeArticle(): Article {
@@ -80,12 +83,22 @@ export class uploadArticleComponent {
       return;
     }
     try {
-      const result = await this.articleservice.savearticle(this.article).toPromise();
-      this.toastr.success('Content saved successfully', 'Success');
+      if (this.mode === 1) {
+        const result = await this.articleservice.savearticle(this.article).toPromise();
+        this.toastr.success('Article saved successfully', 'Success');
+      } else if (this.mode === 2) {
+        const result = await this.articleservice.updateArticle(this.article).toPromise();
+        this.toastr.success('Article updated successfully', 'Success');
+        this.exit.emit();
+      }
     } catch (e) {
       this.toastr.error("Save operation failed!", 'Error');
       return;
     }
+  }
+
+  cancel() {
+    this.exit.emit();
   }
 
   generateArticleBody() {

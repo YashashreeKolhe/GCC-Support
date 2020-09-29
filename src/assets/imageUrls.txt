@@ -4,3 +4,9 @@ assets/article-images/corporate-4.jpg
 assets/article-images/corporate-comm.jpg
 assets/article-images/corporate-companies.jpg
 assets/article-images/corporate_training-2.png
+assets/article-images/GettyImages-117455512.jpg
+assets/article-images/CS-10609.jpg
+assets/article-images/CS-10610.jpg
+assets/article-images/CS-10902.jpg
+assets/article-images/CS-11872.jpg
+assets/article-images/CS-12018.jpg

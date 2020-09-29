@@ -9,11 +9,13 @@ import { DatePipe } from '@angular/common';
 import { ServicesModule } from '../services/services.module';
 import { AnalyticsOverviewComponent } from '../analytics/analytics-overview.component';
 import { QuestionwiseStatisticsComponent } from '../analytics/questionwise-statistics.component';
+import { RegistrationStatisticsComponent } from '../analytics/registration-statistics.component';
 
 @NgModule({
   declarations: [
     AnalyticsOverviewComponent,
-    QuestionwiseStatisticsComponent
+    QuestionwiseStatisticsComponent,
+    RegistrationStatisticsComponent
   ],
   imports: [
     BrowserModule,
@@ -26,7 +28,8 @@ import { QuestionwiseStatisticsComponent } from '../analytics/questionwise-stati
   providers: [DatePipe],
   exports: [
     AnalyticsOverviewComponent,
-    QuestionwiseStatisticsComponent
+    QuestionwiseStatisticsComponent,
+    RegistrationStatisticsComponent
   ]
 })
 export class AnalyticsModule { }

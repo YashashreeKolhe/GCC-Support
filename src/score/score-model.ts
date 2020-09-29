@@ -9,3 +9,5 @@ export interface LIST {
   teamName?: string;
   rank?: number;
 }
+
+

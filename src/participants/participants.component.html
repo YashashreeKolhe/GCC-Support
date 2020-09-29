@@ -55,9 +55,10 @@
                     </div>
                   </div>
                 </div>
-                <div class="col-sm-2">
+                <div class="col-sm-4">
                   <div class="form-group">
                     <button class="btn btn-primary" style="margin-top: 30px" (click)="clearFilter()">Clear Filter</button>
+                    <button class="btn btn-primary" style="margin-top: 30px" (click)="groupByUniversity()">Group By University</button>
                   </div>
                 </div>
               </div>
@@ -65,8 +66,16 @@
             <div class="row">
               <div class="col-sm-12">
                 <ag-grid-angular style="height: 400px;" class="ag-theme-balham" [rowData]="rowData"
-                  [gridOptions]="gridOptions" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef">
+                  [gridOptions]="gridOptions" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef"
+                  [groupMultiAutoColumn]="true">
                 </ag-grid-angular>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4" style="padding: 20px;">
+                <div class="container bordered-panel">
+                  <p><b>Total Participants displayed: </b>{{ displayedRowCount }}</p>
+                </div>
               </div>
             </div>
           </div>

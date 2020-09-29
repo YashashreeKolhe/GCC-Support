@@ -10,13 +10,13 @@
       <div class="col-md-12">
         <div class="card">
           <div class="card-body">
-            <ngb-tabset>
-              <ngb-tab [attr.id]="tab.id" *ngFor="let tab of tabs">
+            <ngb-tabset (tabChange)="activeTab = $event.nextId">
+              <ngb-tab [id]="tab.id" *ngFor="let tab of tabs">
                 <ng-template ngbTabTitle>
-                  <span (click)="activeTab = tab.title">{{ tab.title }}</span>
+                  <span>{{ tab.title }}</span>
                 </ng-template>
                 <ng-template ngbTabContent>
-                  <div class="card-body" style="color: white" style="padding: 15px" *ngIf="activeTab === 'Global Statistics'">
+                  <div class="card-body" style="color: white" style="padding: 15px" *ngIf="activeTab === 1">
                     <div class="row">
                       <div class="col-sm-4">
                         <div class="card border-default">
@@ -29,17 +29,19 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <canvas baseChart 
-                              height="300px"
-                              width="300px"
-                              [datasets]="AcceptedVsRejectedLineChartData" 
-                              [labels]="AcceptedVsRejectedLineChartLabels" 
-                              [options]="AcceptedVsRejectedLineChartOptions"
-                              [colors]="AcceptedVsRejectedLineChartColors" 
-                              [legend]="'true'" 
-                              [plugins]="ChartPlugins"
-                              [chartType]="'line'">
-                            </canvas>
+                            <div class="chart-wrapper" *ngIf="AcceptedVsRejectedLineChartData">
+                              <canvas baseChart 
+                                height="300px"
+                                width="300px"
+                                [datasets]="AcceptedVsRejectedLineChartData" 
+                                [labels]="AcceptedVsRejectedLineChartLabels" 
+                                [options]="AcceptedVsRejectedLineChartOptions"
+                                [colors]="AcceptedVsRejectedLineChartColors" 
+                                [legend]="'true'" 
+                                [plugins]="ChartPlugins"
+                                [chartType]="'line'">
+                              </canvas>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -54,11 +56,11 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <div class="chart-wrapper">
+                            <div class="chart-wrapper" *ngIf="CorrectSubmissionsPerRegionChartData">
                               <canvas baseChart
                                 height="300px"
                                 width="300px"
-                                [data]="CorrectSubmissionsPerRegionChartData"
+                                [datasets]="CorrectSubmissionsPerRegionChartData"
                                 [labels]="CorrectSubmissionsPerRegionChartLabels"
                                 [chartType]="doughnutChartType"
                                 [legend]="barChartLegend"
@@ -80,7 +82,7 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <div class="chart-wrapper">
+                            <div class="chart-wrapper" *ngIf="AttemptsPerQuestionBarChartData">
                               <canvas baseChart 
                                 height="300px"
                                 [datasets]="AttemptsPerQuestionBarChartData"
@@ -109,11 +111,11 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <div class="chart-wrapper">
+                            <div class="chart-wrapper" *ngIf="doughnutChartData">
                               <canvas baseChart
                                 height="300px"
                                 width="300px"
-                                [data]="doughnutChartData"
+                                [datasets]="doughnutChartData"
                                 [labels]="doughnutChartLabels"
                                 [chartType]="doughnutChartType"
                                 [legend]="barChartLegend"
@@ -135,21 +137,22 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <canvas baseChart 
-                                height="300px"
-                                [datasets]="SubmissionsPerWeekBarChartData"
-                                [labels]="SubmissionsPerWeekBarChartLabels"
-                                [options]="SubmissionsPerWeekBarChartOptions"
-                                [colors]="SubmissionsPerWeekBarChartColors"
-                                [legend]="barChartLegend"
-                                [plugins]="ChartPlugins"
-                                [chartType]="barChartType">
+                            <div class="chart-wrapper" *ngIf="SubmissionsPerWeekBarChartData">
+                              <canvas baseChart 
+                                  height="300px"
+                                  [datasets]="SubmissionsPerWeekBarChartData"
+                                  [labels]="SubmissionsPerWeekBarChartLabels"
+                                  [options]="SubmissionsPerWeekBarChartOptions"
+                                  [colors]="SubmissionsPerWeekBarChartColors"
+                                  [legend]="barChartLegend"
+                                  [plugins]="ChartPlugins"
+                                  [chartType]="barChartType">
                               </canvas>
+                            </div>
                           </div>
                         </div>
                       </div>
-                      <!-- do not remove -->
-                      <!-- <div class="col-sm-4">
+                      <div class="col-sm-4">
                         <div class="card border-default">
                           <div class="card-header bg-default">
                             Participation Per Region
@@ -160,24 +163,29 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <canvas baseChart 
-                              height="300px"
-                              [datasets]="ParticipationPerRegionLineChartData" 
-                              [labels]="ParticipationPerRegionLineChartLabels" 
-                              [options]="ParticipationPerRegionLineChartOptions"
-                              [colors]="ParticipationPerRegionLineChartColors"
-                              [plugins]="ChartPlugins" 
-                              [legend]="barChartLegend" 
-                              [chartType]="'line'">
-                            </canvas>
+                            <div class="chart-wrapper" *ngIf="ParticipationPerRegionBarChartData">
+                              <canvas baseChart 
+                                height="300px"
+                                [datasets]="ParticipationPerRegionBarChartData" 
+                                [labels]="ParticipationPerRegionBarChartLabels" 
+                                [options]="ParticipationPerRegionBarChartOptions"
+                                [colors]="ParticipationPerRegionBarChartColors"
+                                [plugins]="ChartPlugins" 
+                                [legend]="barChartLegend" 
+                                [chartType]="'bar'">
+                              </canvas>
+                            </div>
                           </div>
                         </div>
-                      </div> -->
+                      </div>
                     </div>
                   </div>
-                  <!-- <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Questionwise Statistics'">
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 2">
                     <questionwise-statistics></questionwise-statistics>
-                  </div> -->
+                  </div>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 3">
+                    <registration-statistics></registration-statistics>
+                  </div>
                 </ng-template>
               </ngb-tab>
             </ngb-tabset>

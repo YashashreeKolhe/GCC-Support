@@ -4,7 +4,7 @@
     <div class="col-sm-12">
       <form>
         <div class="form-row">
-          <div class="form-group col-sm-9">
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-9' : 'form-group col-sm-12'">
             <label for="title">Title</label>
             <input class="form-control" id="title" name="title" [(ngModel)]="article.title" required />
           </div>
@@ -16,18 +16,18 @@
           </div>
         </div> -->
         <div class="form-row">
-          <div class="form-group col-sm-3">
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-3' : 'form-group col-sm-4'">
             <label for="author">Author</label>
             <input class="form-control" id="author" name="author" [(ngModel)]="article.author" required />
           </div>
-          <div class="form-group col-sm-3">
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-3' : 'form-group col-sm-4'">
             <label for="region">Region</label>
             <select class="form-control" [(ngModel)]="article.region" name="region" #item>
               <option *ngFor="let region of regions" id="region" [value]="region">{{region}}
               </option>
             </select>
           </div>
-          <div class="form-group col-sm-3">
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-3' : 'form-group col-sm-4'">
             <label for="type">Type of content</label>
             <select class="form-control" [(ngModel)]="article.type" name="type" #item>
               <option *ngFor="let type of types" id="type" [value]="type">{{type}}
@@ -36,19 +36,19 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-sm-9">
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-9' : 'form-group col-sm-12'">
             <label for="image">Image Url (Copy URL from Image Gallery)</label>
             <input class="form-control" id="image" name="image" [(ngModel)]="article.imageUrl" />
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-sm-9">
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-9' : 'form-group col-sm-12'">
             <label for="blurb">Blurb</label>
             <textarea class="form-control" rows="2" id="blurb" name="blurb" [(ngModel)]="article.blurb"></textarea>
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-sm-9">
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-9' : 'form-group col-sm-12'">
             <label for="body">Article Body</label>
             <ngb-tabset>
               <ngb-tab [attr.id]="tab.id" *ngFor="let tab of tabs">
@@ -70,7 +70,7 @@
                   <div class="card-body" style="padding: 15px">
                     <div class="row">
                       <div class="col-sm-12">
-                        <ngx-monaco-editor style="height: 500px; width: 80%" [options]="editorOptions"
+                        <ngx-monaco-editor style="height: 500px; width: 100%" [options]="editorOptions"
                           [(ngModel)]="article.body" name="editor">
                         </ngx-monaco-editor>
                       </div>
@@ -89,6 +89,7 @@
   <div class="pull-left" *ngIf="mode !== 0">
     <button style="margin:5px" class="btn btn-primary"
       (click)="onSaveArticle()">{{ mode === 1 ? 'Save' : 'Update' }}</button>
-    <button class="btn btn-info" (click)="onResetArticle()">Reset</button>
+    <button class="btn btn-info" *ngIf="mode === 1" (click)="onResetArticle()">Reset</button>
+    <button class="btn btn-info" *ngIf="mode === 2" (click)="cancel()">Cancel</button>
   </div>
 </div>

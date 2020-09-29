@@ -42,11 +42,11 @@ export class  NewFaqComponent {
   }
 
   onChangeCategory(newCategory: string) {
-    if (newCategory === 'Others') {
-      this.names = this.nameStore;
-    } else {
-      this.names = this.nameStore.filter(name => name.Category === newCategory);
-    }
+    // if (newCategory === 'Others') {
+    //   this.names = this.nameStore;
+    // } else {
+    //   this.names = this.nameStore.filter(name => name.Category === newCategory);
+    // }
   }
 
   async onSaveFaq() {

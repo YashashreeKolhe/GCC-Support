@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef, ViewChild } from '@angular/core';
 import { Article } from 'src/news/article-model'
 import { ArticleService } from 'src/services/article.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/services/common.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'article-details',
@@ -15,21 +16,40 @@ export class ArticleDetailsComponent {
   articleId: string;
   text: Article;
 
+  mode: number = 2; //update
+  modalRef: BsModalRef;
+
+  @ViewChild('ArticleDetails') ArticleDetails: TemplateRef<any>;
+
   constructor(
     private articleservice: ArticleService,
     private commonService: CommonService,
     private toastr: ToastrService,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router,
+    private modalService: BsModalService,) { }
 
   ngOnInit() {
-    this.route.params.subscribe( params => {
+    this.route.params.subscribe(params => {
       this.articleId = params.articleId;
     });
     this.loadarticles();
   }
 
-  async loadarticles(){
-  const article = await this.articleservice.getArticle(this.articleId).toPromise();
-  this.text = article.article;
- }
+  async loadarticles() {
+    const article = await this.articleservice.getArticle(this.articleId).toPromise();
+    this.text = article.article;
+  }
+
+  updateArticle() {
+    this.modalRef = this.modalService.show(this.ArticleDetails, { class: 'modal-lg' });
+  }
+
+  async deleteArticle() {
+    const result = await this.articleservice.deleteArticle(this.text.id).toPromise();
+    if (result) {
+      this.toastr.success('Article delete successfully!', 'Success');
+      this.router.navigateByUrl('/news');
+    }
+  }
 }

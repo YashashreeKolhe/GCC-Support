@@ -14,6 +14,11 @@
     <div class="card border-default">
       <div class="card-header bg-default">
         Successful Submissions Per Week
+        <div class="pull-right">
+          <button class="btn btn-sm btn-success">
+            <a href="#" style="color: white"  title="Export to png" (click)="downloadSuccSubsPerWeek($event)">Export</a>
+          </button>
+        </div>
       </div>
       <div class="card-body">
         <canvas baseChart height="250px"
@@ -21,7 +26,8 @@
           [labels]="SuccessfulSubmissionsPerWeekLineChartLabels"
           [options]="SuccessfulSubmissionsPerWeekLineChartOptions"
           [colors]="SuccessfulSubmissionsPerWeekLineChartColors"
-          [legend]="'true'"
+          [legend]="barChartLegend"
+          [plugins]="ChartPlugins"
           [chartType]="'line'">
         </canvas>
       </div>
@@ -31,6 +37,11 @@
     <div class="card border-default">
       <div class="card-header bg-default">
         Number of Submissions Per Language
+        <div class="pull-right">
+          <button class="btn btn-sm btn-success">
+            <a href="#" style="color: white"  title="Export to png" (click)="downloadSubsPerLanguage($event)">Export</a>
+          </button>
+        </div>
       </div>
       <div class="card-body">
         <div class="chart-wrapper">
@@ -39,8 +50,10 @@
             width="250px"
             [data]="NoOfSubmissionsPerLanguageChartData"
             [labels]="NoOfSubmissionsPerLanguageChartLabels"
-            [chartType]="NoOfSubmissionsPerLanguageChartType"
-            [options]="chartOptions">
+            [legend]="barChartLegend"
+            [plugins]="ChartPlugins"
+            [options]="chartOptions"
+            [chartType]="NoOfSubmissionsPerLanguageChartType">
           </canvas>
         </div>
       </div>
@@ -50,6 +63,11 @@
     <div class="card border-default">
       <div class="card-header bg-default">
         Correct Submissions Per Region
+        <div class="pull-right">
+          <button class="btn btn-sm btn-success">
+            <a href="#" style="color: white"  title="Export to png" (click)="downloadCorrectSubsPerRegion($event)">Export</a>
+          </button>
+        </div>
       </div>
       <div class="card-body">
         <div class="chart-wrapper">
@@ -60,6 +78,7 @@
             [options]="CorrectSubmissionsPerRegionBarChartOptions"
             [colors]="CorrectSubmissionsPerRegionBarChartColors"
             [legend]="barChartLegend"
+            [plugins]="ChartPlugins"
             [chartType]="barChartType">
           </canvas>
         </div>

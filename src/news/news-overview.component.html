@@ -10,8 +10,8 @@
       <div class="col-md-12">
         <div class="card border-info" id="bordered-panel">
           <div class="card-body">
-            <ngb-tabset>
-              <ngb-tab [attr.id]="tab.id" *ngFor="let tab of tabs">
+            <ngb-tabset (tabChange)="onTabChange($event.nextId)">
+              <ngb-tab [id]="tab.id" *ngFor="let tab of tabs">
                 <ng-template ngbTabTitle>
                   <span (click)="activeTab = tab.title">{{ tab.title }}</span>
                 </ng-template>
@@ -30,8 +30,8 @@
                         </form>
                       </div>
                     </div>
-                    <div class="row" style="margin-top: 20px;">
-                      <div class="col-sm-12">
+                    <!-- <div class="row" style="margin-top: 20px;">
+                      <div class="col-sm-12"> -->
                         <div class="card-columns">
                           <div class="card border" *ngFor="let article of articles">
                             <!-- <img class="card-img-top" [src]="article.imageUrl" [alt]="article.imageUrl" style="height: 300px" /> -->
@@ -50,14 +50,14 @@
                             </div>
                           </div>
                         </div>
-                      </div>
-                    </div>
+                      <!-- </div>
+                    </div> -->
                   </div>
                   <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Image Gallery'">
                     <photos-gallery></photos-gallery>
                   </div>
                   <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Create Content'">
-                    <new-article [mode]="mode"></new-article>
+                    <new-article [mode]="mode" [article]="null"></new-article>
                   </div>
                 </ng-template>
               </ngb-tab>

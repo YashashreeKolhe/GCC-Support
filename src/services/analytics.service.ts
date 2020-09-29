@@ -8,7 +8,7 @@ import { QuestionStats, RegionStats, LanguageStats, WeeklyStats } from 'src/anal
 export class AnalyticsService {
 
   constructor(private http: HttpClient) {}
-  endpoint: string = ' https://gcc-backend-dev-temp.herokuapp.com';
+  endpoint: string = ' https://gcc-global-dev.herokuapp.com/';
 
   getAttemptsPerQuestion(): Observable<any> {
     return this.http.get<any>(`${this.endpoint}/monitoring/attemptsPerQuestion`);
@@ -34,37 +34,19 @@ export class AnalyticsService {
     return this.http.get<any>(`${this.endpoint}/monitoring/submissionsPerWeek`);
   }
 
-  getParticipantsPerRegion(): RegionStats[] {
-    return [
-      { Region: 'US', Value: 400 },
-      { Region: 'EMEA', Value: 506 },
-      { Region: 'Switzerland', Value: 312 }
-    ];
+  getParticipantsPerRegion(): Observable<any> {
+    return this.http.get<any>(`${this.endpoint}/monitoring/participantsPerRegion`);
   }
 
-  getSuccessfulSubmissionsPerWeek(question: string): WeeklyStats[] {
-    return [
-      { Week: 1, Value: 132 },
-      { Week: 2, Value: 157 },
-      { Week: 3, Value: 176 },
-      { Week: 4, Value: 300 },
-    ];
+  getSuccessfulSubmissionsPerWeek(question: string): Observable<any> {
+    return this.http.get<any>(`${this.endpoint}/monitoring/submissionsPerWeek/${question}`);
   }
 
-  getNoOfSubmissionsPerLanguage(question: string): LanguageStats[] {
-    return [
-      { Language: 'C', Value: 104 },
-      { Language: 'C++', Value: 56 },
-      { Language: 'Java', Value: 48 },
-      { Language: 'Python', Value: 92 }
-    ];
+  getNoOfSubmissionsPerLanguage(question: string): Observable<any> {
+    return this.http.get<any>(`${this.endpoint}/monitoring/submissionsPerLanguage/${question}`);
   }
 
-  getCorrectSubmissionsPerRegionForQuestion(question: string): RegionStats[] {
-    return [
-      { Region: 'US', Value: 400 },
-      { Region: 'EMEA', Value: 506 },
-      { Region: 'Switzerland', Value: 312 }
-    ];
+  getCorrectSubmissionsPerRegionForQuestion(question: string): Observable<any> {
+    return this.http.get<any>(`${this.endpoint}/monitoring/correctSubmissionsPerRegion/${question}`);
   }
 }

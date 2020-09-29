@@ -1,0 +1,69 @@
+<div class="row">
+  <form>
+    <div class="form-group">
+      <label for="question">Filter By Question</label>
+      <select class="form-control" name="question"  #item (click)="onQuestionChange(item.value)">
+        <option *ngFor="let quest of questions" id="question" [value]="quest">{{quest}}
+        </option>
+      </select>
+    </div>
+  </form>
+</div>
+<div class="row">
+  <div class="col-sm-4">
+    <div class="card border-default">
+      <div class="card-header bg-default">
+        Successful Submissions Per Week
+      </div>
+      <div class="card-body">
+        <canvas baseChart height="250px"
+          [datasets]="SuccessfulSubmissionsPerWeekLineChartData"
+          [labels]="SuccessfulSubmissionsPerWeekLineChartLabels"
+          [options]="SuccessfulSubmissionsPerWeekLineChartOptions"
+          [colors]="SuccessfulSubmissionsPerWeekLineChartColors"
+          [legend]="'true'"
+          [chartType]="'line'">
+        </canvas>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card border-default">
+      <div class="card-header bg-default">
+        Number of Submissions Per Language
+      </div>
+      <div class="card-body">
+        <div class="chart-wrapper">
+          <canvas baseChart
+            height="250px"
+            width="250px"
+            [data]="NoOfSubmissionsPerLanguageChartData"
+            [labels]="NoOfSubmissionsPerLanguageChartLabels"
+            [chartType]="NoOfSubmissionsPerLanguageChartType"
+            [options]="chartOptions">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-4">
+    <div class="card border-default">
+      <div class="card-header bg-default">
+        Correct Submissions Per Region
+      </div>
+      <div class="card-body">
+        <div class="chart-wrapper">
+          <canvas baseChart
+            height="250px"
+            [datasets]="CorrectSubmissionsPerRegionBarChartData"
+            [labels]="CorrectSubmissionsPerRegionBarChartLabels"
+            [options]="CorrectSubmissionsPerRegionBarChartOptions"
+            [colors]="CorrectSubmissionsPerRegionBarChartColors"
+            [legend]="barChartLegend"
+            [chartType]="barChartType">
+          </canvas>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

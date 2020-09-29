@@ -10,10 +10,10 @@
       <div class="col-md-12">
         <div class="card border-info" id="bordered-panel">
           <div class="card-body">
-            <ngb-tabset>
-              <ngb-tab [attr.id]="tab.id" *ngFor="let tab of tabs">
+            <ngb-tabset (tabChange)="onTabChange($event.nextId, false)">
+              <ngb-tab [id]="tab.id" *ngFor="let tab of tabs">
                 <ng-template ngbTabTitle>
-                  <span (click)="onTabChange(tab.title)">{{ tab.title }}</span>
+                  <span>{{ tab.title }}</span>
                 </ng-template>
                 <ng-template ngbTabContent>
                   <div class="card-body border-info">
@@ -44,7 +44,7 @@
                           </select>  
                         </div>
                         <div class="form-group col-sm-3" style="margin-top: 30px">
-                          <button class="btn btn-primary" (click)="clearFilters(tab.title)">Clear Filters</button>
+                          <button class="btn btn-primary" (click)="clearFilters(tab.id)">Clear Filters</button>
                         </div>
                       </div>
                     </form>
@@ -63,6 +63,6 @@
   </div>
 </div>
 <ng-template #TicketDetails>
-  <ticket-details [ticket]="selectedTicket" [mode]="mode" (exit)="modalRef.hide()" (save)="onTabChange('Questions');modalRef.hide()">
+  <ticket-details [ticket]="selectedTicket" [mode]="mode" (exit)="modalRef.hide()" (save)="onTabChange(selectedTabId, true);modalRef.hide()">
   </ticket-details>
 </ng-template>

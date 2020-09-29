@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { GridOptions, GridApi, ColDef } from 'ag-grid-community';
+import { GridOptions, GridApi, ColDef, Module } from 'ag-grid-community';
 
 import { Participant } from './model';
 import { ParticipantsService } from 'src/services/participants.service';
 import { CommonService } from 'src/services/common.service';
 import { ToastrService } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'participants',
@@ -23,11 +24,13 @@ export class ParticipantsComponent {
   universities: string[]= [];
   badges: string[];
   regions: string[];
- 
+  displayedRowCount: number;
+  
   constructor(
     private participantsService: ParticipantsService,
     private commonService: CommonService,
-    private toastr: ToastrService) { }
+    private toastr: ToastrService,
+    private datePipe: DatePipe) { }
 
   ngOnInit() {
     this.toastr.info('Please select a region and then you can see universities in that region!', 'Info', { timeOut: 10000 });
@@ -40,6 +43,7 @@ export class ParticipantsComponent {
   async loadParticipants() {
     this.participantsList = await this.participantsService.getParticipants().toPromise();
     this.rowData = this.participantsList;
+    this.displayedRowCount = this.rowData.length;
   }
 
   onGridReady(params) {
@@ -55,12 +59,14 @@ export class ParticipantsComponent {
     this.selectedUniversity = 'None';
     this.selectedUniversity = 'None';
     this.rowData = this.participantsList;
+    this.displayedRowCount = this.rowData.length;
   }
 
   async onRegionFilter() {
     this.rowData = this.participantsList.filter(participant => participant.region == this.selectedRegion);
-    this.gridApi.setRowData(this.rowData);
-    this.universities = await this.commonService.loadUniversities(this.selectedRegion).toPromise();
+    //this.gridApi.setRowData(this.rowData);
+    this.displayedRowCount = this.rowData.length;
+    this.universities = await (await (await this.commonService.loadUniversities(this.selectedRegion).toPromise()).sort((a, b) => a.localeCompare(b)));
   }
 
   onUniversityFilter() {
@@ -69,12 +75,36 @@ export class ParticipantsComponent {
       return;
     }
     this.rowData = this.participantsList.filter(participant => participant.team == this.selectedUniversity);
-    this.gridApi.setRowData(this.rowData);
+    //this.gridApi.setRowData(this.rowData);
+    this.displayedRowCount = this.rowData.length;
   }
 
   onBadgeFilter() {
     this.rowData = this.participantsList.filter(participant => participant.badges.includes(this.selectedBadge));
-    this.gridApi.setRowData(this.rowData);
+    //this.gridApi.setRowData(this.rowData);
+    this.displayedRowCount = this.rowData.length;
+  }
+
+  groupByUniversity() {
+    this.configureGroupGrid();
+  }
+
+  configureGroupGrid() {
+    this.gridOptions = {
+      onGridReady: params => this.onGridReady(params),
+      cacheQuickFilter: true,
+      floatingFilter: true,
+    }
+    this.columnDefs = this.getColumnDefs();
+    this.columnDefs.find(col => col.headerName === 'University').rowGroup = true;
+    this.columnDefs.find(col => col.headerName === 'University').hide = true;
+    this.defaultColDef = {
+      sortable: true,
+      filter: true,
+      floatingFilter: true,
+      resizable: true,
+      autoHeight: true
+    };
   }
 
   configureGrid() {
@@ -111,25 +141,59 @@ export class ParticipantsComponent {
       {
         headerName: 'Contestant/Team Name',
         field: 'name',
-        width: 300,
+        width: 250,
         filter: 'agTextColumnFilter',
       },
       {
         headerName: 'Contestant Type',
         field: 'contestantType',
-        width: 150,
+        width: 120,
         filter: 'agTextColumnFilter',
       },
       {
         headerName: 'Region',
         field: 'region',
-        width: 150,
+        width: 100,
         filter: 'agTextColumnFilter',
       },
       {
         headerName: 'University',
         field: 'team',
-        width: 300,
+        width: 250,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Course',
+        field: 'course',
+        width: 100,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Graduation Year',
+        field: 'graduationYear',
+        width: 100,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Registered At',
+        field: 'registeredAt',
+        width: 150,
+        cellRenderer: params => 
+        { 
+          return this.datePipe.transform(params.value,'yyyy-MM-dd')
+        },
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Git UserName',
+        field: 'gitUsername',
+        width: 120,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Email',
+        field: 'email',
+        width: 170,
         filter: 'agTextColumnFilter',
       },
       {
@@ -139,27 +203,9 @@ export class ParticipantsComponent {
         filter: 'agTextColumnFilter',
       },
       {
-        headerName: 'Course',
-        field: 'course',
-        width: 150,
-        filter: 'agTextColumnFilter',
-      },
-      {
-        headerName: 'Git UserName',
-        field: 'gitUsername',
-        width: 150,
-        filter: 'agTextColumnFilter',
-      },
-      {
-        headerName: 'Email',
-        field: 'email',
-        width: 200,
-        filter: 'agTextColumnFilter',
-      },
-      {
         headerName: 'Badges',
         cellRenderer: params => {
-          return params.data.badges?.join(',');
+          return params.value?.join(',');
         },
         width: 200,
         filter: 'agTextColumnFilter',

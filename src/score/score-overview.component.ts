@@ -17,6 +17,7 @@ export class scoreOverviewComponent {
   studentdata: LIST[];
   selectedDropdown: string;
 
+
   dropdowns = [
     'Global',
     'Question 1',
@@ -32,7 +33,9 @@ export class scoreOverviewComponent {
 
   constructor(
     private studentlist: studentlist,
-  ) { }
+  ) {}
+
+
 
   ngOnInit() {
     this.configureGrid();
@@ -49,7 +52,7 @@ export class scoreOverviewComponent {
   }
 
   exportGrid() {
-    this.gridApi.exportDataAsCsv({ fileName: 'scores.csv'});
+    this.gridApi.exportDataAsCsv({ fileName: 'scores.csv' });
   }
 
   async filterData(dropdowntitle: string) {
@@ -61,15 +64,16 @@ export class scoreOverviewComponent {
         (thing, i, arr) => arr.findIndex(t => t.contestantId === thing.contestantId) === i);
       uniqueEntry.forEach((contestant) => {
         contestant.total = this.studentdata.filter(cont => cont.contestantId === contestant.contestantId)
-        .map(x => x.total).reduce((a, b) => a + b);
+          .map(x => x.total).reduce((a, b) => a + b);
       });
       this.rowData = uniqueEntry.sort((a, b) => (a.total > b.total) ? -1 : 1);
     } else {
       this.rowData = this.studentdata.
-      filter(contestant => contestant.questionNumber === parseInt(dropdowntitle.replace('Question ', '')))
-      .sort((a, b) => a.total > b.total ? -1 : 1 );
+        filter(contestant => contestant.questionNumber === parseInt(dropdowntitle.replace('Question ', '')))
+        .sort((a, b) => a.total > b.total ? -1 : 1);
     }
   };
+
 
   configureGrid() {
     this.gridOptions = {
@@ -87,9 +91,13 @@ export class scoreOverviewComponent {
     };
   }
 
+
+
   onGridReady(params) {
     this.gridApi = params.api;
   }
+
+
 
   getColumnDefs(): ColDef[] {
     return [
@@ -104,74 +112,105 @@ export class scoreOverviewComponent {
       {
         headerName: 'Contestant',
         field: 'name',
-        width: 300,
+        width: 270,
         filter: 'agTextColumnFilter',
+        headerTooltip: 'Contestant',
+
+
       },
       {
         headerName: 'Region',
         field: 'region',
         width: 100,
         filter: 'agTextColumnFilter',
-        cellStyle: { 'white-space': 'normal' }
+        cellStyle: { 'white-space': 'normal' },
+        headerTooltip: 'Region',
       },
       {
         headerName: 'University',
         field: 'teamName',
-        width: 350,
+        width: 300,
         filter: 'agTextColumnFilter',
+        headerTooltip: 'University',
       },
       {
         headerName: 'Total Score',
         field: 'total',
-        width: 200,
+        width: 170,
         filter: 'agTextColumnFilter',
+        headerTooltip: 'Total Score',
+
+        valueFormatter: params => params.data.total.toFixed(2)
       },
       {
         headerName: 'Correct Submissions',
         field: 'correct',
         width: 100,
         filter: 'agTextColumnFilter',
-        hide: this.selectedDropdown === 'Global'
+        hide: this.selectedDropdown === 'Global',
+        headerTooltip: 'Correct Submissions',
+
+        valueFormatter: params => params.data.total.toFixed(2)
+
       },
       {
         headerName: 'Incorrect Submissions',
         field: 'incorrect',
         width: 100,
         filter: 'agTextColumnFilter',
-        hide: this.selectedDropdown === 'Global'
+        hide: this.selectedDropdown === 'Global',
+        headerTooltip: 'Correct Submissions',
+        valueFormatter: params => params.data.incorrect.toFixed(2)
+
       },
       {
         headerName: 'Execution Score',
         field: 'executionTimeScore',
         width: 150,
         filter: 'agTextColumnFilter',
-        hide: this.selectedDropdown === 'Global'
+        hide: this.selectedDropdown === 'Global',
+        headerTooltip: 'Execution Score',
+        valueFormatter: params => params.data.executionTimeScore.toFixed(2)
+
+
       },
       {
         headerName: 'Memory Score',
         field: 'memoryScore',
         width: 100,
         filter: 'agTextColumnFilter',
-        hide: this.selectedDropdown === 'Global'
+        hide: this.selectedDropdown === 'Global',
+        headerTooltip: 'Memory Score',
+
+        valueFormatter: params => params.data.memoryScore.toFixed(2)
+
       },
       {
         headerName: 'Test case Score',
         field: 'testCaseScore',
         width: 100,
         filter: 'agTextColumnFilter',
-        hide: this.selectedDropdown === 'Global'
+        hide: this.selectedDropdown === 'Global',
+        headerTooltip: 'Test case Score',
+        valueFormatter: params => params.data.testCaseScore.toFixed(2)
+
       },
       {
         headerName: 'Cyclo. complexity Score',
         field: 'cycloComplexityScore',
         width: 100,
         filter: 'agTextColumnFilter',
-        hide: this.selectedDropdown === 'Global'
+        hide: this.selectedDropdown === 'Global',
+        headerTooltip: 'Cyclomatic complexity Score',
+        valueFormatter: params => params.data.cycloComplexityScore.toFixed(2)
+
       },
     ];
-
   }
 }
+
+
+
 
 
 

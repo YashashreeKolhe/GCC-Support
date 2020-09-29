@@ -4,6 +4,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 import { FAQ, ITab } from './model';
 import { FaqsService } from '../services/faqs.service';
+import { info } from 'console';
 
 @Component({
   selector: 'faqs-overview',
@@ -18,7 +19,7 @@ export class FaqsOverviewComponent {
   modalRef: BsModalRef;
   defaultColDef;
   mode: number;
-  selectedTab: string;
+  selectedTabId: number;
   
   tabs: ITab[] = [
     {
@@ -26,15 +27,19 @@ export class FaqsOverviewComponent {
       title: 'Questions'
     }, 
     {
-      id: 1,
+      id: 2,
       title: 'Scores/Evaluation'
     },
     {
-      id: 1,
+      id: 3,
+      title: 'Submissions'
+    },
+    {
+      id: 4,
       title: 'Registration'
     },
     {
-      id: 1,
+      id: 5,
       title: 'Others'
     }
   ];
@@ -48,7 +53,7 @@ export class FaqsOverviewComponent {
 
   async ngOnInit() {
     this.configureGrid();
-    this.onTabChange('Questions');
+    this.onTabChange(1, true);
   }
 
   async loadFAQs() {
@@ -71,9 +76,13 @@ export class FaqsOverviewComponent {
     this.modalRef = this.modalService.show(this.FAQDetails, { class: 'modal-lg' });
   }
 
-  async onTabChange(tabTitle: string) {
-    this.selectedTab = tabTitle;
-    await this.loadFAQs();
+  async onTabChange(tabId: number, reload: boolean) {
+    this.selectedTabId = tabId;
+    const tabTitle = this.tabs.find(tab => tab.id === tabId).title;
+    
+    if (reload) {
+      await this.loadFAQs();
+    }
     switch (tabTitle) {
       case 'Questions': {
         this.rowData = this.faqsList.filter(faq => faq.category === 'Questions');
@@ -87,12 +96,15 @@ export class FaqsOverviewComponent {
         this.rowData = this.faqsList.filter(faq => faq.category === 'Scores/Evaluation');
         break;
       }
+      case 'Submissions': {
+        this.rowData = this.faqsList.filter(faq => faq.category === 'Submissions');
+        break;
+      }
       case 'Others': {
         this.rowData = this.faqsList.filter(faq => faq.category === null || faq.category === '' || faq.category === 'Others');
         break;
       }
     }
-    this.gridApi.setRowData(this.rowData);
   }
 
   configureGrid() {

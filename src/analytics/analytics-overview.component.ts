@@ -15,26 +15,29 @@ import { CommonService } from 'src/services/common.service';
   styleUrls: ['./analytics-overview.component.css']
 })
 export class AnalyticsOverviewComponent {
-  activeTab: string = 'Global Statistics';
+  activeTab: number = 1;
   
   tabs: ITab[] = [
     {
       id: 1,
       title: 'Global Statistics'
     },
-    // do not remove
-    // {
-    //   id: 1,
-    //   title: 'Questionwise Statistics'
-    // },
+    {
+      id: 2,
+      title: 'Questionwise Statistics'
+    },
+    {
+      id: 3,
+      title: 'Registration Statistics'
+    },
   ];
   ChartPlugins: Chart.ChartPluginsOptions[];
 
   doughnutChartLabels: Label[] = [];
-  doughnutChartData: MultiDataSet = [];
+  doughnutChartData: ChartDataSets[] = [];
   doughnutChartType: ChartType = 'doughnut';
 
-  CorrectSubmissionsPerRegionChartData: MultiDataSet = [];
+  CorrectSubmissionsPerRegionChartData: ChartDataSets[] = [];
   CorrectSubmissionsPerRegionChartLabels: Label[] = [];
   
   AttemptsPerQuestionBarChartData: ChartDataSets[] = [];
@@ -61,11 +64,11 @@ export class AnalyticsOverviewComponent {
           dataArr.map(data => {
               sum += data;
           });
-          let percentage = Math.round(value*100 / sum)+"%";
-          return value + ' (' + percentage + ')';
+          //let percentage = Math.round(value*100 / sum)+"%";
+          return value //+ ' (' + percentage + ')';
         },
         font: {
-          size: 14,
+          size: 12,
         }
       }
     }
@@ -84,13 +87,12 @@ export class AnalyticsOverviewComponent {
       borderColor: 'red',
     }
   ];
-  ParticipationPerRegionLineChartData: ChartDataSets[] = [];
-  ParticipationPerRegionLineChartLabels: Label[] = [];
-  ParticipationPerRegionLineChartOptions: ChartOptions;
-  ParticipationPerRegionLineChartColors: Color[] = [
+  ParticipationPerRegionBarChartData: ChartDataSets[] = [];
+  ParticipationPerRegionBarChartLabels: Label[] = [];
+  ParticipationPerRegionBarChartOptions: ChartOptions;
+  ParticipationPerRegionBarChartColors: Color[] = [
     { 
-      backgroundColor: 'rgba(77,83,96,0.2)',
-      borderColor: 'rgba(77,83,96,1)',
+      backgroundColor: '#829dff',
     }
   ];
 
@@ -105,14 +107,21 @@ export class AnalyticsOverviewComponent {
     await this.prepareBarChartForAttemptsPerQuestion();
     await this.prepareBarChartForSubmissionsPerWeek();
     await this.prepareLineCharForAcceptedVsRejectedSolutionsPerQuestion();
-    await this.prepareLineChartForParticipationPerRegion();
+    await this.prepareBarChartForParticipationPerRegion();
   }
 
-  prepareLineChartForParticipationPerRegion() {
-    const result = this.analyticsService.getParticipantsPerRegion();
-    this.ParticipationPerRegionLineChartData.push({ data: result.map(region => region.Value), label: 'Participants' });
-    result.forEach(region => {
-      this.ParticipationPerRegionLineChartLabels.push(region.Region);
+  async prepareBarChartForParticipationPerRegion() {
+    const output = await this.analyticsService.getParticipantsPerRegion().toPromise();
+    const regions = this.commonService.loadRegions().filter(reg => reg !== 'GLOBAL');
+    const result2 = [];
+    regions.forEach(region => {
+      result2.push({ Region: region, Value: Object.keys(output).findIndex(reg => reg === region) >= 0 
+        ? output[region] : 0});
+    });
+    console.log(result2);
+    this.ParticipationPerRegionBarChartData.push({ data: result2.map(region => region.Value), label: 'No. of participants'});
+    result2.forEach(region => {
+      this.ParticipationPerRegionBarChartLabels.push(region.Region);
     });
     this.ChartPlugins = [{
       beforeDraw(chart, easing) {
@@ -127,20 +136,25 @@ export class AnalyticsOverviewComponent {
         ctx.restore();
       }
     }];
-    this.ParticipationPerRegionLineChartOptions = {
+    this.ParticipationPerRegionBarChartOptions = {
       responsive: true,
       maintainAspectRatio: false,
       scales: {
         yAxes: [{
-            display: true,
-        }]
+          display: true,
+          ticks: {
+            suggestedMin: result2.map(region => region.Value).reduce((a, b)=>Math.min(a, b)) - 10 >= 0 ?
+              result2.map(region => region.Value).reduce((a, b)=>Math.min(a, b)) - 10 : 0,
+            suggestedMax: result2.map(region => region.Value).reduce((a, b)=>Math.max(a, b)) + 20
+          }
+      }]
       },
       plugins: {
         datalabels: {
           anchor: 'end',
           align: 'end',
           font: {
-            size: 14,
+            size: 12,
           }
         }
       }
@@ -173,14 +187,24 @@ export class AnalyticsOverviewComponent {
             display: true,
         }]
       },
+      // plugins: {
+      //   backgroundColor: 'red',
+      //   datalabels: {
+      //     anchor: 'end',
+      //     align: 'end',
+      //     font: {
+      //       size: 10,
+      //     }
+      //   }
+      // }
       plugins: {
-        backgroundColor: 'red',
         datalabels: {
-          anchor: 'end',
-          align: 'end',
+          color: 'grey',
           font: {
-            size: 14,
-          }
+            size: 10
+          },
+          anchor: 'end',
+          align: 'right',
         }
       }
     };
@@ -195,7 +219,7 @@ export class AnalyticsOverviewComponent {
         Value: Object.keys(output).findIndex(language => language === lang) >= 0
       ? output[lang] : 0 });
     });
-    this.doughnutChartData.push(result.map(language => (language.Value)));
+    this.doughnutChartData.push({ data: result.map(language => (language.Value)), label: 'Submissions'});
     result.forEach(language => {
       this.doughnutChartLabels.push(language.Language);
     });
@@ -210,7 +234,7 @@ export class AnalyticsOverviewComponent {
         ? output[region] : 0});
     });
     console.log(result2);
-    this.CorrectSubmissionsPerRegionChartData.push(result2.map(region => (region.Value)));
+    this.CorrectSubmissionsPerRegionChartData.push({ data: result2.map(region => (region.Value)), label: 'Correct submissions' });
     result2.forEach(region => {
       this.CorrectSubmissionsPerRegionChartLabels.push(region.Region);
     });
@@ -250,7 +274,7 @@ export class AnalyticsOverviewComponent {
           anchor: 'end',
           align: 'end',
           font: {
-            size: 14,
+            size: 12,
           }
         }
       }
@@ -286,7 +310,7 @@ export class AnalyticsOverviewComponent {
           anchor: 'end',
           align: 'end',
           font: {
-            size: 14,
+            size: 12,
           }
         }
       }

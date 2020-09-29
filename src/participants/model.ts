@@ -10,4 +10,7 @@ export interface Participant {
   email?: string;
   githubUsername?: string;
   course?: string;
+  graduationYear?: number;
+  registeredAt?: string;
+  contestandType?: string;
 }

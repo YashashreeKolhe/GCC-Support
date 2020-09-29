@@ -13,12 +13,12 @@
         <div class="col-md-12">
           <div class="card border-info" id="bordered-panel">
             <div class="card-body">
-              <ngb-tabset>
+              <ngb-tabset (tabChange)="onTabChange($event.nextId, false)">
                 <ngb-tab
-                  [attr.id]="tab.id"
+                  [id]="tab.id"
                   *ngFor="let tab of tabs">
                     <ng-template ngbTabTitle>
-                        <span (click)="onTabChange(tab.title)">{{ tab.title }}</span>
+                        <span>{{ tab.title }}</span>
                     </ng-template>
                     <ng-template ngbTabContent>
                       <div class="card-body">
@@ -42,5 +42,5 @@
   </div>
 </div>
 <ng-template #FAQDetails>
-  <new-faq [faq]="selectedFaq" [mode]="mode" (exit)="modalRef.hide()" (save)="modalRef.hide();onTabChange(selectedTab)"></new-faq>
+  <new-faq [faq]="selectedFaq" [mode]="mode" (exit)="modalRef.hide()" (save)="modalRef.hide();onTabChange(selectedTabId, true)"></new-faq>
 </ng-template>

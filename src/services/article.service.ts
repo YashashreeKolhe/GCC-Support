@@ -5,7 +5,7 @@ import { Article } from 'src/news/article-model';
 
 @Injectable()
 export class ArticleService {
-  endpoint: string = 'https://gcc-backend-dev-temp.herokuapp.com';
+  endpoint: string = 'https://gcc-global-dev.herokuapp.com/';
   
   constructor(private http: HttpClient) { }
 
@@ -18,25 +18,7 @@ export class ArticleService {
   }
 
   getAllArticleHeadlines(region: string): Observable<any> {
-    // return {headlines: [
-    //   {
-    //     title: 'Article 1',
-    //     subHeading: 'Sub heading article 1',
-    //     paragraphs: [
-    //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    //       'Paragraph 2 article 1'
-    //     ]
-    //   },
-    //   {
-    //     title: 'Article 2',
-    //     subHeading: 'Sub heading article 2',
-    //     paragraphs: [
-    //       'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-    //       'Paragraph 2 article 2'
-    //     ]
-    //   }
-    // ]}
-    return this.http.get<any>(`${this.endpoint}/news/headlines/${region}?from=0&limit=20`);
+    return this.http.get<any>(`${this.endpoint}/news/headlines/${region}?from=0&limit=30`);
   }
 
   getArticle(id: string): Observable<any> {
@@ -49,6 +31,15 @@ export class ArticleService {
 
   getImagesList(): Observable<string> {
     return this.http.get('assets/imageUrls.txt', {responseType: 'text'});
+  }
+
+  deleteArticle(articleId: string) {
+    //return this.http.get(`${this.endpoint}/news/delete/${articleId}`);
+    return null;
+  }
+
+  updateArticle(article: Article): Observable<Article> {
+    return this.http.post<Article>(`${this.endpoint}/news/update/${article.id}`, article);
   }
 }
 

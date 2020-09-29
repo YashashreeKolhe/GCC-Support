@@ -8,6 +8,7 @@ import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule } from '@angular/forms';
 import { ServicesModule } from '../services/services.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DatePipe } from '@angular/common';
 
 import { ParticipantsComponent } from './participants.component';
 
@@ -25,9 +26,10 @@ import { ParticipantsComponent } from './participants.component';
     ToastrModule.forRoot(),
     ModalModule.forRoot(),
     ToastrModule.forRoot(),
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
   ],
   providers: [
+    DatePipe
   ],
   exports: [
     ParticipantsComponent

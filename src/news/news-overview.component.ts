@@ -36,7 +36,7 @@ export class NewsOverviewComponent {
   regions: string[];
   selectedRegion: string;
   articles: Article[];
-  mode: number = 1;
+  mode: number = 1; //create
   title: string;
 
   constructor(private commonService: CommonService,
@@ -64,6 +64,12 @@ export class NewsOverviewComponent {
 
   async onRegionSelectionChanged() {
     this.loadArticles();
+  }
+
+  onTabChange(tabId: number) {
+    if (tabId === 1) {
+      this.loadArticles();
+    }
   }
 }
 
