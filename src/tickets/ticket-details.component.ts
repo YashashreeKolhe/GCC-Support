@@ -58,6 +58,9 @@ export class  TicketDetailsComponent {
   async onSaveTicket() {
     if (this.validateTicket()) {
       const result = await this.ticketService.saveTicket(this.ticket).toPromise();
+      if (this.ticket.ticketStatus === 'CLOSED') {
+        const result = await this.ticketService.updateTicketStatus(this.ticket.id, this.ticket.ticketStatus).toPromise();
+      }
       this.toastr.success('Ticket saved successfully', 'Success');
       this.save.emit();
     } else {

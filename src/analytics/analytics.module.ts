@@ -5,6 +5,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { ChartsModule } from 'ng2-charts';
 import { DatePipe } from '@angular/common';
+import { AgGridModule } from 'ag-grid-angular';
 
 import { ServicesModule } from '../services/services.module';
 import { AnalyticsOverviewComponent } from '../analytics/analytics-overview.component';
@@ -24,6 +25,7 @@ import { RegistrationStatisticsComponent } from '../analytics/registration-stati
     FormsModule,
     ServicesModule,
     ChartsModule,
+    AgGridModule.withComponents([])
   ],
   providers: [DatePipe],
   exports: [

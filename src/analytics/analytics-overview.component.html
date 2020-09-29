@@ -152,32 +152,6 @@
                           </div>
                         </div>
                       </div>
-                      <div class="col-sm-4">
-                        <div class="card border-default">
-                          <div class="card-header bg-default">
-                            Participation Per Region
-                            <div class="pull-right">
-                              <button class="btn btn-sm btn-success">
-                                <a href="#" style="color: white"  title="Export to png" (click)="downloadParticipationPerRegion($event)">Export</a>
-                              </button>
-                            </div>
-                          </div>
-                          <div class="card-body">
-                            <div class="chart-wrapper" *ngIf="ParticipationPerRegionBarChartData">
-                              <canvas baseChart 
-                                height="300px"
-                                [datasets]="ParticipationPerRegionBarChartData" 
-                                [labels]="ParticipationPerRegionBarChartLabels" 
-                                [options]="ParticipationPerRegionBarChartOptions"
-                                [colors]="ParticipationPerRegionBarChartColors"
-                                [plugins]="ChartPlugins" 
-                                [legend]="barChartLegend" 
-                                [chartType]="'bar'">
-                              </canvas>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
                     </div>
                   </div>
                   <div class="card-body" style="padding: 15px" *ngIf="activeTab === 2">

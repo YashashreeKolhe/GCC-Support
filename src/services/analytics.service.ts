@@ -8,7 +8,7 @@ import { QuestionStats, RegionStats, LanguageStats, WeeklyStats } from 'src/anal
 export class AnalyticsService {
 
   constructor(private http: HttpClient) {}
-  endpoint: string = ' https://gcc-global-dev.herokuapp.com/';
+  endpoint: string = ' https://gcc-global-dev.herokuapp.com';
 
   getAttemptsPerQuestion(): Observable<any> {
     return this.http.get<any>(`${this.endpoint}/monitoring/attemptsPerQuestion`);

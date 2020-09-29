@@ -1,68 +1,64 @@
 <div class="row">
-  <form>
-    <div class="form-group">
-      <label for="question">Filter By Question</label>
-      <select class="form-control" name="question"  #item (click)="onQuestionChange(item.value)">
-        <option *ngFor="let quest of questions" id="question" [value]="quest">{{quest}}
-        </option>
-      </select>
-    </div>
-  </form>
-</div>
-<div class="row">
   <div class="col-sm-4">
-    <div class="card border-default">
-      <div class="card-header bg-default">
-        Successful Submissions Per Week
-      </div>
-      <div class="card-body">
-        <canvas baseChart height="250px"
-          [datasets]="SuccessfulSubmissionsPerWeekLineChartData"
-          [labels]="SuccessfulSubmissionsPerWeekLineChartLabels"
-          [options]="SuccessfulSubmissionsPerWeekLineChartOptions"
-          [colors]="SuccessfulSubmissionsPerWeekLineChartColors"
-          [legend]="'true'"
-          [chartType]="'line'">
-        </canvas>
-      </div>
-    </div>
-  </div>
-  <div class="col-sm-4">
-    <div class="card border-default">
-      <div class="card-header bg-default">
-        Number of Submissions Per Language
-      </div>
-      <div class="card-body">
-        <div class="chart-wrapper">
-          <canvas baseChart
-            height="250px"
-            width="250px"
-            [data]="NoOfSubmissionsPerLanguageChartData"
-            [labels]="NoOfSubmissionsPerLanguageChartLabels"
-            [chartType]="NoOfSubmissionsPerLanguageChartType"
-            [options]="chartOptions">
-          </canvas>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="card border-default">
+          <div class="card-header bg-default">
+            No. of Participants from Graduation Years
+          </div>
+          <div class="card-body">
+            <canvas baseChart height="250px" [datasets]="ContestantsPerGradYearBarChartData"
+              [labels]="ContestantsPerGradYearBarChartLabels" [options]="ContestantsPerGradYearBarChartOptions"
+              [colors]="ContestantsPerGradYearBarChartColors" [legend]="'true'" [chartType]="'bar'">
+            </canvas>
+          </div>
         </div>
       </div>
+      <!-- <div class="col-sm-12">
+        <div class="card border-default">
+          <div class="card-header bg-default">
+            Participation Per Region
+            <div class="pull-right">
+              <button class="btn btn-sm btn-success">
+                <a href="#" style="color: white"  title="Export to png" (click)="downloadParticipationPerRegion($event)">Export</a>
+              </button>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="chart-wrapper" *ngIf="ParticipationPerRegionBarChartData">
+              <canvas baseChart 
+                height="300px"
+                [datasets]="ParticipationPerRegionBarChartData" 
+                [labels]="ParticipationPerRegionBarChartLabels" 
+                [options]="ParticipationPerRegionBarChartOptions"
+                [colors]="ParticipationPerRegionBarChartColors"
+                [plugins]="ChartPlugins" 
+                [legend]="'true'" 
+                [chartType]="'bar'">
+              </canvas>
+            </div>
+          </div>
+        </div>
+      </div> -->
     </div>
   </div>
-  <div class="col-sm-4">
+  <div class="col-sm-8">
     <div class="card border-default">
       <div class="card-header bg-default">
-        Correct Submissions Per Region
+        No. of Participants Per University
       </div>
       <div class="card-body">
-        <div class="chart-wrapper">
-          <canvas baseChart
-            height="250px"
-            [datasets]="CorrectSubmissionsPerRegionBarChartData"
-            [labels]="CorrectSubmissionsPerRegionBarChartLabels"
-            [options]="CorrectSubmissionsPerRegionBarChartOptions"
-            [colors]="CorrectSubmissionsPerRegionBarChartColors"
-            [legend]="barChartLegend"
-            [chartType]="barChartType">
-          </canvas>
+        <div class="form-group col-sm-4">
+          <label for="filter">Select Region</label>
+          <select class="form-control" (click)="filterData(filter.value)" name="filter" #filter>
+            <option *ngFor="let region of regions" id="filter" [selected]="region == 'GLOBAL'" [value]="region">
+              {{region}}
+            </option>
+          </select>
         </div>
+        <ag-grid-angular style="height:400px;" class="ag-theme-balham" [columnDefs]="columnDefs" [rowData]="rowData"
+          [gridOptions]="gridOptions" [defaultColDef]="defaultColDef">
+        </ag-grid-angular>
       </div>
     </div>
   </div>

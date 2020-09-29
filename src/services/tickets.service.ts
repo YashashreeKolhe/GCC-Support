@@ -6,7 +6,7 @@ import { Ticket, Category, Status } from 'src/tickets/model';
 
 @Injectable()
 export class TicketsService {
-  endpoint: string = ' https://gcc-global-dev.herokuapp.com/';
+  endpoint: string = 'https://gcc-global-dev.herokuapp.com';
 
   notes: string[] = [
     "Note 1",
@@ -51,7 +51,7 @@ export class TicketsService {
     return this.http.post<boolean>(`${this.endpoint}/ticket/update`, ticket);
   }
 
-  saveTicketNotes(ticketNotes: any) {
-    this.notes.push(ticketNotes);
+  updateTicketStatus(ticketId: number, ticketStatus: string): Observable<Ticket> {
+    return this.http.post<Ticket>(`${this.endpoint}/ticket/updateStatus/${ticketId}/${ticketStatus}`, { id: ticketId, note: "", status: ticketStatus });
   }
 }

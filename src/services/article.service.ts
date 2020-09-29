@@ -5,7 +5,7 @@ import { Article } from 'src/news/article-model';
 
 @Injectable()
 export class ArticleService {
-  endpoint: string = 'https://gcc-global-dev.herokuapp.com/';
+  endpoint: string = 'https://gcc-global-dev.herokuapp.com';
   
   constructor(private http: HttpClient) { }
 

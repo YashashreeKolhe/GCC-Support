@@ -22,3 +22,14 @@ export interface WeeklyStats {
   Week: number;
   Value: number;
 }
+
+export interface GradYearStats {
+  GradYear: number;
+  Value: number;
+}
+
+export interface UniversityStats {
+  University: string;
+  Region: string;
+  Value: number;
+}

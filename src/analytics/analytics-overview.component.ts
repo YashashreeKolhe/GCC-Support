@@ -107,58 +107,6 @@ export class AnalyticsOverviewComponent {
     await this.prepareBarChartForAttemptsPerQuestion();
     await this.prepareBarChartForSubmissionsPerWeek();
     await this.prepareLineCharForAcceptedVsRejectedSolutionsPerQuestion();
-    await this.prepareBarChartForParticipationPerRegion();
-  }
-
-  async prepareBarChartForParticipationPerRegion() {
-    const output = await this.analyticsService.getParticipantsPerRegion().toPromise();
-    const regions = this.commonService.loadRegions().filter(reg => reg !== 'GLOBAL');
-    const result2 = [];
-    regions.forEach(region => {
-      result2.push({ Region: region, Value: Object.keys(output).findIndex(reg => reg === region) >= 0 
-        ? output[region] : 0});
-    });
-    console.log(result2);
-    this.ParticipationPerRegionBarChartData.push({ data: result2.map(region => region.Value), label: 'No. of participants'});
-    result2.forEach(region => {
-      this.ParticipationPerRegionBarChartLabels.push(region.Region);
-    });
-    this.ChartPlugins = [{
-      beforeDraw(chart, easing) {
-        const ctx = chart.ctx;
-        const chartArea = chart.chartArea;
-        const top = 0;
-  
-        ctx.save();
-        ctx.fillStyle = 'white';
-  
-        ctx.fillRect(chartArea.left - 80, top - 40, chartArea.right - chartArea.left + 160, chartArea.bottom - top + 80);
-        ctx.restore();
-      }
-    }];
-    this.ParticipationPerRegionBarChartOptions = {
-      responsive: true,
-      maintainAspectRatio: false,
-      scales: {
-        yAxes: [{
-          display: true,
-          ticks: {
-            suggestedMin: result2.map(region => region.Value).reduce((a, b)=>Math.min(a, b)) - 10 >= 0 ?
-              result2.map(region => region.Value).reduce((a, b)=>Math.min(a, b)) - 10 : 0,
-            suggestedMax: result2.map(region => region.Value).reduce((a, b)=>Math.max(a, b)) + 20
-          }
-      }]
-      },
-      plugins: {
-        datalabels: {
-          anchor: 'end',
-          align: 'end',
-          font: {
-            size: 12,
-          }
-        }
-      }
-    };
   }
 
   async prepareLineCharForAcceptedVsRejectedSolutionsPerQuestion() {
@@ -352,11 +300,5 @@ export class AnalyticsOverviewComponent {
     var anchor = event.target;
     anchor.href = document.getElementsByTagName('canvas')[4].toDataURL("image/png");
     anchor.download = 'NoOfSubmissionsPerWeek' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
-  }
-  
-  downloadParticipationPerRegion(event) {
-    var anchor = event.target;
-    anchor.href = document.getElementsByTagName('canvas')[5].toDataURL("image/png");
-    anchor.download = 'ParticipationPerRegion' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
   }
 }
