@@ -4,17 +4,22 @@
       <div class="col-sm-12">
         <div class="card border-default">
           <div class="card-header bg-default">
-            No. of Participants from Graduation Years
+            Registrations vs Graduation Years
+            <div class="pull-right">
+              <button class="btn btn-sm btn-success">
+                <a href="#" style="color: white"  title="Export to png" (click)="downloadRegistrationsVsGradYrs($event)">Export</a>
+              </button>
+            </div>
           </div>
           <div class="card-body">
             <canvas baseChart height="250px" [datasets]="ContestantsPerGradYearBarChartData"
               [labels]="ContestantsPerGradYearBarChartLabels" [options]="ContestantsPerGradYearBarChartOptions"
-              [colors]="ContestantsPerGradYearBarChartColors" [legend]="'true'" [chartType]="'bar'">
+              [colors]="ContestantsPerGradYearBarChartColors" [plugins]="ChartPlugins" [legend]="'true'" [chartType]="'bar'">
             </canvas>
           </div>
         </div>
       </div>
-      <!-- <div class="col-sm-12">
+      <div class="col-sm-12">
         <div class="card border-default">
           <div class="card-header bg-default">
             Participation Per Region
@@ -27,7 +32,7 @@
           <div class="card-body">
             <div class="chart-wrapper" *ngIf="ParticipationPerRegionBarChartData">
               <canvas baseChart 
-                height="300px"
+                height="250px"
                 [datasets]="ParticipationPerRegionBarChartData" 
                 [labels]="ParticipationPerRegionBarChartLabels" 
                 [options]="ParticipationPerRegionBarChartOptions"
@@ -39,7 +44,7 @@
             </div>
           </div>
         </div>
-      </div> -->
+      </div>
     </div>
   </div>
   <div class="col-sm-8">
@@ -56,7 +61,7 @@
             </option>
           </select>
         </div>
-        <ag-grid-angular style="height:400px;" class="ag-theme-balham" [columnDefs]="columnDefs" [rowData]="rowData"
+        <ag-grid-angular style="height:500px;" class="ag-theme-balham" [columnDefs]="columnDefs" [rowData]="rowData"
           [gridOptions]="gridOptions" [defaultColDef]="defaultColDef">
         </ag-grid-angular>
       </div>

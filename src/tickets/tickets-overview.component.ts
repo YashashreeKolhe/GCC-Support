@@ -6,6 +6,7 @@ import { Ticket, ITab, Category, Status } from './model';
 import { TicketsService } from 'src/services/tickets.service';
 import { Name } from 'src/faqs/model';
 import { CommonService } from 'src/services/common.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'tickets-overview',
@@ -62,7 +63,8 @@ export class TicketsOverviewComponent {
   constructor(
     private modalService: BsModalService,
     private ticketsService: TicketsService,
-    private commonService: CommonService) { }
+    private commonService: CommonService,
+    private datePipe: DatePipe) { }
 
   async ngOnInit() {
     this.names = this.commonService.loadNames();
@@ -196,6 +198,16 @@ export class TicketsOverviewComponent {
         headerName: 'Submitted By',
         field: 'email',
         width: 160,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Submitted On',
+        field: 'submittedDate',
+        width: 120,
+        cellRenderer: params => 
+        { 
+          return this.datePipe.transform(params.value,'yyyy-MM-dd')
+        },
         filter: 'agTextColumnFilter',
       },
       {

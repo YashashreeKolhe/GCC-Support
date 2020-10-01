@@ -49,8 +49,21 @@ export class RegistrationStatisticsComponent {
 
   ngOnInit() {
     this.regions = this.commonService.loadRegions();
+    this.ChartPlugins = [{
+      beforeDraw(chart, easing) {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea;
+        const top = 0;
+  
+        ctx.save();
+        ctx.fillStyle = 'white';
+  
+        ctx.fillRect(chartArea.left - 80, top - 40, chartArea.right - chartArea.left + 160, chartArea.bottom - top + 80);
+        ctx.restore();
+      }
+    }];
     this.prepareBarChartForContestantsPerGradYear();
-    //this.prepareBarChartForParticipationPerRegion();
+    this.prepareBarChartForParticipationPerRegion();
     this.configureGrid();
     this.CalculateRegistrationsPerUniversity();
   }
@@ -94,19 +107,6 @@ export class RegistrationStatisticsComponent {
     result2.forEach(region => {
       this.ParticipationPerRegionBarChartLabels.push(region.Region);
     });
-    this.ChartPlugins = [{
-      beforeDraw(chart, easing) {
-        const ctx = chart.ctx;
-        const chartArea = chart.chartArea;
-        const top = 0;
-  
-        ctx.save();
-        ctx.fillStyle = 'white';
-  
-        ctx.fillRect(chartArea.left - 80, top - 40, chartArea.right - chartArea.left + 160, chartArea.bottom - top + 80);
-        ctx.restore();
-      }
-    }];
     this.ParticipationPerRegionBarChartOptions = {
       responsive: true,
       maintainAspectRatio: false,
@@ -226,7 +226,13 @@ export class RegistrationStatisticsComponent {
 
   downloadParticipationPerRegion(event) {
     var anchor = event.target;
-    anchor.href = document.getElementsByTagName('canvas')[5].toDataURL("image/png");
+    anchor.href = document.getElementsByTagName('canvas')[1].toDataURL("image/png");
     anchor.download = 'ParticipationPerRegion' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
+  }
+
+  downloadRegistrationsVsGradYrs(event) {
+    var anchor = event.target;
+    anchor.href = document.getElementsByTagName('canvas')[0].toDataURL("image/png");
+    anchor.download = 'RegistrationsVsGradYrs' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
   }
 }

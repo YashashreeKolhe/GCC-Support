@@ -6,6 +6,7 @@ import { ModalModule, BsModalRef } from 'ngx-bootstrap/modal';
 import { ToastrModule } from 'ngx-toastr';
 import { AgGridModule } from 'ag-grid-angular';
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 import { ServicesModule } from '../services/services.module';
 import { TicketsOverviewComponent } from './tickets-overview.component';
@@ -27,7 +28,9 @@ import { TicketDetailsComponent } from './ticket-details.component';
     ToastrModule.forRoot(),
     AgGridModule.withComponents([])
   ],
-  providers: [],
+  providers: [
+    DatePipe
+  ],
   exports: [
     TicketsOverviewComponent,
     TicketDetailsComponent

@@ -63,7 +63,11 @@ export class ParticipantsComponent {
   }
 
   async onRegionFilter() {
-    this.rowData = this.participantsList.filter(participant => participant.region == this.selectedRegion);
+    if (this.selectedRegion === 'GLOBAL' || this.selectedRegion === '0') {
+      this.rowData = this.participantsList;
+    } else {
+      this.rowData = this.participantsList.filter(participant => participant.region == this.selectedRegion);
+    }
     //this.gridApi.setRowData(this.rowData);
     this.displayedRowCount = this.rowData.length;
     this.universities = await (await (await this.commonService.loadUniversities(this.selectedRegion).toPromise()).sort((a, b) => a.localeCompare(b)));
@@ -74,7 +78,11 @@ export class ParticipantsComponent {
       this.toastr.error('Please select a region and then you can see universities in that region!', 'Error');
       return;
     }
-    this.rowData = this.participantsList.filter(participant => participant.team == this.selectedUniversity);
+    if (this.selectedUniversity === '0') {
+      this.rowData = this.participantsList.filter(list => list.region == this.selectedRegion);
+    } else {
+      this.rowData = this.participantsList.filter(participant => participant.team == this.selectedUniversity);
+    }
     //this.gridApi.setRowData(this.rowData);
     this.displayedRowCount = this.rowData.length;
   }
@@ -175,7 +183,7 @@ export class ParticipantsComponent {
         filter: 'agTextColumnFilter',
       },
       {
-        headerName: 'Registered At',
+        headerName: 'Registered On',
         field: 'registeredAt',
         width: 150,
         cellRenderer: params => 
@@ -196,20 +204,20 @@ export class ParticipantsComponent {
         width: 170,
         filter: 'agTextColumnFilter',
       },
-      {
-        headerName: 'Score',
-        field: 'total',
-        width: 100,
-        filter: 'agTextColumnFilter',
-      },
-      {
-        headerName: 'Badges',
-        cellRenderer: params => {
-          return params.value?.join(',');
-        },
-        width: 200,
-        filter: 'agTextColumnFilter',
-      },
+      // {
+      //   headerName: 'Score',
+      //   field: 'total',
+      //   width: 100,
+      //   filter: 'agTextColumnFilter',
+      // },
+      // {
+      //   headerName: 'Badges',
+      //   cellRenderer: params => {
+      //     return params.value?.join(',');
+      //   },
+      //   width: 200,
+      //   filter: 'agTextColumnFilter',
+      // },
     ];
   }
 }

@@ -47,11 +47,11 @@ export class NavBarComponent {
 				'Location': '/tickets',
 				'IsActive': false
 			},
-			{
-				'Title': 'Server and Log Monitoring',
-				'Location': '/server',
-				'IsActive': false
-			},
+			// {
+			// 	'Title': 'Server and Log Monitoring',
+			// 	'Location': '/server',
+			// 	'IsActive': false
+			// },
 			{
 				'Title': 'FAQs',
 				'Location': '/faqs',

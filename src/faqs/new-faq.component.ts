@@ -15,7 +15,6 @@ export class  NewFaqComponent {
   @Output() save: EventEmitter<void> = new EventEmitter<void>();
 
   names: Name[];
-  nameStore: Name[];
   categories: string[];
 
   constructor(
@@ -28,7 +27,7 @@ export class  NewFaqComponent {
       this.faq = this.initializeFaq();
     }
     this.categories = this.faqsService.loadCategories();
-    this.nameStore = this.commonService.loadNames();
+    this.names = this.commonService.loadNames();
     this.onChangeCategory('Others');
   }
 

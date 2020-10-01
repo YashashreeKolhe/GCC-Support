@@ -14,10 +14,17 @@ export class FaqsService {
   //   { 'Id': 4, 'Question': 'Shuld we use our own github repo or will it be assigned to us?', 'Answer': '', 'Category': 'Others', 'AnsweredBy': 'Yashashree' },
   // ];
 
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'Basic ' + btoa('gcc2020monitoring:gcc-2020-monitoring-123')
+    })
+  };
+
   constructor(private http: HttpClient) { }
 
   getFaqs(): Observable<FAQ[]> {
-    return this.http.get<FAQ[]>(`${this.endpoint}/faqs`);
+    return this.http.get<FAQ[]>(`${this.endpoint}/faqs`, this.httpOptions);
   }
 
   loadCategories() {
@@ -31,10 +38,10 @@ export class FaqsService {
   }
   
   saveFaq(faq: FAQ): Observable<boolean> {
-    return this.http.post<boolean>(`${this.endpoint}/faqs/add`, faq);
+    return this.http.post<boolean>(`${this.endpoint}/faqs/add`, faq, this.httpOptions);
   }
 
   updateFaq(faq: FAQ): Observable<boolean> {
-    return this.http.post<boolean>(`${this.endpoint}/faqs/edit`, faq);
+    return this.http.post<boolean>(`${this.endpoint}/faqs/edit`, faq, this.httpOptions);
   }
 }

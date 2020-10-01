@@ -102,6 +102,19 @@ export class AnalyticsOverviewComponent {
     private commonService: CommonService) { }
   
   async ngOnInit() {
+    this.ChartPlugins = [{
+      beforeDraw(chart, easing) {
+        const ctx = chart.ctx;
+        const chartArea = chart.chartArea;
+        const top = 0;
+  
+        ctx.save();
+        ctx.fillStyle = 'white';
+  
+        ctx.fillRect(chartArea.left - 80, top - 40, chartArea.right - chartArea.left + 160, chartArea.bottom - top + 80);
+        ctx.restore();
+      }
+    }];
     await this.prepareDoughnutChartForSubmissionsPerLanguage();
     await this.prepareDoughnutChartForCorrectSubmissionsPerRegion();
     await this.prepareBarChartForAttemptsPerQuestion();
