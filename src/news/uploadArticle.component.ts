@@ -41,7 +41,7 @@ export class uploadArticleComponent {
 
   config: any = {
     allowedContent: true,
-    toolbar: [['Bold', 'Italic', 'Underline', '-', 'NumberedList', 'BulletedList', 'Link', 'Styles', 'Format', 'Font', 'FontSize', 'Table']],
+    toolbar: [['Bold', 'Italic', 'Underline', '-', 'NumberedList', 'BulletedList', 'Link', 'Styles', 'Format', 'Font', 'FontSize', 'Table', 'Image']],
     removePlugins: 'elementspath',
     resize_enabled: true,
     extraPlugins: 'font,divarea,placeholder',
@@ -79,7 +79,7 @@ export class uploadArticleComponent {
 
   async onSaveArticle() {
     if (!this.validateArticle()) {
-      this.toastr.error('Please fill the mandatory fields!', 'Error');
+      this.toastr.error('Please fill the mandatory fields \'Author, Title, Body, Image Url\'!', 'Error');
       return;
     }
     try {
@@ -130,6 +130,9 @@ export class uploadArticleComponent {
       return false;
     }
     if (this.article.body.trim() == '') {
+      return false;
+    }
+    if (this.article.imageUrl.trim() == '') {
       return false;
     }
     return true;

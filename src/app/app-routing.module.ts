@@ -14,11 +14,13 @@ import { contactOverviewComponent } from 'src/contactus/contact-overview.compone
 import { contactModule } from 'src/contactus/contact.module';
 import { NewsOverviewComponent } from 'src/news/news-overview.component';
 import { NewsModule } from 'src/news/news.module';
+import { AlertsModule } from 'src/alerts/alerts.module';
 import { ServerMonitoringComponent } from 'src/server-monitoring/server-monitoring.component';
 import { ServerMonitoringModule } from 'src/server-monitoring/server-monitoring.module';
 import { ParticipantsModule } from 'src/participants/participants.module';
 import { ParticipantsComponent } from 'src/participants/participants.component';
 import { ArticleDetailsComponent } from 'src/news/article-details.component';
+import { AlertsOverviewComponent } from 'src/alerts/alerts-overview.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, pathMatch: 'full' },
@@ -30,7 +32,8 @@ const routes: Routes = [
   { path: 'news', component: NewsOverviewComponent, pathMatch: 'full' },
   { path: 'news/:articleId', component: ArticleDetailsComponent, pathMatch: 'full' },
   { path: 'server', component: ServerMonitoringComponent, pathMatch: 'full' },
-  { path: 'participants', component: ParticipantsComponent, pathMatch: 'full' }
+  { path: 'participants', component: ParticipantsComponent, pathMatch: 'full' },
+  { path: 'alerts', component: AlertsOverviewComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -44,7 +47,8 @@ const routes: Routes = [
     NewsModule,
     contactModule,
     ParticipantsModule,
-    ServerMonitoringModule
+    ServerMonitoringModule,
+    AlertsModule
   ],
   exports: [RouterModule]
 })

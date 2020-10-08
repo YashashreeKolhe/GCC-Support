@@ -1,0 +1,59 @@
+<div class="card-body">
+  <h3>New Alert</h3>
+  <div class="row">
+    <div class="col-sm-12">
+      <form>
+        <div class="form-row">
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-9' : 'form-group col-sm-12'">
+            <label for="title">Header</label>
+            <input class="form-control" id="title" name="title" [(ngModel)]="alert.header" required />
+          </div>
+        </div>
+        <!-- <div class="form-row">
+          <div class="form-group col-sm-9">
+            <label for="subHeading">Sub Heading</label>
+            <input class="form-control" id="subHeading" name="subHeading" [(ngModel)]="article.subHeading" />
+          </div>
+        </div> -->
+        <div class="form-row">
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-3' : 'form-group col-sm-4'">
+            <label for="author">Client Type</label>
+            <select class="form-control" [(ngModel)]="alert.clientType" name="type" #item>
+              <option *ngFor="let type of clientTypes" id="type" [value]="type">{{type}}
+              </option>
+            </select>
+          </div>
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-3' : 'form-group col-sm-4'">
+            <label for="type">Alert Type</label>
+            <select class="form-control" [(ngModel)]="alert.alertType" name="type" #item>
+              <option *ngFor="let type of alertTypes" id="type" [value]="type">{{type}}
+              </option>
+            </select>
+          </div>
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-3' : 'form-group col-sm-4'">
+            <label for="author">Status</label>
+            <div >
+              <label class="radio-inline"><input type="radio" name="optradio" [(ngModel)]="alert.active" [value]="true" checked>&nbsp;Active</label>&nbsp;&nbsp;&nbsp;&nbsp;
+              <label class="radio-inline"><input type="radio" name="optradio" [(ngModel)]="alert.active" [value]="false">&nbsp;Inactive</label>
+            </div>
+          </div>
+        </div>
+        <div class="form-row">
+          <div [ngClass]="mode === 1 ? 'form-group col-sm-9' : 'form-group col-sm-12'">
+            <label for="blurb">Content</label>
+            <textarea class="form-control" rows="3" id="blurb" name="blurb" [(ngModel)]="alert.content"></textarea>
+          </div>
+        </div>
+        
+      </form>
+    </div>
+  </div>
+</div>
+<div class="modal-footer">
+  <div class="pull-left" *ngIf="mode !== 0">
+    <button style="margin:5px" class="btn btn-primary"
+      (click)="onSaveAlert()">{{ mode === 1 ? 'Save' : 'Update' }}</button>
+    <button class="btn btn-info" *ngIf="mode === 1" (click)="onResetAlert()">Reset</button>
+    <button class="btn btn-info" *ngIf="mode === 2" (click)="cancel()">Cancel</button>
+  </div>
+</div>

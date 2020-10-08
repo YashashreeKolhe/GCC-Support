@@ -30,7 +30,7 @@ export class NewsOverviewComponent {
     {
       id: 3,
       title: 'Image Gallery'
-    }
+    },
   ];
   rowData: any;
   regions: string[];

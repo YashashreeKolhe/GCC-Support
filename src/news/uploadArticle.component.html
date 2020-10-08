@@ -18,15 +18,15 @@
         <div class="form-row">
           <div [ngClass]="mode === 1 ? 'form-group col-sm-3' : 'form-group col-sm-4'">
             <label for="author">Author</label>
-            <input class="form-control" id="author" name="author" [(ngModel)]="article.author" required />
+            <input class="form-control" id="author" name="author" [(ngModel)]="article.author"  required/>
           </div>
-          <div [ngClass]="mode === 1 ? 'form-group col-sm-3' : 'form-group col-sm-4'">
+          <!-- <div [ngClass]="mode === 1 ? 'form-group col-sm-3' : 'form-group col-sm-4'">
             <label for="region">Region</label>
             <select class="form-control" [(ngModel)]="article.region" name="region" #item>
               <option *ngFor="let region of regions" id="region" [value]="region">{{region}}
               </option>
             </select>
-          </div>
+          </div> -->
           <div [ngClass]="mode === 1 ? 'form-group col-sm-3' : 'form-group col-sm-4'">
             <label for="type">Type of content</label>
             <select class="form-control" [(ngModel)]="article.type" name="type" #item>
@@ -38,7 +38,7 @@
         <div class="form-row">
           <div [ngClass]="mode === 1 ? 'form-group col-sm-9' : 'form-group col-sm-12'">
             <label for="image">Image Url (Copy URL from Image Gallery)</label>
-            <input class="form-control" id="image" name="image" [(ngModel)]="article.imageUrl" />
+            <input class="form-control" id="image" name="image" [(ngModel)]="article.imageUrl" [required]="true"/>
           </div>
         </div>
         <div class="form-row">

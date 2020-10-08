@@ -1,0 +1,116 @@
+<div>
+  <div class="card">
+    <div class="card-header bg-white">
+      <div clas="row">
+        <h4 style="display: inline-block;">&nbsp;&nbsp;Alerts</h4>
+      </div>
+    </div>
+    <!-- <div class="card-body"> -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card border-info" id="bordered-panel">
+          <div class="card-body">
+            <ngb-tabset (tabChange)="onTabChange($event.nextId)">
+              <ngb-tab [id]="tab.id" *ngFor="let tab of tabs">
+                <ng-template ngbTabTitle>
+                  <span (click)="activeTab = tab.title">{{ tab.title }}</span>
+                </ng-template>
+                <ng-template ngbTabContent>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Active Alert'">
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <form>
+                          <div class="pull-right">
+                            <button type="submit" class="btn btn-success" (click)="turnOffActiveAlerts()" style="margin-left: 10px">Turn off active alerts</button>
+                          </div>                
+                        </form>
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                      <div class="col-sm-12">
+                        <!-- <div class="card-columns"> -->
+                          <div class="card border" *ngFor="let alert of activeAlerts">
+                            <div class="card-body" style="padding: 10px 20px">
+                              <form>
+                                <div class="form-row">
+                                  <div class="form-group">
+                                    <h5>{{ alert.header }}</h5>
+                                    <p><b>Content: </b>{{ alert.content }}</p>
+                                    <p><b>Client: </b>{{ alert.clientType }}</p>
+                                    <p><b>Alert Type: </b>{{ alert.alertType }}</p>
+                                    <p><b>Date: </b>{{ alert.timestamp | date: 'dd/MM/yyyy' }}</p>
+                                    <button class="btn btn-sm btn-success" (click)="turnOffAlert(alert.clientType)">
+                                      Turn off alert
+                                    </button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                      <div class="col-sm-12">
+                        <!-- <div class="card-columns"> -->
+                          <div class="card border" *ngFor="let alert of inactiveAlerts">
+                            <div class="card-body" style="padding: 10px 20px">
+                              <form>
+                                <div class="form-row">
+                                  <div class="form-group">
+                                    <h5>{{ alert.header }}</h5>
+                                    <p><b>Content: </b>{{ alert.content }}</p>
+                                    <p><b>Client: </b>{{ alert.clientType }}</p>
+                                    <p><b>Alert Type: </b>{{ alert.alertType }}</p>
+                                    <p><b>Date: </b>{{ alert.timestamp | date: 'dd/MM/yyyy' }}</p>
+                                    <button class="btn btn-sm btn-success" (click)="turnOffAlert(alert.clientType)">
+                                      Turn off alert
+                                    </button>
+                                  </div>
+                                </div>
+                              </form>
+                            </div>
+                          </div>
+                        <!-- </div> -->
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Inactive Alerts'">
+                    <div class="card-columns">
+                      <div class="card border" *ngFor="let alert of inactiveAlerts">
+                        <!-- <img class="card-img-top" [src]="article.imageUrl" [alt]="article.imageUrl" style="height: 300px" /> -->
+                        <div class="card-body" style="height: 160px">
+                          <form>
+                            <div class="form-row">
+                              <div class="form-group">
+                                <h5>{{ alert.header }}</h5>
+                                <p><b>Content: </b>{{ alert.content }}</p>
+                                <p><b>Client: </b>{{ alert.clientType }}</p>
+                                <p><b>Alert Type: </b>{{ alert.alertType }}</p>
+                                <p><b>Date: </b>{{ alert.timestamp | date: 'dd/MM/yyyy' }}</p>
+                                <button class="btn btn-sm btn-success" (click)="alertcontent(alert.id)">
+                                  Update
+                                </button>
+                                <button class="btn btn-sm btn-error" (click)="turnOnAlert(alert.id)">
+                                  Turn on Alert
+                                </button>
+                              </div>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Create Alert'">
+                    <create-alert [mode]="mode" [alert]="null"></create-alert>
+                  </div>
+                </ng-template>
+              </ngb-tab>
+            </ngb-tabset>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- </div> -->
+  </div>
+</div>
