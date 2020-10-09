@@ -45,7 +45,7 @@ export class ArticleService {
   }
 
   updateArticle(article: Article): Observable<Article> {
-    return this.http.post<Article>(`${this.endpoint}/news/update/${article.id}`, article, this.httpOptions);
+    return this.http.post<Article>(`${this.endpoint}/news/update`, article, this.httpOptions);
   }
 }
 

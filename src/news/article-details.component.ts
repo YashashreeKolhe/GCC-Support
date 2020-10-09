@@ -46,10 +46,12 @@ export class ArticleDetailsComponent {
   }
 
   async deleteArticle() {
-    const result = await this.articleservice.deleteArticle(this.text.id).toPromise();
-    if (result) {
-      this.toastr.success('Article delete successfully!', 'Success');
+    try {
+      const result = await this.articleservice.deleteArticle(this.text.id).toPromise();
+      this.toastr.success('Article deleted successfully!', 'Success');
       this.router.navigateByUrl('/news');
+    } catch (ex) {
+      this.toastr.error('Error occured!', 'Error');
     }
   }
 }
