@@ -2,9 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { LIST } from 'src/score/score-model';
 import { Observable } from 'rxjs';
-import { TEMPORARY_NAME } from '@angular/compiler/src/render3/view/util';
-
-
 
 @Injectable()
 export class studentlist {

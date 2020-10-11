@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CommonModule } from "@angular/common";
 import { ServicesModule } from '../services/services.module';
+import { CountdownModule } from 'ngx-countdown';
 
 import { HomeComponent } from './home.component';
 
@@ -12,7 +13,8 @@ import { HomeComponent } from './home.component';
   imports: [
     BrowserModule,
     CommonModule,
-    ServicesModule
+    ServicesModule,
+    CountdownModule
   ],
   providers: [],
   exports: [

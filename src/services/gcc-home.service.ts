@@ -37,13 +37,6 @@ export class GcchomeService {
     return this.httpClient.get<LIST[]>(`${this.endpoint}/scores/question/all/GLOBAL`);
   }
 
-
-  // ping a get API to get the total number of participants of the challenge
-
-  getTotalParticipants() {
-    return this.httpClient.get('facts/quick/GLOBAL');
-  }
-
   timeLeftDays : number = 0;
   timeLeftHours: number = 0;
   timeLeftMinutes : number = 0;
@@ -103,5 +96,13 @@ export class GcchomeService {
       }
     return Math.abs(this.timeLeftDays);
 
+  }
+
+  getChallengeStartDate() {
+    return this.httpClient.get<string>(`${this.endpoint}/challenge/getStartDate`);
+  }
+
+  getChallengeEndDate(): Observable<any> {
+    return this.httpClient.get(`${this.endpoint}/challenge/getEndDate`);
   }
 }

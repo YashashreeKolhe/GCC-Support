@@ -25,10 +25,9 @@ export class HomeComponent {
   SEAScore: number = 0;
   EUROPEScore: number = 0;
 
-  timeLeftDays : number = 0;
-  timeLeftHours : number = 0;
-  timeLeftMinutes : number = 0;
+  endDate: string = '2020-11-04T13:00:00';
 
+  config: any;
 
   constructor(private homeService : GcchomeService,
     private ticketService: TicketsService){
@@ -45,9 +44,8 @@ export class HomeComponent {
     this.inProgressTickets = tickets.filter(ticket => ticket.ticketStatus === 'IN_PROGRESS').length;
     this.escalatedTickets = tickets.filter(ticket => ticket.ticketStatus === 'ESCALATED').length;
     this.closedTickets = tickets.filter(ticket => ticket.ticketStatus === 'CLOSED').length;
-    this.timeLeftMinutes = await this.homeService.getChallengeTimerMinutes();
-    this.timeLeftHours = await this.homeService.getChallengeTimerHrs();
-    this.timeLeftDays = await this.homeService.getChallengeTimerDays();
+    this.config = { leftTime: this.calculateDiff(this.endDate), format: 'd : h : m : s' }
+    
     const globalStats = await this.homeService.getGlobalStats().toPromise();
     Object.keys(globalStats).forEach(region => {
       if (region === 'AMC') {
@@ -74,4 +72,12 @@ export class HomeComponent {
     });
   }
 
+  calculateDiff(dateSent){
+    var t1 = new Date();
+    var t2 = new Date(dateSent);
+    var dif = t1.getTime() - t2.getTime();
+
+    var Seconds_from_T1_to_T2 = dif / 1000;
+    return Math.abs(Seconds_from_T1_to_T2);
+  }
 }

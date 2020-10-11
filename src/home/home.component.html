@@ -44,7 +44,7 @@
       <div class="tile is-parent has-text-dark">
         <div class="tile is-child box has-background-light">
           <div class="title">
-            <h2 style="text-align:center">{{timeLeftDays}} Days {{timeLeftHours}} Hrs {{timeLeftMinutes}} Mins</h2>
+            <h2 style="text-align:center"><countdown [config]="config"></countdown></h2>
           </div>
           <div class="subtitle">
             <h5 style="text-align:center">Ends In</h5>
