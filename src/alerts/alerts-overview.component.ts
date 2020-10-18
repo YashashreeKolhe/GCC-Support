@@ -27,6 +27,10 @@ export class AlertsOverviewComponent {
       id: 2,
       title: 'Create Alert'
     },
+    {
+      id: 3,
+      title: 'Add University'
+    },
   ];
   rowData: any;
   activeAlerts: Alert[];

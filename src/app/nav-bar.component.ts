@@ -43,7 +43,7 @@ export class NavBarComponent {
 				'IsActive': false
 			},
 			{
-				'Title': 'Alerts',
+				'Title': 'Alerts & University',
 				'Location': '/alerts',
 				'IsActive': false
 			},

@@ -104,6 +104,9 @@
                   <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Create Alert'">
                     <create-alert [mode]="mode" [alert]="null"></create-alert>
                   </div>
+                  <div class="card-body" style="padding: 15px" *ngIf="activeTab === 'Add University'">
+                    <university></university>
+                  </div>
                 </ng-template>
               </ngb-tab>
             </ngb-tabset>

@@ -40,5 +40,13 @@ export class AlertsService {
   turnOffActiveAlert(client: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.endpoint}/challenge/turnActiveAlertOff/{client}?client=${client}`, this.httpOptions);
   }
+
+  setUniversityForContestant(contestantId: string, universityName: string) {
+    return this.http.get<boolean>(`${this.endpoint}/updateContestant/${contestantId}/${universityName}`, this.httpOptions);
+  }
+
+  setUniversityForRegion(universityName: string) {
+    return this.http.get<boolean>(`${this.endpoint}/updateContestant/`, this.httpOptions);
+  }
 }
 

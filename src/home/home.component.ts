@@ -25,7 +25,7 @@ export class HomeComponent {
   SEAScore: number = 0;
   EUROPEScore: number = 0;
 
-  endDate: string = '2020-11-04T13:00:00';
+  endDate: string = '2020-11-09T13:00:00';
 
   config: any;
 
@@ -35,8 +35,10 @@ export class HomeComponent {
 
   async ngOnInit(){
     const scores = await this.homeService.getScores().toPromise();
-    this.topScorer = scores[0].name;
-    this.highestScore = scores.filter(contestant => contestant.contestantId === scores[0].contestantId).map(x => x.total).reduce((a, b) => a + b);;
+    if (scores !== null && scores.length !== 0) {
+      this.topScorer = scores[0].name;
+      this.highestScore = scores.filter(contestant => contestant.contestantId === scores[0].contestantId).map(x => x.total).reduce((a, b) => a + b);;
+    }
     const participants = await this.homeService.getParticipants().toPromise();
     this.totalParticipants = participants.length;
     const tickets = await this.ticketService.getTickets().toPromise();
