@@ -1,10 +1,10 @@
 <div class="card-body">
-  <h3>Add University to Region</h3>
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
+      <h3>Add University to Region</h3>
       <form>
         <div class="form-row">
-          <div class="form-group col-sm-4">
+          <div class="form-group col-sm-12">
             <label for="author">Select Region</label>
             <select class="form-control" [(ngModel)]="region" name="region" #item>
               <option *ngFor="let region of regions" id="region" [value]="region">{{region}}
@@ -13,46 +13,50 @@
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-sm-4">
+          <div class="form-group col-sm-12">
             <label for="title">University Name</label>
             <input class="form-control" id="title" name="title" [(ngModel)]="universityName" required />
           </div>
         </div>
       </form>
+      <div class="modal-footer">
+        <div class="pull-left">
+          <button style="margin:5px" class="btn btn-primary"
+            (click)="onSaveUniversity()">Save</button>
+          </div>
+      </div>
     </div>
-  </div>
-</div>
-<div class="modal-footer">
-  <div class="pull-left">
-    <button style="margin:5px" class="btn btn-primary"
-      (click)="onSaveUniversity()" disabled>Save</button>
-    </div>
-</div>
-<hr>
-<div class="card-body">
-  <h3>Update University for Contestant</h3>
-  <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-6">
+      <h3>Update Region or University for Contestant</h3>
       <form>
         <div class="form-row">
-          <div class="form-group col-sm-4">
+          <div class="form-group col-sm-12">
             <label for="author">Contestant Id</label>
             <input class="form-control" id="title" name="title" [(ngModel)]="contestantId" required />
           </div>
         </div>
         <div class="form-row">
-          <div class="form-group col-sm-4">
+          <div class="form-group col-sm-12">
+            <label for="author">Region</label>
+            <select class="form-control" [(ngModel)]="contestantRegion" name="region" #item>
+              <option *ngFor="let region of regions" id="region" [value]="region">{{region}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group col-sm-12">
             <label for="title">University Name</label>
             <input class="form-control" id="title" name="title" [(ngModel)]="contestantUnivName" required />
           </div>
         </div>
       </form>
+      <div class="modal-footer">
+        <div class="pull-left">
+          <button style="margin:5px" class="btn btn-primary"
+            (click)="onSaveContestantUniversityOrRegion()">Save</button>
+        </div>
+      </div>
     </div>
-  </div>
-</div>
-<div class="modal-footer">
-  <div class="pull-left">
-    <button style="margin:5px" class="btn btn-primary"
-      (click)="onSaveContestantUniversity()">Save</button>
   </div>
 </div>

@@ -45,8 +45,12 @@ export class AlertsService {
     return this.http.get<boolean>(`${this.endpoint}/updateContestant/${contestantId}/${universityName}`, this.httpOptions);
   }
 
-  setUniversityForRegion(universityName: string) {
-    return this.http.get<boolean>(`${this.endpoint}/updateContestant/`, this.httpOptions);
+  setUniversityForRegion(universityName: string, region: string) {
+    return this.http.post<string[]>(`${this.endpoint}/team/${region}/add`, [universityName], this.httpOptions);
+  }
+
+  setRegionForContestant(contestantId: string, region: string) {
+    return this.http.get<boolean>(`${this.endpoint}/contestant/editRegion/${contestantId}/${region}`, this.httpOptions);
   }
 }
 

@@ -14,6 +14,7 @@ export class UniversityComponent {
   contestantId: string;
   contestantUnivName: string;
   region: string;
+  contestantRegion: string;
   
   constructor(
     private alertService: AlertsService,
@@ -25,6 +26,8 @@ export class UniversityComponent {
     this.universityName = '';
     this.contestantId = '';
     this.contestantUnivName = '';
+    this.region = '';
+    this.contestantRegion = '';
   }
 
   async onSaveUniversity() {
@@ -33,7 +36,7 @@ export class UniversityComponent {
       return;
     }
     try {
-      const result = await this.alertService.setUniversityForRegion(this.universityName).toPromise();
+      const result = await this.alertService.setUniversityForRegion(this.universityName, this.region).toPromise();
       this.toastr.success('University added successfully!', 'Success');
     } catch (e) {
       this.toastr.error("Save operation failed!", 'Error');
@@ -41,14 +44,19 @@ export class UniversityComponent {
     }
   }
 
-  async onSaveContestantUniversity() {
-    if (this.contestantId.trim() === '' || this.contestantUnivName.trim() === '') {
-      this.toastr.error('Please fill the contestant Id and university name!', 'Error');
+  async onSaveContestantUniversityOrRegion() {
+    if (this.contestantId.trim() === '' || (this.contestantUnivName.trim() === '' && this.contestantRegion === '')) {
+      this.toastr.error('Please fill the contestant Id and either university name or region!', 'Error');
       return;
     }
     try {
-      const result = await this.alertService.setUniversityForContestant(this.contestantId, this.contestantUnivName).toPromise();
-      this.toastr.success('University added successfully!', 'Success');
+      if (this.contestantRegion !== '') {
+        const res1 = await this.alertService.setRegionForContestant(this.contestantId, this.contestantRegion).toPromise();
+      }
+      if (this.contestantUnivName.trim() !== '') {
+        const result = await this.alertService.setUniversityForContestant(this.contestantId, this.contestantUnivName).toPromise();
+      }
+      this.toastr.success('University and/or region updated successfully!', 'Success');
     } catch (e) {
       this.toastr.error("Save operation failed!", 'Error');
       return;
