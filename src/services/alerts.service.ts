@@ -16,6 +16,13 @@ export class AlertsService {
     })
   };
 
+  adminHttpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'Basic ' + btoa('gcc2020admin:gcc-2020-admin-456')
+    })
+  };
+
 
   setAlert(alert: Alert): Observable<Alert> {
     return this.http.post<Alert>(`${this.endpoint}/challenge/setAlert`, alert, this.httpOptions);
@@ -42,15 +49,19 @@ export class AlertsService {
   }
 
   setUniversityForContestant(contestantId: string, universityName: string) {
-    return this.http.get<boolean>(`${this.endpoint}/updateContestant/${contestantId}/${universityName}`, this.httpOptions);
+    return this.http.get<boolean>(`${this.endpoint}/updateContestant/${contestantId}/${universityName}`, this.adminHttpOptions);
   }
 
   setUniversityForRegion(universityName: string, region: string) {
-    return this.http.post<string[]>(`${this.endpoint}/team/${region}/add`, [universityName], this.httpOptions);
+    return this.http.post<any>(`${this.endpoint}/team/${region}/add`, [universityName], this.adminHttpOptions);
   }
 
   setRegionForContestant(contestantId: string, region: string) {
-    return this.http.get<boolean>(`${this.endpoint}/contestant/editRegion/${contestantId}/${region}`, this.httpOptions);
+    return this.http.get<boolean>(`${this.endpoint}/contestant/editRegion/${contestantId}/${region}`, this.adminHttpOptions);
+  }
+
+  getContestantDetails(id: string) {
+    return this.http.get(`${this.endpoint}/contestant/${id}`, this.adminHttpOptions);
   }
 }
 

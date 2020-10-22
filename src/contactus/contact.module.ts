@@ -18,14 +18,7 @@ import { logWarnings } from 'protractor/built/driverProviders';
     BrowserModule,
     CommonModule,
     BrowserModule,
-    CommonModule,
-    NgbModule,
-    FormsModule,
-    ServicesModule,
-    ToastrModule.forRoot(),
-    ModalModule.forRoot(),
-    ToastrModule.forRoot(),
-    AgGridModule.withComponents([])
+    CommonModule
   ],
   providers: [],
 

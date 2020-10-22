@@ -74,19 +74,19 @@ body {
 }
 
 .message.is-danger .message-header {
-  background-color: #636161;
-  color: rgb(5, 5, 5);
+  background-color: #e7dcdc;
+  color: rgb(168, 38, 38);
 }
 
 .message.is-danger .message-body {
-  border-color: #f14668;
+  border-color: #f51c47;
   color: #cc0f35;
 }
 
 .level-item .title,
 .level-item .subtitle {
 margin-bottom: 0;
-color: #1d90d3;
+color: #0378bb;
 }
 
 .heading {

@@ -14,12 +14,14 @@ import { MonacoEditorModule, MONACO_PATH } from '@materia-ui/ngx-monaco-editor';
 import { ClipboardModule } from 'ngx-clipboard';
 import { CKEditorModule } from 'ng2-ckeditor';
 import { UniversityComponent } from './university.component';
+import { UniversityListComponent } from './university-list.component';
 
 @NgModule({
   declarations: [
     AlertsOverviewComponent,
     CreateAlertComponent,
-    UniversityComponent
+    UniversityComponent,
+    UniversityListComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +46,8 @@ import { UniversityComponent } from './university.component';
   exports: [
     AlertsOverviewComponent,
     CreateAlertComponent,
-    UniversityComponent
+    UniversityComponent,
+    UniversityListComponent
   ]
 })
 export class AlertsModule { }

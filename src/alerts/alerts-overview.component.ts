@@ -31,6 +31,10 @@ export class AlertsOverviewComponent {
       id: 3,
       title: 'Add University'
     },
+    {
+      id: 4,
+      title: 'University List'
+    },
   ];
   rowData: any;
   activeAlerts: Alert[];

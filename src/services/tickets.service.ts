@@ -31,8 +31,8 @@ export class TicketsService {
     return [
       'Questions',
       'Scores/Evaluation',
-      'Registration',
       'Submissions',
+      'Registrations',
       'Others'
     ];
   }

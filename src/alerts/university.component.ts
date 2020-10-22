@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { AlertsService } from 'src/services/alerts.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/services/common.service';
+import { Participant } from 'src/participants/model';
 
 @Component({
   selector: 'university',
@@ -15,6 +16,9 @@ export class UniversityComponent {
   contestantUnivName: string;
   region: string;
   contestantRegion: string;
+  currentRegion: string;
+  currentUniversity: string;
+  selected: boolean = false;
   
   constructor(
     private alertService: AlertsService,
@@ -41,6 +45,21 @@ export class UniversityComponent {
     } catch (e) {
       this.toastr.error("Save operation failed!", 'Error');
       return;
+    }
+  }
+
+  async getCurrentRegionAndUniversity() {
+    this.selected = true;
+    try {
+      if (this.contestantId.trim() !== '') {
+        const result = await this.alertService.getContestantDetails(this.contestantId).toPromise() as Participant;
+        this.currentRegion = result.region;
+        this.currentUniversity = result.team;
+      } else {
+        this.toastr.error('Please enter contestant Id!', 'Error');
+      }
+    } catch (error) {
+      this.toastr.error('Error occured!', 'Error');
     }
   }
 

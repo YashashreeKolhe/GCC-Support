@@ -22,7 +22,7 @@ export class TicketsOverviewComponent {
   defaultColDef;
   mode: number;
   names: Name[];
-  statusValues: string[] = [ 'OPEN', 'IN_PROGRESS', 'ESCALATED', 'CLOSED' ];
+  statusValues: string[] = [ 'OPEN', 'IN_PROGRESS', 'CLOSED' ];
   tabData: Ticket[];
   ticketsList: Ticket[];
   selectedTabId: number;
@@ -74,6 +74,14 @@ export class TicketsOverviewComponent {
 
   async loadTickets() {
     this.ticketsList = await this.ticketsService.getTickets().toPromise();
+    this.ticketsList = this.ticketsList.filter(ticket => this.isTicketValid(ticket.timestamp));
+  }
+
+  isTicketValid(dateSent){
+    var d1 = new Date();
+    d1.setFullYear(2020, 10, 23);
+    var d2 = new Date(dateSent);
+    return d2>=d1;
   }
 
   onChangeAssignedTo(name: string) {
@@ -184,7 +192,7 @@ export class TicketsOverviewComponent {
       {
         headerName: 'Ticket Id',
         field: 'id',
-        width: 170,
+        width: 120,
         filter: false
       },
       // {
@@ -196,13 +204,13 @@ export class TicketsOverviewComponent {
       // },
       {
         headerName: 'Submitted By',
-        field: 'email',
+        field: 'submittedBy',
         width: 160,
         filter: 'agTextColumnFilter',
       },
       {
         headerName: 'Submitted On',
-        field: 'submittedDate',
+        field: 'timestamp',
         width: 120,
         cellRenderer: params => 
         { 
@@ -211,13 +219,19 @@ export class TicketsOverviewComponent {
         filter: 'agTextColumnFilter',
       },
       {
-        headerName: 'Category',
-        field: 'category',
-        width: 120,
+        headerName: 'Email',
+        field: 'email',
+        width: 150,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Status',
+        field: 'ticketStatus',
+        width: 100,
         filter: 'agTextColumnFilter',
         valueFormatter: params => {
           return Status[params.value]
-        }
+        },
       },
       {
         headerName: 'Description',
@@ -238,21 +252,12 @@ export class TicketsOverviewComponent {
         width: 150,
         filter: 'agTextColumnFilter',
       },
-      {
-        headerName: 'EscalatedTo',
-        field: 'escalatedTo',
-        width: 150,
-        filter: 'agTextColumnFilter',
-      },
-      {
-        headerName: 'Status',
-        field: 'ticketStatus',
-        width: 100,
-        filter: 'agTextColumnFilter',
-        valueFormatter: params => {
-          return Status[params.value]
-        },
-      },
+      // {
+      //   headerName: 'EscalatedTo',
+      //   field: 'escalatedTo',
+      //   width: 150,
+      //   filter: 'agTextColumnFilter',
+      // },
     ];
   }
 }

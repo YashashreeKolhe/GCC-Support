@@ -139,41 +139,43 @@ export class ParticipantsComponent {
       //   hide: true,
       //   filter: false
       // },
-      // {
-      //   headerName: 'Contestant Id',
-      //   field: 'contestantId',
-      //   width: 200,
-      //   filter: 'agTextColumnFilter',
-      //   cellStyle: { 'white-space': 'normal' }
-      // },
       {
-        headerName: 'Contestant/Team Name',
-        field: 'name',
-        width: 250,
+        headerName: 'Contestant Id',
+        field: 'id',
+        width: 180,
         filter: 'agTextColumnFilter',
+        editable: true
       },
       {
+        headerName: 'Contestant Name',
+        field: 'name',
+        width: 200,
+        filter: 'agTextColumnFilter',
+      },
+      /* {
         headerName: 'Contestant Type',
         field: 'contestantType',
         width: 120,
         filter: 'agTextColumnFilter',
-      },
+      }, */
       {
         headerName: 'Region',
         field: 'region',
         width: 100,
         filter: 'agTextColumnFilter',
+        editable: true
       },
       {
         headerName: 'University',
         field: 'team',
         width: 250,
         filter: 'agTextColumnFilter',
+        editable: true
       },
       {
         headerName: 'Course',
         field: 'course',
-        width: 100,
+        width: 150,
         filter: 'agTextColumnFilter',
       },
       {
@@ -201,7 +203,7 @@ export class ParticipantsComponent {
       {
         headerName: 'Email',
         field: 'email',
-        width: 170,
+        width: 220,
         filter: 'agTextColumnFilter',
       },
       // {

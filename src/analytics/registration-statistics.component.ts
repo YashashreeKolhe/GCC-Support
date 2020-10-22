@@ -219,7 +219,7 @@ export class RegistrationStatisticsComponent {
         headerName: 'Number of Registrations',
         field: 'Value',
         width: 200,
-        filter: 'agTextColumnFilter',
+        filter: 'agNumberColumnFilter',
       }
     ];
   }
@@ -234,5 +234,9 @@ export class RegistrationStatisticsComponent {
     var anchor = event.target;
     anchor.href = document.getElementsByTagName('canvas')[0].toDataURL("image/png");
     anchor.download = 'RegistrationsVsGradYrs' + this.datePipe.transform(new Date(), 'yyyy-MM-dd') + '.png';
+  }
+
+  exportGrid() {
+    this.gridApi.exportDataAsCsv({ fileName: 'participants.csv' });
   }
 }

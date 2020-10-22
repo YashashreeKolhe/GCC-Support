@@ -1,6 +1,6 @@
 export interface Participant {
   rank?: number;
-  contestantId?: string;
+  id?: string;
   total?: number;
   name?: string;
   team?: string;

@@ -5,6 +5,7 @@ import { Name } from 'src/faqs/model';
 import { TicketsService } from 'src/services/tickets.service';
 import { CommonService } from 'src/services/common.service';
 
+
 @Component({
   selector: 'ticket-details',
   templateUrl: './ticket-details.component.html',
@@ -17,8 +18,8 @@ export class  TicketDetailsComponent {
 
   names: Name[];
   nameStore: Name[];
-  categories: string[] = [ 'Questions', 'Registration', 'Scores/Evaluation', 'Unassigned' ];
-  statusValues: string[] = [ 'OPEN', 'IN_PROGRESS', 'ESCALATED', 'CLOSED' ];
+  categories: string[] = [ 'Questions', 'Registration', 'Submissions', 'Scores/Evaluation', 'Unassigned' ];
+  statusValues: string[] = [ 'OPEN', 'IN_PROGRESS', 'CLOSED' ];
 
   addNoteFlag: number = 0;
   newNote: string = '';
@@ -65,6 +66,18 @@ export class  TicketDetailsComponent {
       this.save.emit();
     } else {
       this.toastr.error('Please fill all the fields!', 'Error');
+    }
+  }
+
+  async notify() {
+    if (this.ticket.ticketStatus === 'IN_PROGRESS' && this.ticket.answer.trim() !== '') {
+      const result = await this.ticketService.saveTicket(this.ticket).toPromise();
+      const result2 = await this.ticketService.updateTicketStatus(this.ticket.id, 'CLOSED').toPromise();
+      const result3 = await this.ticketService.saveTicket(this.ticket).toPromise();
+      this.toastr.success('Ticket saved successfully', 'Success');
+      this.save.emit();
+    } else {
+      this.toastr.error('Answer field cannot be empty!', 'Error');
     }
   }
 

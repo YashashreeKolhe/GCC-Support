@@ -1,0 +1,29 @@
+<div class="card-body">
+  <div class="row">
+    <div class="col-sm-4">
+      <form>
+        <div class="form-row">
+          <div class="form-group col-sm-12">
+            <label for="author">Select Region</label>
+            <select class="form-control" name="region" #item (change)="onChangeRegion(item.value)">
+              <option *ngFor="let region of regions" id="region" [value]="region">{{region}}
+              </option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <ag-grid-angular
+        style="height: 500px;"
+        class="ag-theme-balham"
+        [rowData]="rowData"
+        [gridOptions]="gridOptions"
+        [columnDefs]="columnDefs"
+        [defaultColDef]="defaultColDef">
+      </ag-grid-angular>
+    </div>
+  </div>
+</div>

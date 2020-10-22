@@ -15,6 +15,7 @@ export interface Ticket {
   category?: string;
   answer?: string;
   notes?: string[];
+  timestamp?: Date;
 }
 
 export enum Status {

@@ -41,8 +41,9 @@ export class ArticleDetailsComponent {
     this.text = article.article;
   }
 
-  updateArticle() {
+  async updateArticle() {
     this.modalRef = this.modalService.show(this.ArticleDetails, { class: 'modal-lg' });
+    
   }
 
   async deleteArticle() {

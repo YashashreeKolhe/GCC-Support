@@ -23,10 +23,10 @@
           </div>
           <div class="tile is-child box has-background-light">
             <div class="title">
-              <h2 style="text-align:center">{{topScorer}}</h2>
+              <h2 style="text-align:center">{{topScorer}} | {{topScorerRegion}}</h2>
             </div>
             <div class="subtitle">
-              <h5 style="text-align:center">Top Scorer</h5>
+              <h5 style="text-align:center">Top Scorer | Region</h5>
             </div>
           </div>
         </div>
@@ -132,31 +132,39 @@
   <div class="level-item has-text-centered border-default">
     <div>
       <p class="heading">Open</p>
-      <p class="title">{{openTickets}}</p>
+      <p class="subtitle">{{openTickets}}</p>
     </div>
   </div>
   <div class="level-item has-text-centered border-default">
     <div>
       <p class="heading">In Progress</p>
-      <p class="title">{{inProgressTickets}}</p>
+      <p class="subtitle">{{inProgressTickets}}</p>
     </div>
   </div>
   <div class="level-item has-text-centered border-default">
     <div>
       <p class="heading">Closed</p>
-      <p class="title">{{closedTickets}}</p>
+      <p class="subtitle">{{closedTickets}}</p>
     </div>
   </div>
   <div class="level-item has-text-centered border-default">
     <div>
       <p class="heading">Escalated</p>
-      <p class="title">{{escalatedTickets}}</p>
+      <p class="subtitle">{{escalatedTickets}}</p>
     </div>
   </div>
 </nav>
 <!-- Ticket Alert Message -->
 <!-- <article class="message is-danger is-small">
     <div class="message-header">
-      <p>Ticket Alert : ID 123455667 needs immediate attention!</p>
+      <p>Ticket Alert : Number of tickets pending over 2 days is {{pendingTicketsNumber}}. <br>
+         Need immediate attention on tickets submitted by {{pendingTicketsSubmittedBy}}</p>
     </div>
-  </article> -->
+</article>
+<nav class="level">
+  <div class="level-item has-text-centered">
+    <div>
+      <p style="font-size:2vw">Ticket Status</p>
+    </div>
+  </div>
+</nav> -->
