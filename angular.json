@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "CodingChallengeSupport2"
+    }
+  },
+  "defaultProject": "CodingChallengeSupport2",
+  "cli": {
+    "analytics": "1bd05929-b7a6-41d3-9b82-d6af81191ef2"
+  }
 }
