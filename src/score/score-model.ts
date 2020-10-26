@@ -8,6 +8,13 @@ export interface LIST {
   total?: number;
   teamName?: string;
   rank?: number;
+  scores?: any;
+  correct?: number;
+  incorrect?: number;
+  executionTimeScore?: number;
+  memoryScore?: number;
+  testCaseScore?: number;
+  cycloComplexityScore?: number;
 }
 
 

@@ -139,13 +139,13 @@ export class ParticipantsComponent {
       //   hide: true,
       //   filter: false
       // },
-      {
-        headerName: 'Contestant Id',
-        field: 'id',
-        width: 180,
-        filter: 'agTextColumnFilter',
-        editable: true
-      },
+      // {
+      //   headerName: 'Contestant Id',
+      //   field: 'id',
+      //   width: 180,
+      //   filter: 'agTextColumnFilter',
+      //   editable: true
+      // },
       {
         headerName: 'Contestant Name',
         field: 'name',
@@ -181,7 +181,7 @@ export class ParticipantsComponent {
       {
         headerName: 'Graduation Year',
         field: 'graduationYear',
-        width: 100,
+        width: 80,
         filter: 'agTextColumnFilter',
       },
       {
@@ -198,6 +198,18 @@ export class ParticipantsComponent {
         headerName: 'Git UserName',
         field: 'gitUsername',
         width: 120,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'level',
+        field: 'level',
+        width: 90,
+        filter: 'agTextColumnFilter',
+      },
+      {
+        headerName: 'Title',
+        field: 'title',
+        width: 80,
         filter: 'agTextColumnFilter',
       },
       {

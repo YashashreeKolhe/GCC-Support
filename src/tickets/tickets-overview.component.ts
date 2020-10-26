@@ -31,31 +31,42 @@ export class TicketsOverviewComponent {
   isAssignedCleared: boolean = true;
   isEscalatedCleared: boolean = true;
 
+  unassignedTickets: Ticket[];
+  questionTickets: Ticket[];
+
   tabs: ITab[] = [
     {
       id: 1,
-      title: 'Questions'
+      title: 'Unassigned'
     },
     {
       id: 2,
-      title: 'Scores/Evaluation'
+      title: 'Assigned'
     },
     {
       id: 3,
-      title: 'Submissions'
+      title: 'Universities'
     },
     {
       id: 4,
-      title: 'Registration'
+      title: 'Questions'
     },
     {
       id: 5,
-      title: 'Others'
+      title: 'Submissions'
     },
     {
       id: 6,
-      title: 'Unassigned'
-    }
+      title: 'Registrations'
+    },
+    {
+      id: 7,
+      title: 'Scores/Evaluation'
+    },
+    {
+      id: 8,
+      title: 'Others'
+    },
   ];
 
   @ViewChild('TicketDetails') TicketDetails: TemplateRef<any>;
@@ -73,18 +84,19 @@ export class TicketsOverviewComponent {
   }
 
   async loadTickets() {
-    this.ticketsList = await this.ticketsService.getTickets().toPromise();
-    this.ticketsList = this.ticketsList.filter(ticket => this.isTicketValid(ticket.timestamp));
+    const list = await this.ticketsService.getTickets().toPromise();
+    this.ticketsList = list.filter(ticket => this.isTicketValid(ticket.timestamp));
   }
 
   isTicketValid(dateSent){
     var d1 = new Date();
-    d1.setFullYear(2020, 10, 23);
+    d1.setFullYear(2020, 8, 23);
+    d1.setHours(0, 0, 0, 0);
     var d2 = new Date(dateSent);
     return d2>=d1;
   }
 
-  onChangeAssignedTo(name: string) {
+/*   onChangeAssignedTo(name: string) {
     this.rowData = JSON.parse(JSON.stringify(this.tabData.filter(ticket => ticket.assignee === name)));
     this.isEscalatedCleared = true;
     this.isAssignedCleared = false;
@@ -103,7 +115,7 @@ export class TicketsOverviewComponent {
     this.isEscalatedCleared = true;
     this.isAssignedCleared = true;
     this.isStatusCleared = false;
-  }
+  } */
 
   onGridReady(params) {
     this.gridApi = params.api;
@@ -121,6 +133,7 @@ export class TicketsOverviewComponent {
     this.modalRef = this.modalService.show(this.TicketDetails, { class: 'modal-xl' });
   }
 
+
   async onTabChange(tabId: number, reload: boolean) {
     const tabTitle = this.tabs.find(element => element.id === tabId).title;
     this.selectedTabId = tabId;
@@ -129,12 +142,24 @@ export class TicketsOverviewComponent {
       await this.loadTickets();
     }
     switch (tabTitle) {
+      case 'Unassigned': {
+        this.rowData = this.ticketsList.filter( ticket  => ticket.assignee === null || ticket.assignee === '');
+        break;
+      }
+      case 'Assigned': {
+        this.rowData = this.ticketsList.filter(ticket => ticket.assignee !== null);
+        break;
+      }
+      case 'Universities': {
+        this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Universities');
+        break;
+      }
       case 'Questions': {
         this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Questions');
         break;
       }
-      case 'Registration': {
-        this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Registration');
+      case 'Registrations': {
+        this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Registrations');
         break;
       }
       case 'Scores/Evaluation': {
@@ -148,12 +173,7 @@ export class TicketsOverviewComponent {
       case 'Others': {
         this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Others');
         break;
-      }
-      case 'Unassigned': {
-        this.rowData = this.ticketsList.filter(ticket => ticket.category === 'Unassigned' || 
-        ticket.category === null || ticket.category === '');
-        break;
-      }
+      }     
     }
     this.tabData = JSON.parse(JSON.stringify(this.rowData));
   }
@@ -190,8 +210,8 @@ export class TicketsOverviewComponent {
   getColumnDefs(): ColDef[] {
     return [
       {
-        headerName: 'Ticket Id',
-        field: 'id',
+        headerName: 'Contestant Id',
+        field: 'contestantId',
         width: 120,
         filter: false
       },
@@ -211,11 +231,11 @@ export class TicketsOverviewComponent {
       {
         headerName: 'Submitted On',
         field: 'timestamp',
-        width: 120,
-        cellRenderer: params => 
+        width: 150,
+        /* cellRenderer: params => 
         { 
           return this.datePipe.transform(params.value,'yyyy-MM-dd')
-        },
+        }, */
         filter: 'agTextColumnFilter',
       },
       {

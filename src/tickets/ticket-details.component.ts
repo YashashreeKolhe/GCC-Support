@@ -18,7 +18,7 @@ export class  TicketDetailsComponent {
 
   names: Name[];
   nameStore: Name[];
-  categories: string[] = [ 'Questions', 'Registration', 'Submissions', 'Scores/Evaluation', 'Unassigned' ];
+  categories: string[] = [ 'Questions', 'Registrations', 'Submissions', 'Scores/Evaluation', 'Univerisities', 'Others' ];
   statusValues: string[] = [ 'OPEN', 'IN_PROGRESS', 'CLOSED' ];
 
   addNoteFlag: number = 0;

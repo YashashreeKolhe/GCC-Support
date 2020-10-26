@@ -33,6 +33,7 @@ export class TicketsService {
       'Scores/Evaluation',
       'Submissions',
       'Registrations',
+      'Universities',
       'Others'
     ];
   }

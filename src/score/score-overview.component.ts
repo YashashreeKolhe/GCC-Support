@@ -43,7 +43,9 @@ export class scoreOverviewComponent {
   }
 
   async loaddata() {
-    this.studentdata = await this.studentlist.getdata().toPromise();
+    const res = await this.studentlist.getNoOfParticipants().toPromise();
+    const result = await this.studentlist.getdata(res.numberOfContestants).toPromise();
+    this.studentdata = result.contestants;
     this.rowData = this.studentdata;
   }
 
@@ -60,17 +62,33 @@ export class scoreOverviewComponent {
     this.configureGrid();
     await this.loaddata();
     if (dropdowntitle === 'Global') {
-      const uniqueEntry: LIST[] = this.studentdata.filter(
-        (thing, i, arr) => arr.findIndex(t => t.contestantId === thing.contestantId) === i);
-      uniqueEntry.forEach((contestant) => {
-        contestant.total = this.studentdata.filter(cont => cont.contestantId === contestant.contestantId)
-          .map(x => x.total).reduce((a, b) => a + b);
-      });
-      this.rowData = uniqueEntry.sort((a, b) => (a.total > b.total) ? -1 : 1);
+      // const uniqueEntry: LIST[] = this.studentdata.filter(
+      //   (thing, i, arr) => arr.findIndex(t => t.contestantId === thing.contestantId) === i);
+      // uniqueEntry.forEach((contestant) => {
+      //   contestant.total = this.studentdata.filter(cont => cont.contestantId === contestant.contestantId)
+      //     .map(x => x.total).reduce((a, b) => a + b);
+      // });
+      // this.rowData = uniqueEntry.sort((a, b) => (a.total > b.total) ? -1 : 1);
+      this.rowData = this.studentdata;
     } else {
-      this.rowData = this.studentdata.
-        filter(contestant => contestant.questionNumber === parseInt(dropdowntitle.replace('Question ', '')))
-        .sort((a, b) => a.total > b.total ? -1 : 1);
+      const data = [];
+      this.studentdata.forEach(student => {
+        const questDetails = student.scores.find(i => i.questionNumber === parseInt(dropdowntitle.replace('Question ', '')));
+        data.push({
+          name: student.name,
+          region: student.region,
+          teamName: student.teamName,
+          total: questDetails.total,
+          correct: questDetails.correct,
+          incorrect: questDetails.incorrect,
+          executionTimeScore: questDetails.executionTimeScore,
+          cycloComplexityScore: questDetails.cycloComplexityScore,
+          memoryScore: questDetails.memoryScore,
+          testCaseScore: questDetails.testCaseScore
+        });
+      });
+      this.rowData = data;
+      //data.sort((a, b) => a.total > b.total ? -1 : 1);
     }
   };
 
@@ -140,7 +158,7 @@ export class scoreOverviewComponent {
         filter: 'agTextColumnFilter',
         headerTooltip: 'Total Score',
 
-        valueFormatter: params => params.data.total.toFixed(2)
+        valueFormatter: params => params.data.total?.toFixed(2)
       },
       {
         headerName: 'Correct Submissions',
@@ -150,7 +168,7 @@ export class scoreOverviewComponent {
         hide: this.selectedDropdown === 'Global',
         headerTooltip: 'Correct Submissions',
 
-        valueFormatter: params => params.data.total.toFixed(2)
+        valueFormatter: params => params.data.correct
 
       },
       {
@@ -160,7 +178,7 @@ export class scoreOverviewComponent {
         filter: 'agTextColumnFilter',
         hide: this.selectedDropdown === 'Global',
         headerTooltip: 'Correct Submissions',
-        valueFormatter: params => params.data.incorrect.toFixed(2)
+        valueFormatter: params => params.data.incorrect
 
       },
       {
@@ -170,7 +188,7 @@ export class scoreOverviewComponent {
         filter: 'agTextColumnFilter',
         hide: this.selectedDropdown === 'Global',
         headerTooltip: 'Execution Score',
-        valueFormatter: params => params.data.executionTimeScore.toFixed(2)
+        valueFormatter: params => params.data.executionTimeScore?.toFixed(2)
 
 
       },
@@ -182,7 +200,7 @@ export class scoreOverviewComponent {
         hide: this.selectedDropdown === 'Global',
         headerTooltip: 'Memory Score',
 
-        valueFormatter: params => params.data.memoryScore.toFixed(2)
+        valueFormatter: params => params.data.memoryScore?.toFixed(2)
 
       },
       {
@@ -192,7 +210,7 @@ export class scoreOverviewComponent {
         filter: 'agTextColumnFilter',
         hide: this.selectedDropdown === 'Global',
         headerTooltip: 'Test case Score',
-        valueFormatter: params => params.data.testCaseScore.toFixed(2)
+        valueFormatter: params => params.data.testCaseScore?.toFixed(2)
 
       },
       {
@@ -202,7 +220,7 @@ export class scoreOverviewComponent {
         filter: 'agTextColumnFilter',
         hide: this.selectedDropdown === 'Global',
         headerTooltip: 'Cyclomatic complexity Score',
-        valueFormatter: params => params.data.cycloComplexityScore.toFixed(2)
+        valueFormatter: params => params.data.cycloComplexityScore?.toFixed(2)
 
       },
     ];
