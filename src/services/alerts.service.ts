@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Alert } from 'src/alerts/alert-model';
+import { UnlockLevel } from 'src/alerts/unlock-level.model';
 
 @Injectable()
 export class AlertsService {
-  endpoint: string = 'https://gcc-global-dev.herokuapp.com';
+  endpoint: string = 'https://gcc-global.herokuapp.com';
   
   constructor(private http: HttpClient) { }
 
@@ -22,6 +23,13 @@ export class AlertsService {
       'Authorization': 'Basic ' + btoa('gcc2020admin:gcc-2020-admin-456')
     })
   };
+
+  stringHttpOptions = {
+    headers: new HttpHeaders({
+      'responseType': 'text',
+      'Authorization': 'Basic ' + btoa('gcc2020admin:gcc-2020-admin-456')
+    })
+  }
 
 
   setAlert(alert: Alert): Observable<Alert> {
@@ -62,6 +70,10 @@ export class AlertsService {
 
   getContestantDetails(id: string) {
     return this.http.get(`${this.endpoint}/contestant/${id}`, this.adminHttpOptions);
+  }
+
+  unlockLevelForContestant(contestantId : string, level: string){
+    return this.http.get(`${this.endpoint}/contestant/unlockLevel/${contestantId}/${level}`, this.stringHttpOptions);
   }
 }
 

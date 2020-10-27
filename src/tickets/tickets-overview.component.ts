@@ -143,7 +143,7 @@ export class TicketsOverviewComponent {
     }
     switch (tabTitle) {
       case 'Unassigned': {
-        this.rowData = this.ticketsList.filter( ticket  => ticket.assignee === null || ticket.assignee === '');
+        this.rowData = this.ticketsList.filter( ticket  => ticket.assignee === null || ticket.assignee === '' && ticket.category === null);
         break;
       }
       case 'Assigned': {
