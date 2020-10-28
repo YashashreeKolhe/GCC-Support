@@ -27,6 +27,14 @@ export class TicketsService {
     return this.http.get<Ticket[]>(`${this.endpoint}/tickets`, this.httpOptions);
   }
 
+  getOpenTickets(): Observable<Ticket[]>{
+    return this.http.get<Ticket[]>(`${this.endpoint}/tickets/OPEN`, this.httpOptions);
+  }
+
+  getInProgressTickets(): Observable<Ticket[]>{
+    return this.http.get<Ticket[]>(`${this.endpoint}/tickets/IN_PROGRESS`, this.httpOptions);
+  }
+
   loadCategories() {
     return [
       'Questions',
