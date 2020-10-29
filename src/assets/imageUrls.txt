@@ -13,3 +13,6 @@ assets/article-images/CS-11721.jpg
 assets/article-images/CS-11930.jpg
 assets/article-images/CS-12318.jpg
 assets/article-images/CS-12332.jpg
+/assets/article-images/AcceptedVsRejected_2020-10-29.png
+/assets/article-images/AttemptsPerQuestion2020-10-29.png
+/assets/article-images/NoOfSubmissionsPerLang2020-10-29.png
