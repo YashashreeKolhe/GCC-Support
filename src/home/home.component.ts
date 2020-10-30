@@ -53,11 +53,11 @@ export class HomeComponent {
     // this.pendingTickets = tickets.filter(ticket => this.isTicketPending(ticket));
     // this.pendingTicketsNumber = this.pendingTickets.length;
     // this.pendingTicketsSubmittedBy = this.pendTicketsSubmittedBy();
-    const scores = await this.homeService.getScores().toPromise();
-    if (scores !== null && scores.length !== 0) {
-      this.topScorer = scores[0].name;
-      this.topScorerRegion = scores[0].region;
-      this.highestScore = scores.filter(contestant => contestant.contestantId === scores[0].contestantId).map(x => x.total).reduce((a, b) => a + b);;
+    const scores = await this.homeService.getTopScorer().toPromise();
+    if (scores.contestants !== null && scores.contestants.length !== 0) {
+      this.topScorer = scores.contestants[0].name;
+      this.topScorerRegion = scores.contestants[0].region;
+      this.highestScore = scores.contestants[0].total;
     }
     try {
       const globalStats = await this.homeService.getGlobalStats().toPromise();

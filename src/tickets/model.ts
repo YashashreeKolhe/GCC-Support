@@ -19,18 +19,18 @@ export interface Ticket {
 }
 
 export enum Status {
-  Unassigned,
-  Pending,
-  Resolved,
-  Escalated,
-  Rejected
+  Open,
+  In_Progress,
+  Closed,
 }
 
 export enum Category {
+  Universities,
   Questions,
   Registrations,
-  Scores,
-  Unassigned,
+  Scores_Evaluation,
+  Submissions,
+  Others,
 }
 
 export interface ITab {

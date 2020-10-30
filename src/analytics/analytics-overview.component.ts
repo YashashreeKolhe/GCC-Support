@@ -115,11 +115,11 @@ export class AnalyticsOverviewComponent {
         ctx.restore();
       }
     }];
-    await this.prepareDoughnutChartForSubmissionsPerLanguage();
-    await this.prepareDoughnutChartForCorrectSubmissionsPerRegion();
-    await this.prepareBarChartForAttemptsPerQuestion();
-    await this.prepareBarChartForSubmissionsPerWeek();
-    await this.prepareLineCharForAcceptedVsRejectedSolutionsPerQuestion();
+    this.prepareBarChartForSubmissionsPerWeek();
+    this.prepareDoughnutChartForCorrectSubmissionsPerRegion();
+    this.prepareBarChartForAttemptsPerQuestion();
+    this.prepareDoughnutChartForSubmissionsPerLanguage();
+    this.prepareLineCharForAcceptedVsRejectedSolutionsPerQuestion();
   }
 
   async prepareLineCharForAcceptedVsRejectedSolutionsPerQuestion() {
@@ -135,6 +135,8 @@ export class AnalyticsOverviewComponent {
     Object.keys(outputReject).forEach(question => {
       rejected.push({ Question: question, Value: outputReject[question] });
     });
+    this.AcceptedVsRejectedLineChartData = [];
+    this.AcceptedVsRejectedLineChartLabels = [];
     this.AcceptedVsRejectedLineChartData.push({ data: successful.map(question => question.Value), label: 'Accepted Solutions' });
     this.AcceptedVsRejectedLineChartData.push({ data: rejected.map(question => question.Value), label: 'Rejected Solutions' });
     successful.forEach(question => {
@@ -180,6 +182,8 @@ export class AnalyticsOverviewComponent {
         Value: Object.keys(output).findIndex(language => language === lang) >= 0
       ? output[lang] : 0 });
     });
+    this.doughnutChartData = [];
+    this.doughnutChartLabels = [];
     this.doughnutChartData.push({ data: result.map(language => (language.Value)), label: 'Submissions'});
     result.forEach(language => {
       this.doughnutChartLabels.push(language.Language);
@@ -195,6 +199,8 @@ export class AnalyticsOverviewComponent {
         ? output[region] : 0});
     });
     console.log(result2);
+    this.CorrectSubmissionsPerRegionChartData = [];
+    this.CorrectSubmissionsPerRegionChartLabels = [];
     this.CorrectSubmissionsPerRegionChartData.push({ data: result2.map(region => (region.Value)), label: 'Correct submissions' });
     result2.forEach(region => {
       this.CorrectSubmissionsPerRegionChartLabels.push(region.Region);
@@ -240,6 +246,8 @@ export class AnalyticsOverviewComponent {
         }
       }
     };
+    this.SubmissionsPerWeekBarChartData = [];
+    this.SubmissionsPerWeekBarChartLabels = [];
     this.SubmissionsPerWeekBarChartData.push({ data: result.map(question => question.Value), label: 'No. of Submissions'});
     result.forEach(week => {
       this.SubmissionsPerWeekBarChartLabels.push('Week '+ week.Week);
@@ -279,6 +287,8 @@ export class AnalyticsOverviewComponent {
     this.AttemptsPerQuestionBarChartColors = [
       { backgroundColor: '#30475e' }
     ];
+    this.AttemptsPerQuestionBarChartData = [];
+    this.AttemptsPerQuestionBarChartLabels = [];
     this.AttemptsPerQuestionBarChartData.push({ data: result3.map(question => question.Value), label: 'No. of Attempts'});
     result3.forEach(question => {
       this.AttemptsPerQuestionBarChartLabels.push('Question '+ question.Question);

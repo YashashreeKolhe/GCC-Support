@@ -17,7 +17,7 @@
                 </ng-template>
                 <ng-template ngbTabContent>
                   <div class="card-body border-info">
-                    <form>
+                    <!--  <form>
                       <div class="row">
                         <div class="col-sm-3">
                           <label for="AssignedTo">Assigned To</label>
@@ -27,14 +27,14 @@
                             </option>
                           </select>
                         </div>
-                        <!-- <div class="col-sm-3">
+                         <div class="col-sm-3">
                           <label for="EscalatedTo">Escalated To</label>
                           <select class="form-control" name="EscalatedTo" #escalatedTo (change)="onChangeEscalatedTo(escalatedTo.value)">
                             <option [value]="0" [selected]="isEscalatedCleared">None</option>
                             <option *ngFor="let name of names" id="escalatedTo" [value]="name.Name">{{name.Name}}
                             </option>
                           </select>  
-                        </div> -->
+                        </div> 
                         <div class="col-sm-3">
                           <label for="Status">Filter by Status</label>
                           <select class="form-control" name="Status" #status (change)="onChangeStatus(status.value)">
@@ -47,9 +47,10 @@
                           <button class="btn btn-primary" (click)="clearFilters(tab.id)">Clear Filters</button>
                         </div>
                       </div>
-                    </form>
-                    <ag-grid-angular style="height: 400px;" class="ag-theme-balham" [rowData]="rowData"
-                      [gridOptions]="gridOptions" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef">
+                    </form>  -->
+                    <ag-grid-angular style="height: 480px;" class="ag-theme-balham" [rowData]="rowData"
+                      [gridOptions]="gridOptions" [columnDefs]="columnDefs" [defaultColDef]="defaultColDef" 
+                      [enableCellTextSelection]="true">
                     </ag-grid-angular>
                   </div>
                 </ng-template>

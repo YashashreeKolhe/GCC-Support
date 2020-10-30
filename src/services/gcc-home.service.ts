@@ -26,7 +26,7 @@ export class GcchomeService {
   // ping a get API to get the top scorer of the challenge
   
   getTopScorer(): Observable<any> {
-    return this.httpClient.get(`${this.endpoint}/facts/quick/GLOBAL`);
+    return this.httpClient.get<any>(`${this.endpoint}/leaderboard/GLOBAL?from=0&limit=1`);
   }
 
   getGlobalStats() : Observable<any> {

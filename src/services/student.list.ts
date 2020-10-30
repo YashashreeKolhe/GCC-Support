@@ -5,16 +5,20 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class studentlist {
-  studentlisturl: string = ' https://gcc-global-dev.herokuapp.com/scores/question/all/GLOBAL';
+  studentlisturl: string = ' https://gcc-global-dev.herokuapp.com';
 
   constructor(
     private http: HttpClient) { }
 
 
  
-    getdata(): Observable<LIST[]> {
-     return this.http.get<LIST[]>(this.studentlisturl)}
-    
+  getdata(numberOfContestants: number): Observable<any> {
+    return this.http.get<any>(`${this.studentlisturl}/leaderboard/GLOBAL?from=0&limit=${numberOfContestants}`);
+  }  
+  
+  getNoOfParticipants(): Observable<any> {
+    return this.http.get<any>(`${this.studentlisturl}/facts/quick/GLOBAL`);
+  }  
 }
 
 
