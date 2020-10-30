@@ -13,4 +13,5 @@ export interface Participant {
   graduationYear?: number;
   registeredAt?: string;
   contestandType?: string;
+  level?: string;
 }

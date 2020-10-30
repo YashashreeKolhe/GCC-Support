@@ -8,7 +8,7 @@ import { QuestionStats, RegionStats, LanguageStats, WeeklyStats } from 'src/anal
 export class AnalyticsService {
 
   constructor(private http: HttpClient) {}
-  endpoint: string = ' https://gcc-global-dev.herokuapp.com';
+  endpoint: string = ' https://gcc-global.herokuapp.com';
 
   httpOptions = {
     headers: new HttpHeaders({
@@ -17,8 +17,15 @@ export class AnalyticsService {
     })
   };
 
+  adminHttpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'Basic ' + btoa('gcc2020admin:gcc-2020-admin-456')
+    })
+  };
+
   getAttemptsPerQuestion(): Observable<any> {
-    return this.http.get<any>(`${this.endpoint}/monitoring/attemptsPerQuestion`, this.httpOptions);
+    return this.http.get<any>(`${this.endpoint}/monitoring/attemptsPerQuestion`, this.adminHttpOptions);
   }
 
   getCorrectSubmissionsPerRegion(): Observable<any[]> {
