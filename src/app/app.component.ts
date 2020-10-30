@@ -34,12 +34,6 @@ export class AppComponent {
       'Location': '/participants',
       'IsActive': false
     },
-
-    {
-      'Title': 'Contact Us',
-      'Location': '/contact',
-      'IsActive': false
-    },
     {
       'Title': 'News & Media',
       'Location': '/news',
@@ -64,7 +58,12 @@ export class AppComponent {
       'Title': 'FAQs',
       'Location': '/faqs',
       'IsActive': false
-    }
+    },
+    {
+      'Title': 'Contact Us',
+      'Location': '/contact',
+      'IsActive': false
+    },
   ];
   constructor(
     private router: Router,
