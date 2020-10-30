@@ -10,19 +10,12 @@ import { formatDate } from '@angular/common';
   providedIn: 'root'
 })
 export class GcchomeService {
-  endpoint: string = ' https://gcc-global.herokuapp.com';
+  endpoint: string = ' https://gcc-global-dev.herokuapp.com';
 
   constructor(private httpClient: HttpClient) { }
 
-  adminHttpOptions = {
-    headers: new HttpHeaders({
-      'Content-Type':  'application/json',
-      'Authorization': 'Basic ' + btoa('gcc2020admin:gcc-2020-admin-456')
-    })
-  };
-
   getParticipants(): Observable<Participant[]> {
-    return this.httpClient.get<Participant[]>(`${this.endpoint}/challenge/getAll`, this.adminHttpOptions);
+    return this.httpClient.get<Participant[]>(`${this.endpoint}/challenge/getAll`);
   }
 
    // ping a get API to get the highest score of the challenge
@@ -33,15 +26,15 @@ export class GcchomeService {
   // ping a get API to get the top scorer of the challenge
   
   getTopScorer(): Observable<any> {
-    return this.httpClient.get<any>(`${this.endpoint}/leaderboard/GLOBAL?from=0&limit=1`, this.adminHttpOptions);
+    return this.httpClient.get<any>(`${this.endpoint}/leaderboard/GLOBAL?from=0&limit=1`);
   }
 
   getGlobalStats() : Observable<any> {
-    return this.httpClient.get(`${this.endpoint}/leaderboard/globalTotals`, this.adminHttpOptions);
+    return this.httpClient.get(`${this.endpoint}/leaderboard/globalTotals`);
   }
 
   getScores(): Observable<LIST[]> {
-    return this.httpClient.get<LIST[]>(`${this.endpoint}/scores/question/all/GLOBAL`, this.adminHttpOptions);
+    return this.httpClient.get<LIST[]>(`${this.endpoint}/scores/question/all/GLOBAL`);
   }
 
   timeLeftDays : number = 0;
@@ -106,10 +99,10 @@ export class GcchomeService {
   }
 
   getChallengeStartDate() {
-    return this.httpClient.get<string>(`${this.endpoint}/challenge/getStartDate`, this.adminHttpOptions);
+    return this.httpClient.get<string>(`${this.endpoint}/challenge/getStartDate`);
   }
 
   getChallengeEndDate(): Observable<any> {
-    return this.httpClient.get(`${this.endpoint}/challenge/getEndDate`, this.adminHttpOptions);
+    return this.httpClient.get(`${this.endpoint}/challenge/getEndDate`);
   }
 }

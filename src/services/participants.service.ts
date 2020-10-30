@@ -5,12 +5,11 @@ import { Participant } from 'src/participants/model';
 
 @Injectable()
 export class ParticipantsService {
-  endpoint: string = ' https://gcc-global.herokuapp.com';
+  endpoint: string = ' https://gcc-global-dev.herokuapp.com';
   
   constructor(private http: HttpClient) { }
 
   getParticipants(): Observable<Participant[]> {
     return this.http.get<Participant[]>(`${this.endpoint}/challenge/getAll`);
   }
-
 }

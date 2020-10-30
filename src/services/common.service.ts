@@ -78,12 +78,4 @@ export class CommonService {
       { Category: 'Registration', 'Name': 'Florian Lehmann' },
     ];
   }
-
-  loadLevel(): string[]{
-    return [
-      'easy',
-      'medium',
-      'hard'
-    ];
-  }
 }

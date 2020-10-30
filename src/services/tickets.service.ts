@@ -6,7 +6,7 @@ import { Ticket, Category, Status } from 'src/tickets/model';
 
 @Injectable()
 export class TicketsService {
-  endpoint: string = 'https://gcc-global.herokuapp.com';
+  endpoint: string = 'https://gcc-global-dev.herokuapp.com';
 
   notes: string[] = [
     "Note 1",
@@ -25,14 +25,6 @@ export class TicketsService {
 
   getTickets(): Observable<Ticket[]> {
     return this.http.get<Ticket[]>(`${this.endpoint}/tickets`, this.httpOptions);
-  }
-
-  getOpenTickets(): Observable<Ticket[]>{
-    return this.http.get<Ticket[]>(`${this.endpoint}/tickets/OPEN`, this.httpOptions);
-  }
-
-  getInProgressTickets(): Observable<Ticket[]>{
-    return this.http.get<Ticket[]>(`${this.endpoint}/tickets/IN_PROGRESS`, this.httpOptions);
   }
 
   loadCategories() {

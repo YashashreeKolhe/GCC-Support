@@ -46,8 +46,9 @@ export class LoginComponent implements OnInit {
       return;
     }
     var user = this.authenticationService.login(this.f.username.value, this.f.password.value)
-    if (user !=  null)  
+    if (user !=  null)  {
       this.router.navigate([this.returnUrl]);
+    }
     else {
       this.error = 'Invalid Credentials!';
     }

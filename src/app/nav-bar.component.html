@@ -5,7 +5,7 @@
     <span class="navbar-toggler-icon"></span>
   </button>
   
-  <div class="collapse navbar-collapse" #navbarSupportedContent [ngbCollapse]="isCollapsed" *ngIf="currentUser">
+  <div class="collapse navbar-collapse" #navbarSupportedContent [ngbCollapse]="isCollapsed">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item" *ngFor="let menu of menus" (click)="selectedMenu = menu.Title"
         [ngClass]="selectedMenu === menu.Title ? 'active' : ''">

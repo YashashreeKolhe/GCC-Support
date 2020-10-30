@@ -120,7 +120,6 @@ export class ParticipantsComponent {
       onGridReady: params => this.onGridReady(params),
       cacheQuickFilter: true,
       floatingFilter: true,
-      suppressHorizontalScroll: false
     }
     this.columnDefs = this.getColumnDefs();
     this.defaultColDef = {
@@ -128,6 +127,7 @@ export class ParticipantsComponent {
       filter: true,
       floatingFilter: true,
       resizable: true,
+      autoHeight: true
     };
   }
 
@@ -146,24 +146,11 @@ export class ParticipantsComponent {
       //   filter: 'agTextColumnFilter',
       //   editable: true
       // },
-
-      {
-        headerName: 'Contestand_ID',
-        field: 'id',
-        width: 150,
-        filter: 'agTextColumnFilter',
-        editable: true
-      },
       {
         headerName: 'Contestant Name',
         field: 'name',
         width: 200,
-        filter: 'agTextColumnFilter', 
-        cellRenderer: function(params){
-          return "<a href='https://www.credit-suisse.com/pwp/hr/en/codingchallenge/#/user/" 
-            + params.data.id 
-            + "' {color: black;}> "+ params.value+"</a>";
-        }
+        filter: 'agTextColumnFilter',
       },
       /* {
         headerName: 'Contestant Type',
@@ -228,7 +215,7 @@ export class ParticipantsComponent {
       {
         headerName: 'Email',
         field: 'email',
-        width: 200,
+        width: 220,
         filter: 'agTextColumnFilter',
       },
       // {
@@ -247,5 +234,4 @@ export class ParticipantsComponent {
       // },
     ];
   }
-
 }

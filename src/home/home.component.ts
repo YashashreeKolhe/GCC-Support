@@ -36,8 +36,6 @@ export class HomeComponent {
   pendingTickets: Ticket[];
   pendingTicketsSubmittedBy: String[];
 
-  
-
   constructor(private homeService : GcchomeService,
     private ticketService: TicketsService){
   }
@@ -47,11 +45,10 @@ export class HomeComponent {
     const participants = await this.homeService.getParticipants().toPromise();
     this.totalParticipants = participants.length;
     const tickets = await this.ticketService.getTickets().toPromise();
-    const validTickets = tickets.filter(ticket => this.isTicketValid(ticket.timestamp));
-    this.openTickets = validTickets.filter(ticket => ticket.ticketStatus === 'OPEN').length;
-    this.inProgressTickets = validTickets.filter(ticket => ticket.ticketStatus === 'IN_PROGRESS').length;
-    this.escalatedTickets = validTickets.filter(ticket => ticket.ticketStatus === 'ESCALATED').length;
-    this.closedTickets = validTickets.filter(ticket => ticket.ticketStatus === 'CLOSED').length;
+    this.openTickets = tickets.filter(ticket => ticket.ticketStatus === 'OPEN').length;
+    this.inProgressTickets = tickets.filter(ticket => ticket.ticketStatus === 'IN_PROGRESS').length;
+    this.escalatedTickets = tickets.filter(ticket => ticket.ticketStatus === 'ESCALATED').length;
+    this.closedTickets = tickets.filter(ticket => ticket.ticketStatus === 'CLOSED').length;
     this.config = { leftTime: this.calculateDiff(this.endDate), format: 'd : h : m : s' };
     // this.pendingTickets = tickets.filter(ticket => this.isTicketPending(ticket));
     // this.pendingTicketsNumber = this.pendingTickets.length;
@@ -125,19 +122,10 @@ export class HomeComponent {
     return false;
   }
 
-  isTicketValid(dateSent){
-    var d1 = new Date();
-    d1.setFullYear(2020, 9, 23);
-    d1.setHours(0, 0, 0, 0);
-    var d2 = new Date(dateSent);
-    return d2>=d1;
-  }
-
   pendTicketsSubmittedBy(){
     if(this.pendingTickets.length>0) {
       return this.pendingTickets.map(ticket => ticket.submittedBy);      
   }
     return null;
-  } 
-
+}
 }
