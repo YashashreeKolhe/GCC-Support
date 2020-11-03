@@ -29,7 +29,7 @@ export class AlertsOverviewComponent {
     },
     {
       id: 3,
-      title: 'Add University/Unlock Level'
+      title: 'Add University & Unlock Level'
     },
     {
       id: 4,
