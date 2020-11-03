@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { GridOptions, GridApi, ColDef, ColumnApi } from 'ag-grid-community';
+import { GridOptions, GridApi, ColDef } from 'ag-grid-community';
 import { LIST } from './score-model';
 import { studentlist } from 'src/services/student.list';
 
@@ -34,6 +34,9 @@ export class scoreOverviewComponent {
   constructor(
     private studentlist: studentlist,
   ) {}
+
+
+
   ngOnInit() {
     this.configureGrid();
     this.filterData('Global');

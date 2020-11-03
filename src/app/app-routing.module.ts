@@ -21,65 +21,19 @@ import { ParticipantsModule } from 'src/participants/participants.module';
 import { ParticipantsComponent } from 'src/participants/participants.component';
 import { ArticleDetailsComponent } from 'src/news/article-details.component';
 import { AlertsOverviewComponent } from 'src/alerts/alerts-overview.component';
-import { LoginComponent } from 'src/login/login.component';
-import { LoginModule } from 'src/login/login.module';
-import { AuthGuard } from 'src/services/auth.guard';
 
 const routes: Routes = [
-  { path: '', component: LoginComponent, pathMatch: 'full' },
-  {
-    path: 'home', component: HomeComponent, pathMatch: 'full',
-    canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
-  },
-  {
-    path: 'faqs', component: FaqsOverviewComponent, pathMatch: 'full',
-    canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
-  },
-  {
-    path: 'score', component: scoreOverviewComponent, pathMatch: 'full',
-    canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
-  },
-  {
-    path: 'tickets', component: TicketsOverviewComponent, pathMatch: 'full',
-    canActivate: [AuthGuard],
-    data: {
-      roles: ["admin"],
-    }
-  },
-  {
-    path: 'analytics', component: AnalyticsOverviewComponent, pathMatch: 'full',
-    canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
-  },
-  {
-    path: 'contact', component: contactOverviewComponent, pathMatch: 'full',
-    canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
-  },
-  {
-    path: 'news', component: NewsOverviewComponent, pathMatch: 'full',
-    canActivate: [AuthGuard],
-    data: { roles: ["admin"] }
-  },
-  {
-    path: 'news/:articleId', component: ArticleDetailsComponent, pathMatch: 'full',
-    canActivate: [AuthGuard],
-    data: { roles: ["admin"] }
-  },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: 'faqs', component: FaqsOverviewComponent, pathMatch: 'full' },
+  { path: 'score', component: scoreOverviewComponent, pathMatch: 'full' },
+  { path: 'tickets', component: TicketsOverviewComponent, pathMatch: 'full' },
+  { path: 'analytics', component: AnalyticsOverviewComponent, pathMatch: 'full' },
+  { path: 'contact', component: contactOverviewComponent, pathMatch: 'full' },
+  { path: 'news', component: NewsOverviewComponent, pathMatch: 'full' },
+  { path: 'news/:articleId', component: ArticleDetailsComponent, pathMatch: 'full' },
   { path: 'server', component: ServerMonitoringComponent, pathMatch: 'full' },
-  {
-    path: 'participants', component: ParticipantsComponent, pathMatch: 'full',
-    canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
-  },
-  {
-    path: 'alerts', component: AlertsOverviewComponent, pathMatch: 'full',
-    canActivate: [AuthGuard],
-    data: { roles: ["admin"] }
-  }
+  { path: 'participants', component: ParticipantsComponent, pathMatch: 'full' },
+  { path: 'alerts', component: AlertsOverviewComponent, pathMatch: 'full' }
 ];
 
 @NgModule({
@@ -94,10 +48,9 @@ const routes: Routes = [
     contactModule,
     ParticipantsModule,
     ServerMonitoringModule,
-    AlertsModule,
-    LoginModule
+    AlertsModule
   ],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
+export class AppRoutingModule { 
 }

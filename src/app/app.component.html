@@ -1,20 +1,3 @@
 <div>
-  <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-    <a class="navbar-brand" (click)="redirectToHome()"><b>GCC 2.0</b>&nbsp;&nbsp;<sub>support</sub></a>
-    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed"
-      aria-controls="navbarSupportedContent" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    
-    <div class="collapse navbar-collapse" #navbarSupportedContent [ngbCollapse]="isCollapsed" *ngIf="currentUser">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item" *ngFor="let menu of menus" (click)="selectedMenu = menu.Title"
-          [ngClass]="selectedMenu === menu.Title ? 'active' : ''">
-          <a class="nav-link" [routerLink]="menu.Location" *ngIf="shouldBeVisible(menu.Title)"><span>{{menu.Title}}</span></a>
-        </li>
-      </ul>
-    </div>
-    <a class="navbar-brand" style="float:right;" (click)="logout()" *ngIf="currentUser"><b>Logout</b></a>
-  </nav>
-  <router-outlet></router-outlet>
+  <nav-bar></nav-bar>
 </div>

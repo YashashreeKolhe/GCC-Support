@@ -19,7 +19,7 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-12">
+<!--       <div class="col-sm-12">
         <div class="card border-default">
           <div class="card-header bg-default">
             Participation Per Region
@@ -30,7 +30,7 @@
             </div>
           </div>
           <div class="card-body">
-            <div class="chart-wrapper">
+            <div class="chart-wrapper" *ngIf="ParticipationPerRegionBarChartData">
               <canvas baseChart 
                 height="250px"
                 [datasets]="ParticipationPerRegionBarChartData" 
@@ -44,7 +44,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
     </div>
   </div>
   <div class="col-sm-8">

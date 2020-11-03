@@ -10,7 +10,6 @@ import { ArticleService } from './article.service';
 import { CommonService } from './common.service';
 import { GcchomeService } from './gcc-home.service';
 import { AlertsService } from './alerts.service';
-import { AuthenticationService } from './authentication.service';
 
 @NgModule({
  imports: [
@@ -26,8 +25,7 @@ import { AuthenticationService } from './authentication.service';
     ArticleService,
     CommonService,
     GcchomeService,
-    AlertsService,
-    AuthenticationService
+    AlertsService
 ],
   exports: [
   ]

@@ -3,6 +3,9 @@ import { AlertsService } from 'src/services/alerts.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonService } from 'src/services/common.service';
 import { Participant } from 'src/participants/model';
+import { UnlockLevel } from 'src/alerts/unlock-level.model';
+import { Observable } from 'rxjs/internal/Observable';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'university',
@@ -19,6 +22,13 @@ export class UniversityComponent {
   currentRegion: string;
   currentUniversity: string;
   selected: boolean = false;
+  selectGetLevel: boolean = false;
+  level: string;
+  levels: string[];
+  contestantIdLevel: string;
+  currentLevel: string;
+  unlockLevelMessage: any;
+  selectUnlockLevel: Boolean;
   
   constructor(
     private alertService: AlertsService,
@@ -32,6 +42,9 @@ export class UniversityComponent {
     this.contestantUnivName = '';
     this.region = '';
     this.contestantRegion = '';
+    this.level = '';
+    this.levels = this.commonService.loadLevel();
+    this.contestantIdLevel = '';
   }
 
   async onSaveUniversity() {
@@ -79,6 +92,36 @@ export class UniversityComponent {
     } catch (e) {
       this.toastr.error("Save operation failed!", 'Error');
       return;
+    }
+  }
+
+  async onUnlockLevel(){
+    this.selectUnlockLevel = true;
+    try {
+      if(this.contestantIdLevel.trim() === '' && this.level === ''){
+        this.toastr.error('Please fill contestant id and select level!', 'Error');
+        return;
+      }
+      else{
+        const result =  this.alertService.unlockLevelForContestant(this.contestantIdLevel, this.level).toPromise().then().catch(err => this.toastr.info(err.error.text));
+      }
+    }catch (e){
+      this.toastr.error("Level unlock failed!", 'Error');
+      return;
+    }
+  }
+
+  async getLevel(){
+    this.selectGetLevel = true;
+    try {
+      if (this.contestantIdLevel.trim() !== '') {
+        const result = await this.alertService.getContestantDetails(this.contestantIdLevel).toPromise() as Participant;
+        this.currentLevel = result.level;
+      } else {
+        this.toastr.error('Please enter contestant Id!', 'Error');
+      }
+    } catch (error) {
+      this.toastr.error('Error occured!', 'Error');
     }
   }
 }

@@ -67,20 +67,27 @@ body {
   background-color: rgb(226, 223, 223) !important;
 }
 
+.tile.is-child .has-background-white {
+  background-color: floralwhite !important;
+}
+
 .message {
-  background-color: whitesmoke;
+  background-color: rgb(56, 29, 29);
   border-radius: 2px;
   font-size: 1rem;
 }
 
 .message.is-danger .message-header {
-  background-color: #e7dcdc;
-  color: rgb(168, 38, 38);
+  background-color: #bb4848  !important;
+  color: rgb(128, 36, 36);
 }
 
 .message.is-danger .message-body {
-  border-color: #f51c47;
-  color: #cc0f35;
+  border-color: #81051e  !important;
+  background-color:  rgb(204, 199, 199)  !important;
+  color: #9e3247;
+  font-size: medium;
+  font-family: "Comic Sans MS", cursive, sans-serif;
 }
 
 .level-item .title,
