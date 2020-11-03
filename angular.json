@@ -40,8 +40,8 @@
               ],
               "sourceMap": {
                 "hidden": true,
-                "scripts": true,
-                "styles": true
+                "scripts": false,
+                "styles": false
               },
               "optimization": true,
               "outputHashing": "all",
