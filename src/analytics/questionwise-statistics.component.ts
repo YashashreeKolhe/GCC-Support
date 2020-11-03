@@ -172,6 +172,7 @@ export class QuestionwiseStatisticsComponent {
         ? output[region] : 0});
     });
     console.log(result2);
+    this.CorrectSubmissionsPerRegionBarChartData = [];
     this.CorrectSubmissionsPerRegionBarChartData = [{ data: result2.map(region => region.Value), label: 'Correct Submissions'}];
     this.CorrectSubmissionsPerRegionBarChartLabels = [];
     result2.forEach(region => {

@@ -103,6 +103,8 @@ export class RegistrationStatisticsComponent {
         ? output[region] : 0});
     });
     console.log(result2);
+    this.ParticipationPerRegionBarChartData = [];
+    this.ParticipationPerRegionBarChartLabels = [];
     this.ParticipationPerRegionBarChartData.push({ data: result2.map(region => region.Value), label: 'No. of participants'});
     result2.forEach(region => {
       this.ParticipationPerRegionBarChartLabels.push(region.Region);
