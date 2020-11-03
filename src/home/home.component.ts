@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { GcchomeService } from 'src/services/gcc-home.service';
 import { TicketsService } from 'src/services/tickets.service';
 import { Ticket } from 'src/tickets/model';
+import { Facts } from 'src/home/facts.model';
 
 @Component({
   selector: 'home',
@@ -9,32 +10,47 @@ import { Ticket } from 'src/tickets/model';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
-  topScorer : string;
-  topScorerRegion : string;
-  highestScore : number;
-  totalParticipants: number;
+
+  highestScoreNew: number;
+  topScorerNew: string;
+  topScorerRegionNew: string;
+  totalParticipantsNew: number;
+
+  AMCTopScorer: string;
+  EUROPETopScorer: string;
+  INDIATopScorer: string;
+  ROWTopScorer: string;
+  SEATopScorer: string;
+  SWISTopScorer: string;
+  UKTopScorer: string;
+
+  AMCTopUniv: string;
+  EUROPETopUniv: string;
+  INDIATopUniv: string;
+  ROWTopUniv: string;
+  SEATopUniv: string;
+  SWISTopUniv: string;
+  UKTopUniv: string;
+
+  facts: Facts[];
 
   openTickets: number;
   inProgressTickets: number;
-  escalatedTickets: number;
   closedTickets: number;
-
-  UKScore: number = 0;
-  SWISScore: number = 0;
-  AMCScore: number = 0;
-  ROWScore: number = 0;
-  INDIAScore: number = 0;
-  SEAScore: number = 0;
-  EUROPEScore: number = 0;
 
   endDate: string = '2020-11-09T13:00:00';
 
   config: any;
 
   currentDate: Date;
+
+  tickets: Ticket[];
   pendingTicketsNumber : number = 0;
-  pendingTickets: Ticket[];
+  pendingTickets: Ticket[]; 
+  validTickets: Ticket[];
   pendingTicketsSubmittedBy: String[];
+  pendingTicketsSubmittedByShort: String[];
+  isTicketPendingHtml: Boolean;
 
   constructor(private homeService : GcchomeService,
     private ticketService: TicketsService){
@@ -42,51 +58,38 @@ export class HomeComponent {
 
   async ngOnInit(){
     this.currentDate = new Date();
-    const participants = await this.homeService.getParticipants().toPromise();
-    this.totalParticipants = participants.length;
-    const tickets = await this.ticketService.getTickets().toPromise();
-    this.openTickets = tickets.filter(ticket => ticket.ticketStatus === 'OPEN').length;
-    this.inProgressTickets = tickets.filter(ticket => ticket.ticketStatus === 'IN_PROGRESS').length;
-    this.escalatedTickets = tickets.filter(ticket => ticket.ticketStatus === 'ESCALATED').length;
-    this.closedTickets = tickets.filter(ticket => ticket.ticketStatus === 'CLOSED').length;
+    this.tickets = await this.ticketService.getOpenTickets().toPromise();
+    this.validTickets = this.tickets.filter(ticket => this.isTicketValid(ticket.timestamp));
+    this.pendingTickets = this.validTickets.filter(ticket => this.isTicketPending(ticket));
+    this.pendingTicketsSubmittedBy = this.pendTicketsSubmittedBy();
+    this.pendingTicketsSubmittedByShort = this.pendingTicketsSubmittedBy.slice(1,11);
+    this.pendingTicketsNumber = this.pendingTickets.length;
+    this.openTickets = this.validTickets.filter(ticket => ticket.ticketStatus === 'OPEN').length;
+    this.inProgressTickets = this.validTickets.filter(ticket => ticket.ticketStatus === 'IN_PROGRESS').length;  
+    this.closedTickets = this.validTickets.filter(ticket => ticket.ticketStatus === 'CLOSED').length;
     this.config = { leftTime: this.calculateDiff(this.endDate), format: 'd : h : m : s' };
-    // this.pendingTickets = tickets.filter(ticket => this.isTicketPending(ticket));
-    // this.pendingTicketsNumber = this.pendingTickets.length;
-    // this.pendingTicketsSubmittedBy = this.pendTicketsSubmittedBy();
-    const scores = await this.homeService.getTopScorer().toPromise();
-    if (scores.contestants !== null && scores.contestants.length !== 0) {
-      this.topScorer = scores.contestants[0].name;
-      this.topScorerRegion = scores.contestants[0].region;
-      this.highestScore = scores.contestants[0].total;
-    }
-    try {
-      const globalStats = await this.homeService.getGlobalStats().toPromise();
-      Object.keys(globalStats).forEach(region => {
-        if (region === 'AMC') {
-          this.AMCScore = globalStats[region];
-        }
-        if (region === 'EUROPE') {
-          this.EUROPEScore = globalStats[region];
-        }
-        if (region === 'INDIA') {
-          this.INDIAScore = globalStats[region];
-        }
-        if (region === 'ROW') {
-          this.ROWScore = globalStats[region];
-        }
-        if (region === 'SEA') {
-          this.SEAScore = globalStats[region];
-        }
-        if (region === 'SWIS') {
-          this.SWISScore = globalStats[region];
-        }
-        if (region === 'UK') {
-          this.UKScore = globalStats[region];
-        }
-      });
-    } catch (error) {
-      
-    }
+
+    const facts = await this.homeService.getRegionFacts().toPromise() as Facts;
+
+    this.topScorerNew = facts.GLOBAL.leadingIndividual;
+    this.highestScoreNew = facts.GLOBAL.highestScore;
+    this.totalParticipantsNew = facts.GLOBAL.numberOfContestants;
+
+    this.AMCTopScorer = facts.AMC.leadingIndividual;
+    this.EUROPETopScorer = facts.EUROPE.leadingIndividual;
+    this.INDIATopScorer = facts.INDIA.leadingIndividual;
+    this.ROWTopScorer = facts.ROW.leadingIndividual;
+    this.SEATopScorer = facts.SEA.leadingIndividual;
+    this.SWISTopScorer = facts.SWIS.leadingIndividual;
+    this.UKTopScorer = facts.UK.leadingIndividual;
+
+    this.AMCTopUniv = facts.AMC.leadingTeam;
+    this.EUROPETopUniv = facts.EUROPE.leadingTeam;
+    this.INDIATopUniv = facts.INDIA.leadingTeam;
+    this.ROWTopUniv = facts.ROW.leadingTeam;
+    this.SEATopUniv = facts.SEA.leadingTeam;
+    this.SWISTopUniv = facts.SWIS.leadingTeam;
+    this.UKTopUniv = facts.UK.leadingTeam;   
   }
 
   calculateDiff(dateSent){
@@ -109,23 +112,33 @@ export class HomeComponent {
     return 0;
   }
 
-  isTicketPending(ticket){
-    if(ticket.ticketStatus === 'OPEN') {
+  isTicketPending(ticket : Ticket){
+    if(!(ticket.description.includes('university') || ticket.description.includes('University'))){
       var t1 = new Date();
       var t2 = new Date(ticket.timestamp);
       var timeDiff = Math.abs(t1.getTime() - t2.getTime());
       var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
       if(diffDays>=2){
         return true;
-      }
-    }
+      } 
+     }  
     return false;
+  }
+
+  isTicketValid(dateSent){
+    var d1 = new Date();
+    d1.setFullYear(2020, 9, 23);
+    d1.setHours(0, 0, 0, 0);
+    var d2 = new Date(dateSent);
+    return d2>=d1;
   }
 
   pendTicketsSubmittedBy(){
     if(this.pendingTickets.length>0) {
+      this.isTicketPendingHtml = true;
       return this.pendingTickets.map(ticket => ticket.submittedBy);      
   }
     return null;
-}
+  } 
+
 }

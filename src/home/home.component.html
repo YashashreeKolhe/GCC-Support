@@ -15,7 +15,7 @@
         <div class="tile is-parent is-vertical is-8 has-text-dark">
           <div class="tile is-child box has-background-light">
             <div class="title">
-              <h2 style="text-align:center">{{highestScore | number : '1.2-2'}}</h2>
+              <h2 style="text-align:center">{{highestScoreNew | number : '1.2-2'}}</h2>
             </div>
             <div class="subtitle">
               <h5 style="text-align:center">Highest Score</h5>
@@ -23,17 +23,17 @@
           </div>
           <div class="tile is-child box has-background-light">
             <div class="title">
-              <h2 style="text-align:center">{{topScorer}} | {{topScorerRegion}}</h2>
+              <h2 style="text-align:center">{{topScorerNew}}</h2>
             </div>
             <div class="subtitle">
-              <h5 style="text-align:center">Top Scorer | Region</h5>
+              <h5 style="text-align:center">Top Scorer</h5>
             </div>
           </div>
         </div>
         <div class="tile is-parent is-vertical is-4">
           <div class="tile is-child box has-background-light">
             <div class="title is-center">
-              <h2 style="text-align:center">{{totalParticipants}}</h2>
+              <h2 style="text-align:center">{{totalParticipantsNew}}</h2>
             </div>
             <div class="subtitle">
               <h5 style="text-align:center">Total Participants</h5>
@@ -52,61 +52,53 @@
         </div>
       </div>
     </div>
-    <div class="tile is-parent is-vertical is-6 has-text-dark">
+    <div class="tile is-parent">
       <div class="tile is-child box has-background-light">
         <div class="tile">
           <div class="tile is-parent is-vertical has-text-dark">
-            <div class="title">
-              <h2 style="text-align:center">Total Score</h2>
-            </div>
-            <div class="subtitle">
-              <h5 style="text-align:center">Per Region</h5>
-            </div>
             <div class="content">
-              <nav class="level">
-                <div class="level-item has-text-centered border-default">
-                  <div>
-                    <p class="heading">AMC</p>
-                    <p class="subtitle">{{AMCScore| number : '1.2-2'}}</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered border-default">
-                  <div>
-                    <p class="heading">EUROPE</p>
-                    <p class="subtitle">{{EUROPEScore| number : '1.2-2'}}</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered border-default">
-                  <div>
-                    <p class="heading">INDIA</p>
-                    <p class="subtitle">{{INDIAScore| number : '1.2-2'}}</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered border-default">
-                  <div>
-                    <p class="heading">ROW</p>
-                    <p class="subtitle">{{ROWScore| number : '1.2-2'}}</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered border-default">
-                  <div>
-                    <p class="heading">SEA</p>
-                    <p class="subtitle">{{SEAScore| number : '1.2-2'}}</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered border-default">
-                  <div>
-                    <p class="heading">SWIS</p>
-                    <p class="subtitle">{{SWISScore| number : '1.2-2'}}</p>
-                  </div>
-                </div>
-                <div class="level-item has-text-centered border-default">
-                  <div>
-                    <p class="heading">UK</p>
-                    <p class="subtitle">{{UKScore| number : '1.2-2'}}</p>
-                  </div>
-                </div>
-              </nav>
+              <table style="width:100%">
+                <tr>
+                  <th>Region</th>
+                  <th>Top Scorer</th>
+                  <th>Leading University</th>
+                </tr>
+                <tr>
+                  <td>AMC</td>
+                  <td>{{AMCTopScorer}}</td>
+                  <td>{{AMCTopUniv}}</td>
+                </tr>
+                <tr>
+                  <td>EUROPE</td>
+                  <td>{{EUROPETopScorer}}</td>
+                  <td>{{EUROPETopUniv}}</td>
+                </tr>
+                <tr>
+                  <td>INDIA</td>
+                  <td>{{INDIATopScorer}}</td>
+                  <td>{{INDIATopUniv}}</td>
+                </tr>
+                <tr>
+                  <td>ROW</td>
+                  <td>{{ROWTopScorer}}</td>
+                  <td>{{ROWTopUniv}}</td>
+                </tr>
+                <tr>
+                  <td>SEA</td>
+                  <td>{{SEATopScorer}}</td>
+                  <td>{{SEATopUniv}}</td>
+                </tr>
+                <tr>
+                  <td>SWIS</td>
+                  <td>{{SWISTopScorer}}</td>
+                  <td>{{SWISTopUniv}}</td>
+                </tr>
+                <tr>
+                  <td>UK</td>
+                  <td>{{UKTopScorer}}</td>
+                  <td>{{UKTopUniv}}</td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>
@@ -115,12 +107,6 @@
   </div>
 </div>
 
-<!-- for empty space-->
-<!-- <section class="section">
-  <div class="container">
-
-  </div>
-</section> -->
 
 <!-- ticket status bar -->
 <nav class="level">
@@ -146,25 +132,18 @@
       <p class="heading">Closed</p>
       <p class="subtitle">{{closedTickets}}</p>
     </div>
-  </div>
-  <div class="level-item has-text-centered border-default">
-    <div>
-      <p class="heading">Escalated</p>
-      <p class="subtitle">{{escalatedTickets}}</p>
-    </div>
-  </div>
-</nav>
-<!-- Ticket Alert Message -->
-<!-- <article class="message is-danger is-small">
-    <div class="message-header">
-      <p>Ticket Alert : Number of tickets pending over 2 days is {{pendingTicketsNumber}}. <br>
-         Need immediate attention on tickets submitted by {{pendingTicketsSubmittedBy}}</p>
+  </div> 
+ </nav> 
+
+
+
+ <!-- Ticket Alert Message -->
+<article class="message is-danger is-small">
+    <div class="message-body" *ngIf="isTicketPendingHtml">
+      <p>Ticket Alert : Number of non-university tickets pending over 2 days is {{pendingTicketsNumber}}. <br>
+         Need immediate attention to tickets submitted by {{pendingTicketsSubmittedByShort}}</p>
     </div>
 </article>
-<nav class="level">
-  <div class="level-item has-text-centered">
-    <div>
-      <p style="font-size:2vw">Ticket Status</p>
-    </div>
-  </div>
-</nav> -->
+
+
+

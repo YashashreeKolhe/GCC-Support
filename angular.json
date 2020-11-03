@@ -38,9 +38,14 @@
                   "with": "src/environments/environment.prod.ts"
                 }
               ],
+              "sourceMap": {
+                "hidden": true,
+                "scripts": true,
+                "styles": true
+              },
               "optimization": true,
               "outputHashing": "all",
-              "sourceMap": false,
+              
               "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
