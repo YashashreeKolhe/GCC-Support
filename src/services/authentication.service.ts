@@ -11,8 +11,8 @@ export class AuthenticationService {
   public currentUser: Observable<User>;
 
   credentials: User[] = [
-    { username: 'cs-internal', password: 'cs-internal@20', role: 'cs-internal' },
-    { username: 'admin', password: 'Iamsuperuser@20', role: 'admin' }
+    { username: 'gcc-2020-campus', password: 'gcc-2020-campus-456', role: 'cs-internal' },
+    { username: 'gcc-2020-support', password: 'gcc-2020-support-456', role: 'admin' }
   ]
 
   constructor(private http: HttpClient) {

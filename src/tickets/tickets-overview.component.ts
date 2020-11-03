@@ -84,15 +84,13 @@ export class TicketsOverviewComponent {
   }
 
   async loadTickets() {
-    const openList = await this.ticketsService.getOpenTickets().toPromise();
-    const inProgressList = await this.ticketsService.getInProgressTickets().toPromise();
-    this.ticketsList = openList.filter(ticket => this.isTicketValid(ticket.timestamp));
-    this.ticketsList = this.ticketsList.concat(inProgressList.filter(ticket => this.isTicketValid(ticket.timestamp)));
+    const list = await this.ticketsService.getTickets().toPromise();
+    this.ticketsList = list.filter(ticket => this.isTicketValid(ticket.timestamp));
   }
 
   isTicketValid(dateSent){
     var d1 = new Date();
-    d1.setFullYear(2020, 9, 23);
+    d1.setFullYear(2020, 8, 23);
     d1.setHours(0, 0, 0, 0);
     var d2 = new Date(dateSent);
     return d2>=d1;
@@ -145,7 +143,7 @@ export class TicketsOverviewComponent {
     }
     switch (tabTitle) {
       case 'Unassigned': {
-        this.rowData = this.ticketsList.filter( ticket  => ticket.assignee === null || ticket.assignee === '' && ticket.category === null);
+        this.rowData = this.ticketsList.filter( ticket  => ticket.assignee === null || ticket.assignee === '');
         break;
       }
       case 'Assigned': {
@@ -205,7 +203,7 @@ export class TicketsOverviewComponent {
       filter: true,
       floatingFilter: true,
       resizable: true,
-      autoHeight: true,
+      autoHeight: true
     };
   }
 
@@ -233,7 +231,7 @@ export class TicketsOverviewComponent {
       {
         headerName: 'Submitted On',
         field: 'timestamp',
-        width: 160,
+        width: 150,
         /* cellRenderer: params => 
         { 
           return this.datePipe.transform(params.value,'yyyy-MM-dd')
@@ -275,7 +273,6 @@ export class TicketsOverviewComponent {
         width: 150,
         filter: 'agTextColumnFilter',
       },
-
       // {
       //   headerName: 'EscalatedTo',
       //   field: 'escalatedTo',

@@ -52,9 +52,9 @@ export class  TicketDetailsComponent {
     }
   }
 
-  // onCategoryChanged() {
-  //   this.names = this.commonService.loadNames().filter(name => name.Category === this.ticket.category);
-  // }
+   onCategoryChanged() {
+     this.names = this.commonService.loadNames().filter(name => name.Category === this.ticket.category);
+   }
 
   async onSaveTicket() {
     if (this.validateTicket()) {

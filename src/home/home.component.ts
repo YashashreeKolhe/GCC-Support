@@ -58,9 +58,9 @@ export class HomeComponent {
 
   async ngOnInit(){
     this.currentDate = new Date();
-    this.tickets = await this.ticketService.getOpenTickets().toPromise();
+    this.tickets = await this.ticketService.getTickets().toPromise();
     this.validTickets = this.tickets.filter(ticket => this.isTicketValid(ticket.timestamp));
-    this.pendingTickets = this.validTickets.filter(ticket => this.isTicketPending(ticket));
+    this.pendingTickets = this.validTickets.filter(ticket => ticket.ticketStatus === 'OPEN').filter(ticket => this.isTicketPending(ticket));
     this.pendingTicketsSubmittedBy = this.pendTicketsSubmittedBy();
     this.pendingTicketsSubmittedByShort = this.pendingTicketsSubmittedBy.slice(1,11);
     this.pendingTicketsNumber = this.pendingTickets.length;

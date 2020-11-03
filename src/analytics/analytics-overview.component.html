@@ -21,25 +21,24 @@
                       <div class="col-sm-4">
                         <div class="card border-default">
                           <div class="card-header bg-default">
-                            Accepted vs Rejected Solutions
+                            Number of Submissions Per Week
                             <div class="pull-right">
                               <button class="btn btn-sm btn-success">
-                                <a href="#" style="color: white" title="Export to png" (click)="downloadAcceptedVsRejected($event)">Export</a>
+                                <a href="#" style="color: white" title="Export to png" (click)="downloadNoOfSubmissionsPerWeek($event)">Export</a>
                               </button>
                             </div>
                           </div>
                           <div class="card-body">
-                            <div class="chart-wrapper" *ngIf="AcceptedVsRejectedLineChartData">
+                            <div class="chart-wrapper">
                               <canvas baseChart 
-                                height="300px"
-                                width="300px"
-                                [datasets]="AcceptedVsRejectedLineChartData" 
-                                [labels]="AcceptedVsRejectedLineChartLabels" 
-                                [options]="AcceptedVsRejectedLineChartOptions"
-                                [colors]="AcceptedVsRejectedLineChartColors" 
-                                [legend]="'true'" 
-                                [plugins]="ChartPlugins"
-                                [chartType]="'line'">
+                                  height="300px"
+                                  [datasets]="SubmissionsPerWeekBarChartData"
+                                  [labels]="SubmissionsPerWeekBarChartLabels"
+                                  [options]="SubmissionsPerWeekBarChartOptions"
+                                  [colors]="SubmissionsPerWeekBarChartColors"
+                                  [legend]="barChartLegend"
+                                  [plugins]="ChartPlugins"
+                                  [chartType]="barChartType">
                               </canvas>
                             </div>
                           </div>
@@ -56,7 +55,7 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <div class="chart-wrapper" *ngIf="CorrectSubmissionsPerRegionChartData">
+                            <div class="chart-wrapper">
                               <canvas baseChart
                                 height="300px"
                                 width="300px"
@@ -82,7 +81,7 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <div class="chart-wrapper" *ngIf="AttemptsPerQuestionBarChartData">
+                            <div class="chart-wrapper">
                               <canvas baseChart 
                                 height="300px"
                                 [datasets]="AttemptsPerQuestionBarChartData"
@@ -111,7 +110,7 @@
                             </div>
                           </div>
                           <div class="card-body">
-                            <div class="chart-wrapper" *ngIf="doughnutChartData">
+                            <div class="chart-wrapper">
                               <canvas baseChart
                                 height="300px"
                                 width="300px"
@@ -129,24 +128,25 @@
                       <div class="col-sm-4">
                         <div class="card border-default">
                           <div class="card-header bg-default">
-                            Number of Submissions Per Week
+                            Accepted vs Rejected Solutions
                             <div class="pull-right">
                               <button class="btn btn-sm btn-success">
-                                <a href="#" style="color: white" title="Export to png" (click)="downloadNoOfSubmissionsPerWeek($event)">Export</a>
+                                <a href="#" style="color: white" title="Export to png" (click)="downloadAcceptedVsRejected($event)">Export</a>
                               </button>
                             </div>
                           </div>
                           <div class="card-body">
-                            <div class="chart-wrapper" *ngIf="SubmissionsPerWeekBarChartData">
+                            <div class="chart-wrapper">
                               <canvas baseChart 
-                                  height="300px"
-                                  [datasets]="SubmissionsPerWeekBarChartData"
-                                  [labels]="SubmissionsPerWeekBarChartLabels"
-                                  [options]="SubmissionsPerWeekBarChartOptions"
-                                  [colors]="SubmissionsPerWeekBarChartColors"
-                                  [legend]="barChartLegend"
-                                  [plugins]="ChartPlugins"
-                                  [chartType]="barChartType">
+                                height="300px"
+                                width="300px"
+                                [datasets]="AcceptedVsRejectedLineChartData" 
+                                [labels]="AcceptedVsRejectedLineChartLabels" 
+                                [options]="AcceptedVsRejectedLineChartOptions"
+                                [colors]="AcceptedVsRejectedLineChartColors" 
+                                [legend]="'true'" 
+                                [plugins]="ChartPlugins"
+                                [chartType]="'line'">
                               </canvas>
                             </div>
                           </div>
