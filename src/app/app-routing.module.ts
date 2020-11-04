@@ -30,17 +30,17 @@ const routes: Routes = [
   {
     path: 'home', component: HomeComponent, pathMatch: 'full',
     canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
+    data: { roles: ["admin", 'campus'] }
   },
   {
     path: 'faqs', component: FaqsOverviewComponent, pathMatch: 'full',
     canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
+    data: { roles: ["admin", 'campus'] }
   },
   {
     path: 'score', component: scoreOverviewComponent, pathMatch: 'full',
     canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
+    data: { roles: ["admin", 'campus'] }
   },
   {
     path: 'tickets', component: TicketsOverviewComponent, pathMatch: 'full',
@@ -52,12 +52,12 @@ const routes: Routes = [
   {
     path: 'analytics', component: AnalyticsOverviewComponent, pathMatch: 'full',
     canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
+    data: { roles: ["admin", 'campus'] }
   },
   {
     path: 'contact', component: contactOverviewComponent, pathMatch: 'full',
     canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
+    data: { roles: ["admin", 'campus'] }
   },
   {
     path: 'news', component: NewsOverviewComponent, pathMatch: 'full',
@@ -73,7 +73,7 @@ const routes: Routes = [
   {
     path: 'participants', component: ParticipantsComponent, pathMatch: 'full',
     canActivate: [AuthGuard],
-    data: { roles: ["admin", 'cs-internal'] }
+    data: { roles: ["admin", 'campus'] }
   },
   {
     path: 'alerts', component: AlertsOverviewComponent, pathMatch: 'full',

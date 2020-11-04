@@ -11,7 +11,7 @@ export class AuthenticationService {
   public currentUser: Observable<User>;
 
   credentials: User[] = [
-    { username: 'gcc-2020-campus', password: 'gcc-2020-campus-456', role: 'cs-internal' },
+    { username: 'gcc-2020-campus', password: 'gcc-2020-campus-456', role: 'campus' },
     { username: 'gcc-2020-support', password: 'gcc-2020-support-456', role: 'admin' }
   ]
 

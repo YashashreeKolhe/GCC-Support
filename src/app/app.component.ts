@@ -87,7 +87,7 @@ export class AppComponent {
   }
 
   shouldBeVisible(menu:string) {
-    if (this.currentUser.role === 'cs-internal') {
+    if (this.currentUser.role === 'campus') {
       if ((menu === 'Home' || menu === 'Live Score' 
       || menu === 'Analytics' || menu === 'Participants' || menu === 'Contact Us')) {
         return true;

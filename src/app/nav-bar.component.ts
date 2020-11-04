@@ -49,7 +49,7 @@ export class NavBarComponent {
   }
 
   ngOnInit() {
-    if (this.currentUser.username === 'cs-internal') {
+    if (this.currentUser.username === 'campus') {
       this.menus = this.selectiveMenu;
     } else if (this.currentUser.username === 'admin') {
       this.menus = this.selectiveMenu.concat([{
