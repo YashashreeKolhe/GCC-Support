@@ -14,6 +14,16 @@ export class AuthenticationService {
       'Authorization': 'Basic ' + btoa('gcc2020monitoring:gcc-2020-monitoring-123')
     })
   };
+
+  
+  roleResponse : string;
+
+  async setRole(err){
+    console.log(err);
+    this.roleResponse = err;
+    console.log(this.roleResponse);
+  }
+
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
   endpoint: string = ' https://gcc-global.herokuapp.com';
@@ -36,21 +46,24 @@ export class AuthenticationService {
     return user;
   }
 
-  async authenticate (userame: string, password: string) {
+  async authenticate (userame: string, password: string) { 
     try {
-      var role = await this.http.post<any>(`${this.endpoint}/monitoring/auth/verification`, { username: userame, password: password } , this.httpOptions).toPromise();
-      if(role != null) {
+      await this.http.post<any>(`${this.endpoint}/monitoring/auth/verification`, { password: password, username: userame } , this.httpOptions).toPromise().then().catch(err => this.setRole(err.error.text));
+      if(this.roleResponse != null) {
         return {
           userame: userame,
-          role: role
+          role: this.roleResponse
         } as User;
       }
+      console.log(this.roleResponse);
     } catch (e) {
+      console.log(e);
       return null;
     }
     return null;
   }
 
+  
   logout() {
     // remove user from local storage to log user out
     localStorage.removeItem('currentUser');
