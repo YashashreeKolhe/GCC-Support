@@ -1,19 +1,22 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { User } from '../login/model';
+import { updateShorthandPropertyAssignment } from 'typescript';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json',
+      'Authorization': 'Basic ' + btoa('gcc2020monitoring:gcc-2020-monitoring-123')
+    })
+  };
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
-
-  credentials: User[] = [
-    { username: 'gcc-2020-campus', password: 'gcc-2020-campus-456', role: 'campus' },
-    { username: 'gcc-2020-support', password: 'gcc-2020-support-456', role: 'admin' }
-  ]
+  endpoint: string = ' https://gcc-global.herokuapp.com';
 
   constructor(private http: HttpClient) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
@@ -24,8 +27,8 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
 
-  login(username: string, password: string) {
-    var user = this.authenticate(username, password);
+  async login(username: string, password: string) {
+    var user = await this.authenticate(username, password);
     if (user !== null) {
       localStorage.setItem('currentUser', JSON.stringify(user));
       this.currentUserSubject.next(user);
@@ -33,10 +36,17 @@ export class AuthenticationService {
     return user;
   }
 
-  authenticate (userame: string, password: string) {
-    var user = this.credentials.find(i => i.username === userame && i.password === password);
-    if(user != null) {
-      return user;
+  async authenticate (userame: string, password: string) {
+    try {
+      var role = await this.http.post<any>(`${this.endpoint}/monitoring/auth/verification`, { username: userame, password: password } , this.httpOptions).toPromise();
+      if(role != null) {
+        return {
+          userame: userame,
+          role: role
+        } as User;
+      }
+    } catch (e) {
+      return null;
     }
     return null;
   }
