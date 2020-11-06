@@ -14,4 +14,5 @@ export interface Participant {
   registeredAt?: string;
   contestandType?: string;
   level?: string;
+  marketing?: string;
 }
