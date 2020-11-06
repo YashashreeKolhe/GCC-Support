@@ -213,6 +213,12 @@ export class ParticipantsComponent {
         filter: 'agTextColumnFilter',
       },
       {
+        headerName: 'Marketing',
+        field: 'marketing',
+        width: 120,
+        filter: 'agTextColumnFilter',
+      },
+      {
         headerName: 'level',
         field: 'level',
         width: 90,
